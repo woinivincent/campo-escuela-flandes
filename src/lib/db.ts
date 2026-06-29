@@ -1,7 +1,12 @@
 import Database from "better-sqlite3";
 import path from "path";
 
-const DB_PATH = process.env.DB_PATH ?? path.join(process.cwd(), "flandes.db");
+// En Lambda (Netlify/AWS) process.cwd() es read-only; /tmp es el único directorio escribible.
+const DB_PATH =
+  process.env.DB_PATH ??
+  (process.env.NODE_ENV === "production"
+    ? "/tmp/flandes.db"
+    : path.join(process.cwd(), "flandes.db"));
 
 declare global {
   // eslint-disable-next-line no-var
