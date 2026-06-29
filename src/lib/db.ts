@@ -1,29 +1,41 @@
-import Database from "better-sqlite3";
 import path from "path";
+import type BetterSQLite3 from "better-sqlite3";
 
-// En Lambda (Netlify/AWS) process.cwd() es read-only; /tmp es el único directorio escribible.
+// En Lambda (Netlify/AWS), process.cwd() es read-only; /tmp es el único directorio escribible.
 const DB_PATH =
   process.env.DB_PATH ??
   (process.env.NODE_ENV === "production"
     ? "/tmp/flandes.db"
     : path.join(process.cwd(), "flandes.db"));
 
+type DBInstance = BetterSQLite3.Database;
+
 declare global {
   // eslint-disable-next-line no-var
-  var __flandesDB: Database.Database | undefined;
+  var __flandesDB: DBInstance | null | undefined;
 }
 
-function getDB(): Database.Database {
-  if (!globalThis.__flandesDB) {
+// Devuelve la instancia de DB, o null si el módulo nativo no pudo cargarse.
+// Usar require() en vez de import estático permite capturar errores en tiempo de ejecución.
+function getDB(): DBInstance | null {
+  if (typeof globalThis.__flandesDB !== "undefined") {
+    return globalThis.__flandesDB ?? null;
+  }
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const Database = require("better-sqlite3") as new (p: string) => DBInstance;
     const db = new Database(DB_PATH);
     initSchema(db);
     seedIfEmpty(db);
     globalThis.__flandesDB = db;
+  } catch (e) {
+    console.error("[db] SQLite no disponible, usando datos de ejemplo:", String(e));
+    globalThis.__flandesDB = null;
   }
-  return globalThis.__flandesDB;
+  return globalThis.__flandesDB ?? null;
 }
 
-function initSchema(db: Database.Database) {
+function initSchema(db: DBInstance) {
   db.exec(`
     CREATE TABLE IF NOT EXISTS eventos (
       id       TEXT PRIMARY KEY,
@@ -96,7 +108,7 @@ export interface Libro {
 
 // ─── Seed ────────────────────────────────────────────────────────────────────
 
-function seedIfEmpty(db: Database.Database) {
+function seedIfEmpty(db: DBInstance) {
   const evCount = db
     .prepare("SELECT COUNT(*) as c FROM eventos")
     .get() as { c: number };
@@ -105,10 +117,7 @@ function seedIfEmpty(db: Database.Database) {
       "INSERT INTO eventos (id,titulo,fecha,hora,tipo,descripcion,destinatarios,cupos) VALUES (?,?,?,?,?,?,?,?)"
     );
     for (const e of SEED_EVENTOS) {
-      ins.run(
-        e.id, e.titulo, e.fecha, e.hora, e.tipo,
-        e.descripcion, e.destinatarios, e.cupos
-      );
+      ins.run(e.id, e.titulo, e.fecha, e.hora, e.tipo, e.descripcion, e.destinatarios, e.cupos);
     }
   }
 
@@ -120,10 +129,7 @@ function seedIfEmpty(db: Database.Database) {
       "INSERT INTO libros (id,titulo,autor,categoria,precio,descripcion,disponible) VALUES (?,?,?,?,?,?,?)"
     );
     for (const l of SEED_LIBROS) {
-      ins.run(
-        l.id, l.titulo, l.autor, l.categoria,
-        l.precio, l.descripcion, l.disponible ? 1 : 0
-      );
+      ins.run(l.id, l.titulo, l.autor, l.categoria, l.precio, l.descripcion, l.disponible ? 1 : 0);
     }
   }
 
@@ -153,50 +159,46 @@ function seedIfEmpty(db: Database.Database) {
 // ─── Eventos ─────────────────────────────────────────────────────────────────
 
 export function getEventos(): Evento[] {
-  return getDB()
-    .prepare("SELECT * FROM eventos ORDER BY fecha ASC")
-    .all() as Evento[];
+  const db = getDB();
+  if (!db) return [...SEED_EVENTOS].sort((a, b) => a.fecha.localeCompare(b.fecha));
+  return db.prepare("SELECT * FROM eventos ORDER BY fecha ASC").all() as Evento[];
 }
 
 export function getEventosPublicos(): Evento[] {
   const today = new Date().toISOString().slice(0, 10);
-  return getDB()
-    .prepare("SELECT * FROM eventos WHERE fecha >= ? ORDER BY fecha ASC")
-    .all(today) as Evento[];
+  const db = getDB();
+  if (!db) return SEED_EVENTOS.filter((e) => e.fecha >= today).sort((a, b) => a.fecha.localeCompare(b.fecha));
+  return db.prepare("SELECT * FROM eventos WHERE fecha >= ? ORDER BY fecha ASC").all(today) as Evento[];
 }
 
 export function getEvento(id: string): Evento | undefined {
-  return getDB()
-    .prepare("SELECT * FROM eventos WHERE id=?")
-    .get(id) as Evento | undefined;
+  const db = getDB();
+  if (!db) return SEED_EVENTOS.find((e) => e.id === id);
+  return db.prepare("SELECT * FROM eventos WHERE id=?").get(id) as Evento | undefined;
 }
 
 export function createEvento(data: Omit<Evento, "id">): string {
+  const db = getDB();
+  if (!db) throw new Error("Base de datos no disponible");
   const id = `ev-${Date.now()}`;
-  getDB()
-    .prepare(
-      "INSERT INTO eventos (id,titulo,fecha,hora,tipo,descripcion,destinatarios,cupos) VALUES (?,?,?,?,?,?,?,?)"
-    )
-    .run(
-      id, data.titulo, data.fecha, data.hora, data.tipo,
-      data.descripcion, data.destinatarios, data.cupos
-    );
+  db.prepare(
+    "INSERT INTO eventos (id,titulo,fecha,hora,tipo,descripcion,destinatarios,cupos) VALUES (?,?,?,?,?,?,?,?)"
+  ).run(id, data.titulo, data.fecha, data.hora, data.tipo, data.descripcion, data.destinatarios, data.cupos);
   return id;
 }
 
 export function updateEvento(id: string, data: Omit<Evento, "id">): void {
-  getDB()
-    .prepare(
-      "UPDATE eventos SET titulo=?,fecha=?,hora=?,tipo=?,descripcion=?,destinatarios=?,cupos=? WHERE id=?"
-    )
-    .run(
-      data.titulo, data.fecha, data.hora, data.tipo,
-      data.descripcion, data.destinatarios, data.cupos, id
-    );
+  const db = getDB();
+  if (!db) throw new Error("Base de datos no disponible");
+  db.prepare(
+    "UPDATE eventos SET titulo=?,fecha=?,hora=?,tipo=?,descripcion=?,destinatarios=?,cupos=? WHERE id=?"
+  ).run(data.titulo, data.fecha, data.hora, data.tipo, data.descripcion, data.destinatarios, data.cupos, id);
 }
 
 export function deleteEvento(id: string): void {
-  getDB().prepare("DELETE FROM eventos WHERE id=?").run(id);
+  const db = getDB();
+  if (!db) throw new Error("Base de datos no disponible");
+  db.prepare("DELETE FROM eventos WHERE id=?").run(id);
 }
 
 // ─── Libros ──────────────────────────────────────────────────────────────────
@@ -204,45 +206,124 @@ export function deleteEvento(id: string): void {
 type LibroRow = Omit<Libro, "disponible"> & { disponible: number };
 
 export function getLibros(): Libro[] {
-  const rows = getDB()
-    .prepare("SELECT * FROM libros ORDER BY titulo ASC")
-    .all() as LibroRow[];
+  const db = getDB();
+  if (!db) return SEED_LIBROS;
+  const rows = db.prepare("SELECT * FROM libros ORDER BY titulo ASC").all() as LibroRow[];
   return rows.map((r) => ({ ...r, disponible: r.disponible === 1 }));
 }
 
 export function getLibro(id: string): Libro | undefined {
-  const row = getDB()
-    .prepare("SELECT * FROM libros WHERE id=?")
-    .get(id) as LibroRow | undefined;
+  const db = getDB();
+  if (!db) return SEED_LIBROS.find((l) => l.id === id);
+  const row = db.prepare("SELECT * FROM libros WHERE id=?").get(id) as LibroRow | undefined;
   return row ? { ...row, disponible: row.disponible === 1 } : undefined;
 }
 
 export function createLibro(data: Omit<Libro, "id">): string {
+  const db = getDB();
+  if (!db) throw new Error("Base de datos no disponible");
   const id = `lib-${Date.now()}`;
-  getDB()
-    .prepare(
-      "INSERT INTO libros (id,titulo,autor,categoria,precio,descripcion,disponible) VALUES (?,?,?,?,?,?,?)"
-    )
-    .run(
-      id, data.titulo, data.autor, data.categoria,
-      data.precio, data.descripcion, data.disponible ? 1 : 0
-    );
+  db.prepare(
+    "INSERT INTO libros (id,titulo,autor,categoria,precio,descripcion,disponible) VALUES (?,?,?,?,?,?,?)"
+  ).run(id, data.titulo, data.autor, data.categoria, data.precio, data.descripcion, data.disponible ? 1 : 0);
   return id;
 }
 
 export function updateLibro(id: string, data: Omit<Libro, "id">): void {
-  getDB()
-    .prepare(
-      "UPDATE libros SET titulo=?,autor=?,categoria=?,precio=?,descripcion=?,disponible=? WHERE id=?"
-    )
-    .run(
-      data.titulo, data.autor, data.categoria,
-      data.precio, data.descripcion, data.disponible ? 1 : 0, id
-    );
+  const db = getDB();
+  if (!db) throw new Error("Base de datos no disponible");
+  db.prepare(
+    "UPDATE libros SET titulo=?,autor=?,categoria=?,precio=?,descripcion=?,disponible=? WHERE id=?"
+  ).run(data.titulo, data.autor, data.categoria, data.precio, data.descripcion, data.disponible ? 1 : 0, id);
 }
 
 export function deleteLibro(id: string): void {
-  getDB().prepare("DELETE FROM libros WHERE id=?").run(id);
+  const db = getDB();
+  if (!db) throw new Error("Base de datos no disponible");
+  db.prepare("DELETE FROM libros WHERE id=?").run(id);
+}
+
+// ─── Cursos ──────────────────────────────────────────────────────────────────
+
+export interface Curso {
+  id: string;
+  titulo: string;
+  descripcion: string;
+  fecha: string;
+  hora: string;
+  nivel: string;
+  destinatarios: string;
+  cupos: string;
+}
+
+export function getCursos(): Curso[] {
+  const db = getDB();
+  if (!db) return [...SEED_CURSOS].sort((a, b) => a.fecha.localeCompare(b.fecha));
+  return db.prepare("SELECT * FROM cursos ORDER BY fecha ASC").all() as Curso[];
+}
+
+export function getCursosPublicos(): Curso[] {
+  const today = new Date().toISOString().slice(0, 10);
+  const db = getDB();
+  if (!db) return SEED_CURSOS.filter((c) => c.fecha >= today).sort((a, b) => a.fecha.localeCompare(b.fecha));
+  return db.prepare("SELECT * FROM cursos WHERE fecha >= ? ORDER BY fecha ASC").all(today) as Curso[];
+}
+
+export function getCurso(id: string): Curso | undefined {
+  const db = getDB();
+  if (!db) return SEED_CURSOS.find((c) => c.id === id);
+  return db.prepare("SELECT * FROM cursos WHERE id=?").get(id) as Curso | undefined;
+}
+
+export function createCurso(data: Omit<Curso, "id">): string {
+  const db = getDB();
+  if (!db) throw new Error("Base de datos no disponible");
+  const id = `cur-${Date.now()}`;
+  db.prepare(
+    "INSERT INTO cursos (id,titulo,descripcion,fecha,hora,nivel,destinatarios,cupos) VALUES (?,?,?,?,?,?,?,?)"
+  ).run(id, data.titulo, data.descripcion, data.fecha, data.hora, data.nivel, data.destinatarios, data.cupos);
+  return id;
+}
+
+export function updateCurso(id: string, data: Omit<Curso, "id">): void {
+  const db = getDB();
+  if (!db) throw new Error("Base de datos no disponible");
+  db.prepare(
+    "UPDATE cursos SET titulo=?,descripcion=?,fecha=?,hora=?,nivel=?,destinatarios=?,cupos=? WHERE id=?"
+  ).run(data.titulo, data.descripcion, data.fecha, data.hora, data.nivel, data.destinatarios, data.cupos, id);
+}
+
+export function deleteCurso(id: string): void {
+  const db = getDB();
+  if (!db) throw new Error("Base de datos no disponible");
+  db.prepare("DELETE FROM cursos WHERE id=?").run(id);
+}
+
+// ─── Config ──────────────────────────────────────────────────────────────────
+
+export function getConfigValue(key: string): string | undefined {
+  const db = getDB();
+  if (!db) return SEED_CONFIG[key];
+  const row = db.prepare("SELECT value FROM config WHERE key=?").get(key) as { value: string } | undefined;
+  return row?.value;
+}
+
+export function getAllConfigValues(): Record<string, string> {
+  const db = getDB();
+  if (!db) return { ...SEED_CONFIG };
+  const rows = db.prepare("SELECT key, value FROM config").all() as { key: string; value: string }[];
+  return Object.fromEntries(rows.map((r) => [r.key, r.value]));
+}
+
+export function setConfigValues(data: Record<string, string>): void {
+  const db = getDB();
+  if (!db) throw new Error("Base de datos no disponible");
+  const stmt = db.prepare(
+    "INSERT INTO config (key,value) VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value"
+  );
+  for (const [key, value] of Object.entries(data)) {
+    stmt.run(key, value);
+  }
 }
 
 // ─── Seed data ───────────────────────────────────────────────────────────────
@@ -378,87 +459,6 @@ const SEED_LIBROS: Libro[] = [
     disponible: true,
   },
 ];
-
-// ─── Cursos ──────────────────────────────────────────────────────────────────
-
-export interface Curso {
-  id: string;
-  titulo: string;
-  descripcion: string;
-  fecha: string;
-  hora: string;
-  nivel: string;
-  destinatarios: string;
-  cupos: string;
-}
-
-export function getCursos(): Curso[] {
-  return getDB()
-    .prepare("SELECT * FROM cursos ORDER BY fecha ASC")
-    .all() as Curso[];
-}
-
-export function getCursosPublicos(): Curso[] {
-  const today = new Date().toISOString().slice(0, 10);
-  return getDB()
-    .prepare("SELECT * FROM cursos WHERE fecha >= ? ORDER BY fecha ASC")
-    .all(today) as Curso[];
-}
-
-export function getCurso(id: string): Curso | undefined {
-  return getDB()
-    .prepare("SELECT * FROM cursos WHERE id=?")
-    .get(id) as Curso | undefined;
-}
-
-export function createCurso(data: Omit<Curso, "id">): string {
-  const id = `cur-${Date.now()}`;
-  getDB()
-    .prepare(
-      "INSERT INTO cursos (id,titulo,descripcion,fecha,hora,nivel,destinatarios,cupos) VALUES (?,?,?,?,?,?,?,?)"
-    )
-    .run(id, data.titulo, data.descripcion, data.fecha, data.hora, data.nivel, data.destinatarios, data.cupos);
-  return id;
-}
-
-export function updateCurso(id: string, data: Omit<Curso, "id">): void {
-  getDB()
-    .prepare(
-      "UPDATE cursos SET titulo=?,descripcion=?,fecha=?,hora=?,nivel=?,destinatarios=?,cupos=? WHERE id=?"
-    )
-    .run(data.titulo, data.descripcion, data.fecha, data.hora, data.nivel, data.destinatarios, data.cupos, id);
-}
-
-export function deleteCurso(id: string): void {
-  getDB().prepare("DELETE FROM cursos WHERE id=?").run(id);
-}
-
-// ─── Config ──────────────────────────────────────────────────────────────────
-
-export function getConfigValue(key: string): string | undefined {
-  const row = getDB()
-    .prepare("SELECT value FROM config WHERE key=?")
-    .get(key) as { value: string } | undefined;
-  return row?.value;
-}
-
-export function getAllConfigValues(): Record<string, string> {
-  const rows = getDB()
-    .prepare("SELECT key, value FROM config")
-    .all() as { key: string; value: string }[];
-  return Object.fromEntries(rows.map((r) => [r.key, r.value]));
-}
-
-export function setConfigValues(data: Record<string, string>): void {
-  const stmt = getDB().prepare(
-    "INSERT INTO config (key,value) VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value"
-  );
-  for (const [key, value] of Object.entries(data)) {
-    stmt.run(key, value);
-  }
-}
-
-// ─── Seed — cursos y config ───────────────────────────────────────────────────
 
 const SEED_CURSOS: Curso[] = [
   {
