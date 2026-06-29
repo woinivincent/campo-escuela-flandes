@@ -26,8 +26,8 @@ export default function AcampesPage() {
     <>
       <PageHero
         eyebrow="Acampes"
-        title="Conocé el predio"
-        subtitle="Cuatro subcampos en un entorno natural, con servicios e instalaciones pensados para grupos scouts y familias."
+        title="Lorem ipsum dolor sit amet"
+        subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         src="/images/acampes-portada.jpg"
       />
 
@@ -36,21 +36,20 @@ export default function AcampesPage() {
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div>
             <SectionHeading
-              eyebrow="El campo"
-              title="Un predio natural para acampar"
+              eyebrow="Lorem ipsum"
+              title="Lorem ipsum dolor sit amet"
             />
             <div className="mt-5 space-y-4 text-[0.95rem] leading-relaxed text-forest/85">
               <p>
-                El Campo Escuela &ldquo;Flandes&rdquo; cuenta con un predio
-                amplio de entorno natural, dividido en cuatro subcampos
-                diferenciados que permiten alojar a varios grupos de manera
-                simultánea, cada uno con su propio espacio.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
               </p>
               <p>
-                El campo dispone de instalaciones comunes —sanitarios, agua
-                corriente, fogones habilitados y un quincho central— que
-                complementan la experiencia de acampe con el confort necesario
-                para grupos de distintas edades.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris.
               </p>
             </div>
 
@@ -84,9 +83,9 @@ export default function AcampesPage() {
         <div className="container-flandes">
           <SectionHeading
             align="center"
-            eyebrow="El predio"
-            title="Los cuatro subcampos"
-            subtitle="Cada subcampo tiene su propio espacio, servicios y características. Elegí el que mejor se adapta a tu grupo."
+            eyebrow="Lorem ipsum"
+            title="Lorem ipsum dolor sit amet"
+            subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             className="mb-12"
           />
 
@@ -160,9 +159,9 @@ export default function AcampesPage() {
       <section className="container-flandes py-20">
         <SectionHeading
           align="center"
-          eyebrow="Instalaciones"
-          title="Servicios del campo"
-          subtitle="El campo dispone de instalaciones comunes disponibles para todos los grupos."
+          eyebrow="Lorem ipsum"
+          title="Lorem ipsum dolor sit amet"
+          subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
           className="mb-12"
         />
         <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -187,9 +186,9 @@ export default function AcampesPage() {
         <div className="container-flandes">
           <SectionHeading
             align="center"
-            eyebrow="El predio"
-            title="Mapa del campo"
-            subtitle="Ubicación de los subcampos, instalaciones y accesos."
+            eyebrow="Lorem ipsum"
+            title="Lorem ipsum dolor sit amet"
+            subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
             className="mb-10"
           />
           <ImageFrame
@@ -217,9 +216,9 @@ export default function AcampesPage() {
       <section className="container-flandes py-20">
         <SectionHeading
           align="center"
-          eyebrow="Galería"
-          title="El campo en imágenes"
-          subtitle="Fotos del predio, las instalaciones y los grupos en actividad."
+          eyebrow="Lorem ipsum"
+          title="Lorem ipsum dolor sit amet"
+          subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
           className="mb-12"
         />
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
@@ -244,10 +243,10 @@ export default function AcampesPage() {
           <div className="absolute inset-0 bg-[url('/images/hero-campo.jpg')] bg-cover bg-center opacity-20" />
           <div className="relative mx-auto max-w-2xl">
             <h2 className="font-display text-3xl font-bold uppercase text-white sm:text-4xl">
-              ¿Ya sabés cuál subcampo querés?
+              Lorem ipsum dolor sit amet?
             </h2>
             <p className="mt-4 text-lg text-sand/80">
-              Hacé tu preinscripción en minutos. Te respondemos por WhatsApp.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Link href="/reservas" className="btn-primary">
@@ -274,42 +273,42 @@ const stats = [
 const servicios = [
   {
     titulo: "Agua corriente",
-    desc: "Tomas de agua distribuidas en todos los subcampos.",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     icon: DropletIcon,
   },
   {
     titulo: "Sanitarios",
-    desc: "Baños y duchas disponibles para todos los grupos del predio.",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     icon: UsersIcon,
   },
   {
     titulo: "Electricidad",
-    desc: "Energía eléctrica disponible en zonas comunes. Consultar disponibilidad por subcampo.",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     icon: ZapIcon,
   },
   {
     titulo: "Fogones",
-    desc: "Fogones habilitados en cada subcampo, seguros y delimitados.",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     icon: FlameIcon,
   },
   {
     titulo: "Quincho / techado",
-    desc: "Espacio cubierto para actividades, reuniones y días de lluvia.",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     icon: HomeIcon,
   },
   {
     titulo: "Estacionamiento",
-    desc: "Ingreso vehicular y estacionamiento con capacidad para varios grupos.",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     icon: CarIcon,
   },
   {
     titulo: "Seguridad",
-    desc: "El campo cuenta con personal y está delimitado perimetralmente.",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     icon: ShieldIcon,
   },
   {
     titulo: "Orientación",
-    desc: "Señalética y mapas de los subcampos para facilitar el movimiento en el predio.",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     icon: MapIcon,
   },
 ];
@@ -319,7 +318,7 @@ const subcamposDetalle = [
     id: "1",
     nombre: siteConfig.subcampos[0].nombre,
     descripcion:
-      "Espacio amplio con acceso central, ideal para grupos numerosos que llegan en vehículos propios. Cuenta con fogón habilitado y acceso rápido a los sanitarios comunes del campo.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     caracteristicas: [
       { label: "Capacidad", valor: "Hasta 80 personas", icon: UsersIcon },
       { label: "Acceso", valor: "Vehicular y peatonal", icon: CarIcon },
@@ -332,7 +331,7 @@ const subcamposDetalle = [
     id: "2",
     nombre: siteConfig.subcampos[1].nombre,
     descripcion:
-      "Zona arbolada con abundante sombra natural. Recomendado para grupos que buscan mayor contacto con el entorno natural. Más tranquilo y alejado del acceso principal.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     caracteristicas: [
       { label: "Capacidad", valor: "Hasta 50 personas", icon: UsersIcon },
       { label: "Acceso", valor: "Solo peatonal", icon: MapIcon },
@@ -345,7 +344,7 @@ const subcamposDetalle = [
     id: "3",
     nombre: siteConfig.subcampos[2].nombre,
     descripcion:
-      "El subcampo más próximo al quincho y las instalaciones centrales. Ideal para grupos que realizarán actividades de formación o que necesitan acceso frecuente a espacios cubiertos.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     caracteristicas: [
       { label: "Capacidad", valor: "Hasta 60 personas", icon: UsersIcon },
       { label: "Acceso", valor: "Vehicular y peatonal", icon: CarIcon },
@@ -358,7 +357,7 @@ const subcamposDetalle = [
     id: "4",
     nombre: siteConfig.subcampos[3].nombre,
     descripcion:
-      "El sector más alejado del acceso, con mayor privacidad e inmersión en el entorno. Recomendado para grupos que buscan una experiencia de campo más auténtica.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     caracteristicas: [
       { label: "Capacidad", valor: "Hasta 40 personas", icon: UsersIcon },
       { label: "Acceso", valor: "Solo peatonal", icon: MapIcon },

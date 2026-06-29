@@ -34,7 +34,7 @@ export default async function ContactoPage() {
     {
       tipo: "WhatsApp",
       label: contact.whatsappDisplay,
-      sub: "Respuesta en el día",
+      sub: "Lorem ipsum dolor sit amet",
       href: whatsappLink(),
       icon: WhatsAppIcon,
       external: true,
@@ -42,7 +42,7 @@ export default async function ContactoPage() {
     {
       tipo: "Email",
       label: contact.email,
-      sub: "Consultas formales",
+      sub: "Lorem ipsum dolor sit amet",
       href: mailtoLink(),
       icon: MailIcon,
       external: false,
@@ -50,7 +50,7 @@ export default async function ContactoPage() {
     {
       tipo: "Ubicación",
       label: contact.location,
-      sub: "Buenos Aires, Argentina",
+      sub: "Lorem ipsum dolor sit amet",
       href: "#ubicacion",
       icon: MapPinIcon,
       external: false,
@@ -58,7 +58,7 @@ export default async function ContactoPage() {
     {
       tipo: "Horario",
       label: "Lun a Sáb · 9 a 18 h",
-      sub: "Dom con cita previa",
+      sub: "Lorem ipsum dolor sit amet",
       href: "#",
       icon: ClockIcon,
       external: false,
@@ -75,8 +75,8 @@ export default async function ContactoPage() {
     <>
       <PageHero
         eyebrow="Contacto"
-        title="Hablemos"
-        subtitle="Estamos para responder tus consultas sobre reservas, cursos, librería o cualquier cosa del campo."
+        title="Lorem ipsum dolor sit amet"
+        subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         src="/images/contacto-portada.jpg"
       />
 
@@ -116,9 +116,9 @@ export default async function ContactoPage() {
           {/* Formulario */}
           <div>
             <SectionHeading
-              eyebrow="Formulario"
-              title="Envianos tu consulta"
-              subtitle="Completá el formulario y te responderemos por WhatsApp a la brevedad."
+              eyebrow="Lorem ipsum"
+              title="Lorem ipsum dolor sit amet"
+              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."
               className="mb-8"
             />
             <ContactoForm waNumber={contact.whatsapp} />
@@ -128,8 +128,8 @@ export default async function ContactoPage() {
           <div className="space-y-8">
             <div>
               <SectionHeading
-                eyebrow="Cómo llegar"
-                title="Dónde estamos"
+                eyebrow="Lorem ipsum"
+                title="Lorem ipsum dolor sit amet"
                 className="mb-6"
               />
               <ImageFrame
@@ -146,7 +146,7 @@ export default async function ContactoPage() {
                   />
                   <div>
                     <p className="font-semibold text-forest-dark">Dirección</p>
-                    <p>Dirección del campo, Localidad, Buenos Aires</p>
+                    <p>{contact.location}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 text-sm text-forest/80">
@@ -195,10 +195,10 @@ export default async function ContactoPage() {
         <div className="container-flandes flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
           <div>
             <h2 className="font-display text-2xl font-bold uppercase text-forest-dark">
-              ¿Ya sabés que querés reservar?
+              Lorem ipsum dolor sit amet?
             </h2>
             <p className="mt-1 text-sm text-forest/70">
-              Hacé la preinscripción directo desde el formulario de reservas.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </p>
           </div>
           <Link href="/reservas" className="btn-primary shrink-0">
@@ -210,4 +210,3 @@ export default async function ContactoPage() {
     </>
   );
 }
-

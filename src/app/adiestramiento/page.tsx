@@ -39,17 +39,17 @@ export default async function AdiestramientoPage() {
     <>
       <PageHero
         eyebrow="Adiestramiento"
-        title="Formación scout"
-        subtitle="Cursos y charlas presenciales en el campo, más contenido de video organizado por tema para formarte donde estés."
+        title="Lorem ipsum dolor sit amet"
+        subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         src="/images/adiestramiento-portada.jpg"
       />
 
       {/* ---- PRÓXIMOS CURSOS ---- */}
       <section className="container-flandes py-20">
         <SectionHeading
-          eyebrow="Próximos eventos"
-          title="Cursos y charlas"
-          subtitle="Actividades de formación presenciales organizadas en el campo. Inscripción por WhatsApp."
+          eyebrow="Lorem ipsum"
+          title="Lorem ipsum dolor sit amet"
+          subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
           className="mb-10"
         />
 
@@ -125,9 +125,9 @@ export default async function AdiestramientoPage() {
         <div className="container-flandes">
           <div className="mb-12 flex flex-wrap items-end justify-between gap-4">
             <SectionHeading
-              eyebrow="Canal de YouTube"
-              title="Videos organizados por tema"
-              subtitle="Contenido del canal del campo. Hacé click en el video para verlo en YouTube."
+              eyebrow="Lorem ipsum"
+              title="Lorem ipsum dolor sit amet"
+              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
             />
             <a
               href="https://youtube.com/"
@@ -142,8 +142,8 @@ export default async function AdiestramientoPage() {
           </div>
 
           <div className="space-y-14">
-            {categorias.map((cat) => (
-              <div key={cat.titulo}>
+            {categorias.map((cat, i) => (
+              <div key={i}>
                 <div className="mb-5 flex items-center gap-3">
                   <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-flandes-red/10 text-flandes-red">
                     <cat.icon width={18} height={18} />
@@ -204,11 +204,11 @@ export default async function AdiestramientoPage() {
           <TopoPattern className="absolute inset-0 h-full w-full text-gold/10" />
           <div className="relative mx-auto max-w-2xl">
             <h2 className="font-display text-3xl font-bold uppercase text-white sm:text-4xl">
-              ¿Querés proponer un curso?
+              Lorem ipsum dolor sit amet?
             </h2>
             <p className="mt-4 text-lg text-sand/80">
-              Si tenés una propuesta de formación scout, contactanos para
-              coordinarlo en el campo.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <a
@@ -235,71 +235,70 @@ export default async function AdiestramientoPage() {
 
 const categorias = [
   {
-    titulo: "Técnicas de campismo",
+    titulo: "Lorem ipsum",
     icon: GraduationIcon,
     videos: [
       {
         id: "v1",
         videoId: "",
-        titulo: "Cómo hacer el nudo de ballestrinque",
-        descripcion: "Guía paso a paso para uno de los nudos más útiles en el campamento.",
+        titulo: "Lorem ipsum dolor sit amet consectetur",
+        descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
         duracion: "8:24",
       },
       {
         id: "v2",
         videoId: "",
-        titulo: "Montaje de carpa en terreno húmedo",
-        descripcion: "Tips para montar el campamento en condiciones adversas.",
+        titulo: "Lorem ipsum dolor sit amet consectetur",
+        descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
         duracion: "12:10",
       },
       {
         id: "v3",
         videoId: "",
-        titulo: "Cocina de campaña: recetas básicas",
-        descripcion: "Recetas sencillas para preparar en el campo con equipamiento mínimo.",
+        titulo: "Lorem ipsum dolor sit amet consectetur",
+        descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
         duracion: "15:45",
       },
     ],
   },
   {
-    titulo: "Naturaleza y medio ambiente",
+    titulo: "Lorem ipsum",
     icon: LeafIcon,
     videos: [
       {
         id: "v4",
         videoId: "",
-        titulo: "Flora nativa del Campo Flandes",
-        descripcion: "Recorrida por las especies vegetales del predio con un especialista.",
+        titulo: "Lorem ipsum dolor sit amet consectetur",
+        descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
         duracion: "18:32",
       },
       {
         id: "v5",
         videoId: "",
-        titulo: "Fauna local: aves del predio",
-        descripcion: "Identificación de las aves más comunes que habitan el campo.",
+        titulo: "Lorem ipsum dolor sit amet consectetur",
+        descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
         duracion: "11:07",
       },
     ],
   },
   {
-    titulo: "Formación scout",
+    titulo: "Lorem ipsum",
     icon: UsersIcon,
     videos: [
       {
         id: "v6",
         videoId: "",
-        titulo: "Liderazgo y trabajo en equipo",
-        descripcion: "Dinámica de grupo y técnicas de liderazgo para dirigentes.",
+        titulo: "Lorem ipsum dolor sit amet consectetur",
+        descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
         duracion: "22:15",
       },
       {
         id: "v7",
         videoId: "",
-        titulo: "La promesa y la ley scout",
-        descripcion: "Reflexión sobre los valores fundacionales del movimiento scout.",
+        titulo: "Lorem ipsum dolor sit amet consectetur",
+        descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
         duracion: "9:50",
       },
     ],
   },
 ];
-

@@ -42,8 +42,8 @@ export default function HomePage() {
             </span>
           </div>
           <p className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
-            Un predio natural para acampar, formarse y crecer en comunidad.
-            Conocé los subcampos y reservá el lugar para tu grupo.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             <Link href="/reservas" className="btn-primary">
@@ -90,13 +90,13 @@ export default function HomePage() {
           />
           <div>
             <SectionHeading
-              eyebrow="Bienvenidos"
-              title="Un lugar con historia para la vida scout"
-              subtitle="El Campo Escuela “Flandes” es un predio natural destinado a campamentos, ejercicios y formación scout. Un espacio pensado para que cada grupo viva la experiencia del campo con seguridad, naturaleza e instalaciones adecuadas."
+              eyebrow="Lorem ipsum"
+              title="Lorem ipsum dolor sit amet consectetur"
+              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip."
             />
             <ul className="mt-7 grid gap-3 sm:grid-cols-2">
-              {bienvenidaPuntos.map((p) => (
-                <li key={p} className="flex items-start gap-2.5 text-sm text-forest/85">
+              {bienvenidaPuntos.map((p, i) => (
+                <li key={i} className="flex items-start gap-2.5 text-sm text-forest/85">
                   <span className="mt-0.5 text-flandes-red">
                     <ShieldIcon width={18} height={18} />
                   </span>
@@ -116,8 +116,8 @@ export default function HomePage() {
       <section className="bg-sand-dark/40 py-20">
         <div className="container-flandes">
         <div className="mb-10 max-w-2xl">
-          <p className="section-eyebrow">Explorá el campo</p>
-          <h2 className="section-title">Todo lo que necesitás, a un clic</h2>
+          <p className="section-eyebrow">Lorem ipsum</p>
+          <h2 className="section-title">Lorem ipsum dolor sit amet</h2>
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {quickLinks.map((q) => (
@@ -149,9 +149,9 @@ export default function HomePage() {
       <section className="container-flandes py-20">
         <SectionHeading
           align="center"
-          eyebrow="El predio"
-          title="Cuatro subcampos para elegir"
-          subtitle="Cada grupo puede acampar en el subcampo que mejor se adapte a su actividad. Conocelos y elegí el tuyo al momento de reservar."
+          eyebrow="Lorem ipsum"
+          title="Lorem ipsum dolor sit amet"
+          subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
           className="mb-12"
         />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -171,7 +171,7 @@ export default function HomePage() {
                   {s.nombre}
                 </h3>
                 <p className="mt-1 text-sm text-forest/75">
-                  Espacio para acampar con servicios cercanos.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 </p>
               </div>
             </div>
@@ -189,22 +189,22 @@ export default function HomePage() {
       <section className="bg-forest-pale/50 py-20">
         <div className="container-flandes grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>
-            <p className="section-eyebrow">Por qué elegirnos</p>
+            <p className="section-eyebrow">Lorem ipsum</p>
             <h2 className="section-title">
-              Un campo pensado para la experiencia scout
+              Lorem ipsum dolor sit amet consectetur
             </h2>
             <p className="mt-5 max-w-lg leading-relaxed text-forest/80">
-              Más de cuatro décadas recibiendo grupos, familias y cursos de
-              formación. Naturaleza, instalaciones y un equipo que acompaña cada
-              actividad.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco.
             </p>
             <Link href="/institucional" className="btn-outline mt-8">
               Conocer nuestra historia
             </Link>
           </div>
           <ul className="grid gap-4 sm:grid-cols-2">
-            {features.map((f) => (
-              <li key={f.title} className="card flex gap-4">
+            {features.map((f, i) => (
+              <li key={i} className="card flex gap-4">
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gold/15 text-gold-dark">
                   <f.icon width={22} height={22} />
                 </span>
@@ -226,13 +226,13 @@ export default function HomePage() {
       <section className="container-flandes py-20">
         <SectionHeading
           align="center"
-          eyebrow="Reservar es fácil"
-          title="Tu lugar en tres pasos"
+          eyebrow="Lorem ipsum"
+          title="Lorem ipsum dolor sit amet"
           className="mb-12"
         />
         <ol className="grid gap-6 md:grid-cols-3">
           {pasos.map((p, i) => (
-            <li key={p.title} className="relative card">
+            <li key={i} className="relative card">
               <span className="absolute right-5 top-5 font-display text-4xl font-bold text-sand-dark">
                 0{i + 1}
               </span>
@@ -256,8 +256,8 @@ export default function HomePage() {
           <div className="flex flex-wrap items-end justify-between gap-4">
             <SectionHeading
               eyebrow="Agenda"
-              title="Próximos eventos"
-              subtitle="Charlas, cursos y actividades abiertas del campo."
+              title="Lorem ipsum dolor sit amet"
+              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
             />
             <Link
               href="/agenda"
@@ -268,9 +268,9 @@ export default function HomePage() {
             </Link>
           </div>
           <ul className="mt-10 divide-y divide-forest/10 overflow-hidden rounded-2xl border border-forest/10 bg-white">
-            {eventos.map((e) => (
+            {eventos.map((e, i) => (
               <li
-                key={e.titulo}
+                key={i}
                 className="flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:gap-6"
               >
                 <div className="flex h-16 w-16 shrink-0 flex-col items-center justify-center rounded-xl bg-forest-dark text-sand">
@@ -293,9 +293,6 @@ export default function HomePage() {
               </li>
             ))}
           </ul>
-          <p className="mt-4 text-center text-xs text-forest/50">
-            Eventos de ejemplo — se cargan desde el panel de administración.
-          </p>
         </div>
       </section>
 
@@ -305,11 +302,11 @@ export default function HomePage() {
           <TopoPattern className="absolute inset-0 h-full w-full text-white/10" />
           <div className="relative mx-auto max-w-2xl">
             <h2 className="font-display text-3xl font-bold text-white sm:text-4xl">
-              ¿Listos para vivir el campo?
+              Lorem ipsum dolor sit amet?
             </h2>
             <p className="mt-4 text-lg text-white/85">
-              Preinscribí a tu grupo en minutos. Te respondemos directamente por
-              WhatsApp.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Link
@@ -337,34 +334,34 @@ const stats = [
 ];
 
 const quickLinks = [
-  { title: "Acampes", desc: "Predio, servicios e instalaciones.", href: "/acampes", icon: TentIcon },
-  { title: "Reservas", desc: "Preinscribí a tu grupo online.", href: "/reservas", icon: CalendarIcon },
-  { title: "Naturaleza", desc: "Flora y fauna del campo.", href: "/naturaleza", icon: LeafIcon },
-  { title: "Adiestramiento", desc: "Charlas, cursos y videos.", href: "/adiestramiento", icon: GraduationIcon },
+  { title: "Acampes", desc: "Lorem ipsum dolor sit amet.", href: "/acampes", icon: TentIcon },
+  { title: "Reservas", desc: "Lorem ipsum dolor sit amet.", href: "/reservas", icon: CalendarIcon },
+  { title: "Naturaleza", desc: "Lorem ipsum dolor sit amet.", href: "/naturaleza", icon: LeafIcon },
+  { title: "Adiestramiento", desc: "Lorem ipsum dolor sit amet.", href: "/adiestramiento", icon: GraduationIcon },
 ];
 
 const features = [
-  { title: "4 subcampos", desc: "Espacios diferenciados para que cada grupo elija su lugar.", icon: MapIcon },
-  { title: "Reserva simple", desc: "Formulario que llega directo al WhatsApp del campo.", icon: CalendarIcon },
-  { title: "Entorno natural", desc: "Flora y fauna autóctona con fichas y señalética.", icon: LeafIcon },
-  { title: "Comunidad scout", desc: "Un espacio de formación y encuentro para grupos.", icon: UsersIcon },
+  { title: "Lorem ipsum", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", icon: MapIcon },
+  { title: "Lorem ipsum", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", icon: CalendarIcon },
+  { title: "Lorem ipsum", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", icon: LeafIcon },
+  { title: "Lorem ipsum", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", icon: UsersIcon },
 ];
 
 const bienvenidaPuntos = [
-  "Predio amplio en entorno natural",
-  "Instalaciones y servicios para grupos",
-  "Actividades de formación y adiestramiento",
-  "Acompañamiento del equipo del campo",
+  "Lorem ipsum dolor sit amet",
+  "Lorem ipsum dolor sit amet",
+  "Lorem ipsum dolor sit amet",
+  "Lorem ipsum dolor sit amet",
 ];
 
 const pasos = [
-  { title: "Elegí tu subcampo", desc: "Revisá el predio y seleccioná el espacio que mejor se adapte a tu grupo.", icon: MapIcon },
-  { title: "Completá la reserva", desc: "Cargá los datos de tu grupo y la fecha en el formulario de preinscripción.", icon: CalendarIcon },
-  { title: "Confirmamos por WhatsApp", desc: "Te contactamos para coordinar los detalles y confirmar tu acampe.", icon: ShieldIcon },
+  { title: "Lorem ipsum dolor", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.", icon: MapIcon },
+  { title: "Lorem ipsum dolor", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.", icon: CalendarIcon },
+  { title: "Lorem ipsum dolor", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.", icon: ShieldIcon },
 ];
 
 const eventos = [
-  { dia: "12", mes: "Jul", titulo: "Curso de adiestramiento scout", detalle: "Jornada de formación para dirigentes.", tipo: "Curso" },
-  { dia: "26", mes: "Jul", titulo: "Acampe de invierno", detalle: "Encuentro abierto de grupos.", tipo: "Acampe" },
-  { dia: "09", mes: "Ago", titulo: "Charla de naturaleza", detalle: "Flora y fauna del predio.", tipo: "Charla" },
+  { dia: "12", mes: "Jul", titulo: "Lorem ipsum dolor sit amet", detalle: "Lorem ipsum dolor sit amet, consectetur.", tipo: "Curso" },
+  { dia: "26", mes: "Jul", titulo: "Lorem ipsum dolor sit amet", detalle: "Lorem ipsum dolor sit amet, consectetur.", tipo: "Acampe" },
+  { dia: "09", mes: "Ago", titulo: "Lorem ipsum dolor sit amet", detalle: "Lorem ipsum dolor sit amet, consectetur.", tipo: "Charla" },
 ];

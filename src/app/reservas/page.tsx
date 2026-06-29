@@ -28,22 +28,22 @@ export default async function ReservasPage() {
     <>
       <PageHero
         eyebrow="Reservas"
-        title="Hacé tu preinscripción"
-        subtitle="Completá el formulario y te contactamos por WhatsApp para confirmar la disponibilidad y coordinar los detalles."
+        title="Lorem ipsum dolor sit amet"
+        subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         src="/images/reservas-portada.jpg"
       />
 
       {/* ---- NORMAS DEL ACAMPE ---- */}
       <section className="container-flandes py-20">
         <SectionHeading
-          eyebrow="Antes de reservar"
-          title="Normas del acampe"
-          subtitle="Para garantizar una buena convivencia y el cuidado del predio, todos los grupos deben cumplir estas pautas."
+          eyebrow="Lorem ipsum"
+          title="Lorem ipsum dolor sit amet"
+          subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore."
           className="mb-10"
         />
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {normas.map((n) => (
-            <li key={n.titulo} className="card flex gap-4">
+          {normas.map((n, i) => (
+            <li key={i} className="card flex gap-4">
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-flandes-red/10 text-flandes-red">
                 <n.icon width={20} height={20} />
               </span>
@@ -67,9 +67,8 @@ export default async function ReservasPage() {
           />
           <p className="text-sm leading-relaxed text-forest-dark">
             <strong>Costos y aranceles:</strong>{" "}
-            Los valores de uso del predio son comunicados al momento de confirmar
-            la reserva. Consultá directamente al campo para obtener la
-            información actualizada.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
         </div>
       </section>
@@ -79,9 +78,9 @@ export default async function ReservasPage() {
         <div className="container-flandes">
           <SectionHeading
             align="center"
-            eyebrow="El predio"
-            title="Elegí tu subcampo"
-            subtitle="Podés indicar tu preferencia en el formulario. La asignación final la confirmamos al coordinar la reserva."
+            eyebrow="Lorem ipsum"
+            title="Lorem ipsum dolor sit amet"
+            subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
             className="mb-12"
           />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -133,9 +132,9 @@ export default async function ReservasPage() {
           {/* Lado izquierdo: info */}
           <div>
             <SectionHeading
-              eyebrow="Preinscripción"
-              title="Reservá tu lugar"
-              subtitle="Completá los datos y te respondemos directamente por WhatsApp para confirmar disponibilidad."
+              eyebrow="Lorem ipsum"
+              title="Lorem ipsum dolor sit amet"
+              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
             />
 
             <div className="mt-8 space-y-4">
@@ -145,10 +144,10 @@ export default async function ReservasPage() {
                 </span>
                 <div>
                   <p className="text-sm font-semibold text-forest-dark">
-                    Respondemos en el día
+                    Lorem ipsum dolor sit amet
                   </p>
                   <p className="text-xs text-forest/65">
-                    Atención de lunes a sábado de 9 a 18 h.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing.
                   </p>
                 </div>
               </div>
@@ -159,11 +158,10 @@ export default async function ReservasPage() {
                 </span>
                 <div>
                   <p className="text-sm font-semibold text-forest-dark">
-                    Para grupos scouts y afines
+                    Lorem ipsum dolor sit amet
                   </p>
                   <p className="text-xs text-forest/65">
-                    El campo está disponible para grupos scouts, familias y
-                    organizaciones con fines educativos.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
                   </p>
                 </div>
               </div>
@@ -174,11 +172,10 @@ export default async function ReservasPage() {
                 </span>
                 <div>
                   <p className="text-sm font-semibold text-forest-dark">
-                    Confirmación por WhatsApp
+                    Lorem ipsum dolor sit amet
                   </p>
                   <p className="text-xs text-forest/65">
-                    Una vez recibida tu solicitud te contactamos para confirmar
-                    la fecha, el subcampo y los detalles del acampe.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
                   </p>
                 </div>
               </div>
@@ -211,10 +208,10 @@ export default async function ReservasPage() {
         <div className="container-flandes flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
           <div>
             <h2 className="font-display text-2xl font-bold uppercase text-forest-dark">
-              ¿Querés conocer el predio primero?
+              Lorem ipsum dolor sit amet?
             </h2>
             <p className="mt-1 text-sm text-forest/70">
-              Mirá los subcampos, servicios e instalaciones antes de reservar.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </p>
           </div>
           <Link href="/acampes" className="btn-forest shrink-0">
@@ -229,33 +226,33 @@ export default async function ReservasPage() {
 
 const normas = [
   {
-    titulo: "Responsable adulto",
-    desc: "Todo grupo debe tener al menos un adulto responsable registrado para el período del acampe.",
+    titulo: "Lorem ipsum dolor",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.",
     icon: UsersIcon,
   },
   {
-    titulo: "Solo fogones habilitados",
-    desc: "El fuego únicamente está permitido en los fogones habilitados del predio. No se permiten fogatas en zonas no designadas.",
+    titulo: "Lorem ipsum dolor",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.",
     icon: FlameIcon,
   },
   {
-    titulo: "Cuidado del predio",
-    desc: "No dejar residuos. Respetar la flora y fauna del campo. Al irse, el espacio debe quedar en las mismas condiciones que al llegar.",
+    titulo: "Lorem ipsum dolor",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.",
     icon: ShieldIcon,
   },
   {
-    titulo: "Horario de silencio",
-    desc: "De 22 a 7 h se deben respetar el silencio y el descanso de los demás grupos.",
+    titulo: "Lorem ipsum dolor",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.",
     icon: AlertIcon,
   },
   {
-    titulo: "Registro de entrada",
-    desc: "Al llegar deben registrarse en administración. Comunicar también la salida antes de retirarse del predio.",
+    titulo: "Lorem ipsum dolor",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.",
     icon: CalendarIcon,
   },
   {
-    titulo: "Respetar los límites",
-    desc: "Cada grupo debe permanecer dentro del subcampo asignado. No invadir los espacios de otros grupos.",
+    titulo: "Lorem ipsum dolor",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.",
     icon: MapIcon,
   },
 ];
@@ -264,32 +261,28 @@ const subcamposDetalle = [
   {
     id: "1",
     nombre: siteConfig.subcampos[0].nombre,
-    descripcion:
-      "Espacio amplio con acceso central. Ideal para grupos grandes con vehículos.",
+    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     servicios: ["Agua corriente", "Baños cercanos", "Fogón habilitado"],
     capacidad: "Hasta 80 personas",
   },
   {
     id: "2",
     nombre: siteConfig.subcampos[1].nombre,
-    descripcion:
-      "Zona arbolada con sombra natural. Tranquilidad y contacto con el entorno.",
+    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     servicios: ["Agua corriente", "Baños a 100 m", "Fogón habilitado"],
     capacidad: "Hasta 50 personas",
   },
   {
     id: "3",
     nombre: siteConfig.subcampos[2].nombre,
-    descripcion:
-      "Sector próximo al quincho y las instalaciones centrales del campo.",
+    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     servicios: ["Agua corriente", "Baños propios", "Techado disponible"],
     capacidad: "Hasta 60 personas",
   },
   {
     id: "4",
     nombre: siteConfig.subcampos[3].nombre,
-    descripcion:
-      "El sector más alejado, ideal para grupos que buscan mayor privacidad.",
+    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     servicios: ["Agua corriente", "Baños cercanos", "Fogón habilitado"],
     capacidad: "Hasta 40 personas",
   },

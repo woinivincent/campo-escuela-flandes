@@ -33,8 +33,8 @@ export default function LibreriaPage() {
     <>
       <PageHero
         eyebrow="Librería"
-        title="Material y bibliografía"
-        subtitle="Libros y materiales disponibles para la venta en el campo. Pedidos por WhatsApp."
+        title="Lorem ipsum dolor sit amet"
+        subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         src="/images/libreria-portada.jpg"
       />
 
@@ -48,8 +48,8 @@ export default function LibreriaPage() {
           />
           <p className="text-sm text-forest/80">
             <strong>Precios y stock:</strong>{" "}
-            Los precios son orientativos y pueden variar. Consultá disponibilidad y
-            precio actualizado antes de hacer tu pedido. Stock sujeto a disponibilidad.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua.
           </p>
         </div>
       </section>
@@ -58,9 +58,9 @@ export default function LibreriaPage() {
       <section className="container-flandes py-20">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
           <SectionHeading
-            eyebrow="Catálogo"
-            title="Libros disponibles"
-            subtitle="Material seleccionado para scouts, dirigentes y amantes de la naturaleza."
+            eyebrow="Lorem ipsum"
+            title="Lorem ipsum dolor sit amet"
+            subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
           />
           {/* Categorías (decorativas — sin filtrado JS por ahora) */}
           <div className="flex flex-wrap gap-2">
@@ -156,24 +156,19 @@ export default function LibreriaPage() {
             );
           })}
         </div>
-
-        <p className="mt-8 text-center text-xs text-forest/45">
-          Catálogo de ejemplo — reemplazar con los títulos, precios y portadas
-          reales de la librería del campo.
-        </p>
       </section>
 
       {/* ---- CÓMO COMPRAR ---- */}
       <section className="bg-sand-dark/40 py-20">
         <div className="container-flandes grid gap-12 md:grid-cols-2 md:items-center">
           <SectionHeading
-            eyebrow="Cómo comprar"
-            title="Pedidos por WhatsApp"
-            subtitle="El proceso es simple: elegís el libro, nos escribís por WhatsApp y coordinamos la entrega o el retiro en el campo."
+            eyebrow="Lorem ipsum"
+            title="Lorem ipsum dolor sit amet"
+            subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
           />
           <ol className="space-y-4">
             {pasosPedido.map((p, i) => (
-              <li key={p.titulo} className="flex items-start gap-4">
+              <li key={i} className="flex items-start gap-4">
                 <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-flandes-red font-display text-sm font-bold text-white">
                   {i + 1}
                 </span>
@@ -213,11 +208,11 @@ export default function LibreriaPage() {
             </span>
             <div>
               <h3 className="font-display text-base font-bold uppercase text-forest-dark">
-                Donaciones de libros
+                Lorem ipsum dolor sit amet
               </h3>
               <p className="mt-1 text-sm text-forest/70">
-                ¿Tenés libros scouts o de naturaleza que ya no usás? El campo acepta
-                donaciones para enriquecer la librería y la biblioteca de socios.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua.
               </p>
             </div>
           </div>
@@ -241,19 +236,19 @@ export default function LibreriaPage() {
 
 const pasosPedido = [
   {
-    titulo: "Elegís el libro",
-    desc: "Encontrá el título que te interesa en el catálogo de arriba.",
+    titulo: "Lorem ipsum dolor sit amet",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
   },
   {
-    titulo: "Nos escribís por WhatsApp",
-    desc: "Hacé click en el botón \"Pedir\" del libro o escribinos directamente.",
+    titulo: "Lorem ipsum dolor sit amet",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
   },
   {
-    titulo: "Coordinamos la entrega",
-    desc: "Retiro en el campo o consulta por envío. Confirmamos precio actualizado y disponibilidad.",
+    titulo: "Lorem ipsum dolor sit amet",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
   },
   {
-    titulo: "Pagás y retirás",
-    desc: "Efectivo, transferencia u otros medios a confirmar al momento del pedido.",
+    titulo: "Lorem ipsum dolor sit amet",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
   },
 ];

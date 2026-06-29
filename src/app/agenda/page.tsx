@@ -62,8 +62,8 @@ export default function AgendaPage() {
     <>
       <PageHero
         eyebrow="Agenda"
-        title="Próximos eventos"
-        subtitle="Acampes, cursos, charlas y actividades del Campo Escuela Flandes. Inscribite por WhatsApp."
+        title="Lorem ipsum dolor sit amet"
+        subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
         src="/images/agenda-portada.jpg"
       />
 
@@ -193,9 +193,9 @@ export default function AgendaPage() {
         <div className="container-flandes grid gap-8 md:grid-cols-2 md:items-center">
           <div>
             <SectionHeading
-              eyebrow="¿Tenés una propuesta?"
-              title="Organizá tu evento en el campo"
-              subtitle="Si querés coordinar un curso, charla o actividad abierta en el predio, contactanos para evaluarlo juntos."
+              eyebrow="Lorem ipsum"
+              title="Lorem ipsum dolor sit amet"
+              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
             />
           </div>
           <div className="flex flex-col gap-3 sm:flex-row md:justify-end">

@@ -14,10 +14,11 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // Forward pathname so the root layout can suppress the public nav/footer
-  const response = NextResponse.next();
-  response.headers.set("x-pathname", pathname);
-  return response;
+  // Forward pathname so the root layout can suppress the public nav/footer.
+  // Must be set on the request headers (not the response) to be visible to headers() in Server Components.
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-pathname", pathname);
+  return NextResponse.next({ request: { headers: requestHeaders } });
 }
 
 export const config = {

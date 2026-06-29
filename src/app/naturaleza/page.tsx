@@ -38,8 +38,8 @@ export default function NaturalezaPage() {
     <>
       <PageHero
         eyebrow="Naturaleza"
-        title="Flora y fauna del campo"
-        subtitle="Conocé las especies que habitan el predio. Fichas descriptivas con códigos QR para identificarlas durante tu acampe."
+        title="Lorem ipsum dolor sit amet"
+        subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         src="/images/naturaleza-portada.jpg"
       />
 
@@ -48,14 +48,14 @@ export default function NaturalezaPage() {
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div>
             <SectionHeading
-              eyebrow="El entorno"
-              title="Un ecosistema vivo"
-              subtitle="El Campo Escuela Flandes está ubicado en un entorno natural con una diversidad significativa de flora y fauna autóctona. Cada especie forma parte de un ecosistema que el campo trabaja por preservar."
+              eyebrow="Lorem ipsum"
+              title="Lorem ipsum dolor sit amet"
+              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco."
             />
             <ul className="mt-7 grid gap-3 sm:grid-cols-2">
-              {destacados.map((d) => (
+              {destacados.map((d, i) => (
                 <li
-                  key={d.texto}
+                  key={i}
                   className="flex items-start gap-2.5 text-sm text-forest/85"
                 >
                   <span className="mt-0.5 text-flandes-red">
@@ -79,8 +79,8 @@ export default function NaturalezaPage() {
         <div className="container-flandes">
           <SectionHeading
             eyebrow="Flora"
-            title="Plantas del predio"
-            subtitle="Especies vegetales identificadas en el Campo Escuela Flandes."
+            title="Lorem ipsum dolor sit amet"
+            subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
             className="mb-10"
           />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -95,8 +95,8 @@ export default function NaturalezaPage() {
       <section className="container-flandes py-20">
         <SectionHeading
           eyebrow="Fauna"
-          title="Animales del campo"
-          subtitle="Especies animales que habitan o visitan el predio."
+          title="Lorem ipsum dolor sit amet"
+          subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
           className="mb-10"
         />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -111,13 +111,13 @@ export default function NaturalezaPage() {
         <div className="container-flandes grid items-center gap-12 lg:grid-cols-2">
           <div>
             <SectionHeading
-              eyebrow="En el terreno"
-              title="Códigos QR por especie"
-              subtitle="En los próximos meses se instalarán carteles con códigos QR junto a las especies más representativas del predio. Escaneándolos accedés a la ficha completa con fotos, descripción y datos ecológicos."
+              eyebrow="Lorem ipsum"
+              title="Lorem ipsum dolor sit amet"
+              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
             />
             <ul className="mt-6 space-y-3">
-              {qrPasos.map((p) => (
-                <li key={p.titulo} className="flex items-start gap-3">
+              {qrPasos.map((p, i) => (
+                <li key={i} className="flex items-start gap-3">
                   <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-flandes-red/10 font-display text-sm font-bold text-flandes-red">
                     {p.n}
                   </span>
@@ -130,9 +130,6 @@ export default function NaturalezaPage() {
                 </li>
               ))}
             </ul>
-            <p className="mt-6 text-xs italic text-forest/45">
-              Sistema de QR en desarrollo — se habilitará próximamente.
-            </p>
           </div>
           <div className="flex items-center justify-center">
             <div className="card flex flex-col items-center gap-4 py-10 text-center">
@@ -143,7 +140,7 @@ export default function NaturalezaPage() {
                 Código QR
               </p>
               <p className="max-w-xs text-sm text-forest/65">
-                Cada cartelería del predio vinculará a la ficha completa de la especie.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
               </p>
             </div>
           </div>
@@ -154,14 +151,14 @@ export default function NaturalezaPage() {
       <section className="container-flandes py-20">
         <SectionHeading
           align="center"
-          eyebrow="Área de naturaleza"
-          title="Proyectos del campo"
-          subtitle="Iniciativas de conservación y educación ambiental en desarrollo."
+          eyebrow="Lorem ipsum"
+          title="Lorem ipsum dolor sit amet"
+          subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
           className="mb-10"
         />
         <div className="grid gap-5 sm:grid-cols-3">
-          {proyectos.map((p) => (
-            <div key={p.titulo} className="card text-center">
+          {proyectos.map((p, i) => (
+            <div key={i} className="card text-center">
               <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-forest-pale text-forest">
                 <p.icon width={24} height={24} />
               </span>
@@ -184,10 +181,10 @@ export default function NaturalezaPage() {
         <div className="container-flandes flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
           <div>
             <h2 className="font-display text-2xl font-bold uppercase text-forest-dark">
-              ¿Querés conocer el predio?
+              Lorem ipsum dolor sit amet?
             </h2>
             <p className="mt-1 text-sm text-forest/70">
-              Reservá tu lugar y viví el entorno natural desde adentro.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -254,10 +251,10 @@ function EspecieCard({ especie }: { especie: Especie }) {
 }
 
 const destacados = [
-  { texto: "Vegetación nativa conservada en gran parte del predio", icon: LeafIcon },
-  { texto: "Avifauna diversa, con más de 30 especies registradas", icon: ShieldIcon },
-  { texto: "Programa de identificación y señalética en desarrollo", icon: QrIcon },
-  { texto: "Actividades guiadas de naturaleza para grupos", icon: UsersIcon },
+  { texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", icon: LeafIcon },
+  { texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", icon: ShieldIcon },
+  { texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", icon: QrIcon },
+  { texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", icon: UsersIcon },
 ];
 
 const especies: Especie[] = [
@@ -266,10 +263,8 @@ const especies: Especie[] = [
     nombreComun: "Espinillo",
     nombreCientifico: "Vachellia caven",
     categoria: "Flora",
-    descripcion:
-      "Árbol espinoso de la familia de las leguminosas, muy común en la pampa. Florece con pequeñas flores amarillas muy fragantes.",
-    curiosidad:
-      "Sus flores son tan perfumadas que se pueden oler a metros de distancia.",
+    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    curiosidad: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     qrDisponible: false,
   },
   {
@@ -277,9 +272,8 @@ const especies: Especie[] = [
     nombreComun: "Ceibo",
     nombreCientifico: "Erythrina crista-galli",
     categoria: "Flora",
-    descripcion:
-      "Árbol de ribera con flores rojas características. Es la flor nacional de Argentina y Uruguay.",
-    curiosidad: "Sus flores son la flor nacional argentina desde 1942.",
+    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    curiosidad: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     qrDisponible: false,
   },
   {
@@ -287,10 +281,8 @@ const especies: Especie[] = [
     nombreComun: "Sauce criollo",
     nombreCientifico: "Salix humboldtiana",
     categoria: "Flora",
-    descripcion:
-      "Árbol de ribera de ramas colgantes. Crece cerca del agua y es muy longevo. Ofrece sombra generosa en verano.",
-    curiosidad:
-      "Puede vivir más de 100 años y sus raíces buscan el agua subterránea.",
+    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    curiosidad: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     qrDisponible: false,
   },
   {
@@ -298,10 +290,8 @@ const especies: Especie[] = [
     nombreComun: "Tala",
     nombreCientifico: "Celtis ehrenbergiana",
     categoria: "Flora",
-    descripcion:
-      "Árbol mediano espinoso muy importante para la fauna local: sus frutos son alimento de aves y mamíferos.",
-    curiosidad:
-      "Es una especie clave del bosque nativo bonaerense y da refugio a muchas aves.",
+    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    curiosidad: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     qrDisponible: false,
   },
   {
@@ -309,10 +299,8 @@ const especies: Especie[] = [
     nombreComun: "Carpincho",
     nombreCientifico: "Hydrochoerus hydrochaeris",
     categoria: "Fauna",
-    descripcion:
-      "El roedor más grande del mundo. Vive en grupos cerca del agua. Es herbívoro y muy tranquilo si no se lo molesta.",
-    curiosidad:
-      "Puede bucear y permanecer varios minutos bajo el agua para escapar de depredadores.",
+    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    curiosidad: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     qrDisponible: false,
   },
   {
@@ -320,10 +308,8 @@ const especies: Especie[] = [
     nombreComun: "Hornero",
     nombreCientifico: "Furnarius rufus",
     categoria: "Fauna",
-    descripcion:
-      "Ave parda y robusta, famosa por sus nidos de barro en forma de horno. Ave nacional de Argentina.",
-    curiosidad:
-      "Sus nidos de barro endurecido pueden pesar hasta 4 kg y durar muchos años.",
+    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    curiosidad: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     qrDisponible: false,
   },
   {
@@ -331,10 +317,8 @@ const especies: Especie[] = [
     nombreComun: "Martín pescador",
     nombreCientifico: "Megaceryle torquata",
     categoria: "Fauna",
-    descripcion:
-      "Ave de colorido llamativo, de azul y rojizo, que caza peces lanzándose en picado al agua desde una rama.",
-    curiosidad:
-      "Puede ver bajo el agua y su vuelo en picada llega a más de 80 km/h.",
+    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    curiosidad: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     qrDisponible: false,
   },
   {
@@ -342,10 +326,8 @@ const especies: Especie[] = [
     nombreComun: "Coipo / Nutria",
     nombreCientifico: "Myocastor coypus",
     categoria: "Fauna",
-    descripcion:
-      "Roedor semiacuático de pelaje pardo, parecido a un castor. Vive en cañaverales y a orillas del agua.",
-    curiosidad:
-      "Construye refugios entre la vegetación acuática y es muy buen nadador.",
+    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    curiosidad: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     qrDisponible: false,
   },
 ];
@@ -353,37 +335,37 @@ const especies: Especie[] = [
 const qrPasos = [
   {
     n: "1",
-    titulo: "Encontrá el cartel",
-    desc: "Cada especie señalizada en el predio tiene un cartel con su nombre y un código QR.",
+    titulo: "Lorem ipsum dolor sit amet",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
   },
   {
     n: "2",
-    titulo: "Escaneá el QR",
-    desc: "Con la cámara de tu celular apuntá al código para abrir la ficha de la especie.",
+    titulo: "Lorem ipsum dolor sit amet",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
   },
   {
     n: "3",
-    titulo: "Explorá la ficha",
-    desc: "Nombre, descripción, hábitat, curiosidades y más datos sobre cada especie.",
+    titulo: "Lorem ipsum dolor sit amet",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
   },
 ];
 
 const proyectos = [
   {
-    titulo: "Señalética de especies",
-    desc: "Instalación de carteles identificatorios con QR para las principales especies del predio.",
+    titulo: "Lorem ipsum dolor",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
     estado: "En desarrollo",
     icon: QrIcon,
   },
   {
-    titulo: "Registro de avifauna",
-    desc: "Relevamiento sistemático de las aves presentes en el campo a lo largo del año.",
+    titulo: "Lorem ipsum dolor",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
     estado: "En curso",
     icon: LeafIcon,
   },
   {
-    titulo: "Sendero natural",
-    desc: "Diseño de un recorrido guiado por los ambientes más representativos del predio.",
+    titulo: "Lorem ipsum dolor",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
     estado: "Planificado",
     icon: ShieldIcon,
   },

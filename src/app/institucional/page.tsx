@@ -21,8 +21,8 @@ export default function InstitucionalPage() {
     <>
       <PageHero
         eyebrow="Institucional"
-        title="Nuestra historia"
-        subtitle="Más de cuatro décadas formando comunidad scout en un entorno natural."
+        title="Lorem ipsum dolor sit amet"
+        subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         src="/images/institucional-portada.jpg"
       />
 
@@ -31,25 +31,21 @@ export default function InstitucionalPage() {
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div>
             <SectionHeading
-              eyebrow="El campo"
-              title="Un predio dedicado a la formación scout"
+              eyebrow="Lorem ipsum"
+              title="Lorem ipsum dolor sit amet"
             />
             <div className="mt-5 space-y-4 leading-relaxed text-forest/85">
               <p>
-                El Campo Escuela &ldquo;Flandes&rdquo; nació como un espacio
-                destinado a los campamentos y ejercicios scouts, con el objetivo
-                de ofrecer un lugar seguro y natural donde los grupos pudieran
-                desarrollar sus actividades.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
               </p>
               <p>
-                A lo largo de los años se sumaron instalaciones, servicios y un
-                trabajo constante de cuidado del entorno, manteniendo siempre el
-                espíritu de servicio y vida al aire libre que caracteriza al
-                movimiento scout.
-              </p>
-              <p className="text-sm italic text-forest/60">
-                * Texto de ejemplo — reemplazar por la reseña histórica real del
-                campo.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat duis aute irure dolor.
               </p>
             </div>
           </div>
@@ -66,8 +62,8 @@ export default function InstitucionalPage() {
         <div className="container-flandes">
           <SectionHeading
             align="center"
-            eyebrow="Trayectoria"
-            title="Hitos del campo"
+            eyebrow="Lorem ipsum"
+            title="Lorem ipsum dolor sit amet"
             className="mb-12"
           />
           <ol className="relative mx-auto max-w-3xl border-l-2 border-gold/40 pl-8">
@@ -83,9 +79,6 @@ export default function InstitucionalPage() {
               </li>
             ))}
           </ol>
-          <p className="mt-8 text-center text-xs text-forest/50">
-            Hitos de ejemplo — se editan desde el panel de administración.
-          </p>
         </div>
       </section>
 
@@ -93,9 +86,9 @@ export default function InstitucionalPage() {
       <section className="container-flandes py-20">
         <SectionHeading
           align="center"
-          eyebrow="Galería"
-          title="Recuerdos del campo"
-          subtitle="Momentos de campamentos, actividades y encuentros a lo largo de los años."
+          eyebrow="Lorem ipsum"
+          title="Lorem ipsum dolor sit amet"
+          subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."
           className="mb-12"
         />
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
@@ -108,13 +101,6 @@ export default function InstitucionalPage() {
             />
           ))}
         </div>
-        <p className="mt-6 text-center text-xs text-forest/50">
-          Las fotos se cargan en{" "}
-          <code className="rounded bg-sand-dark/60 px-1.5 py-0.5">
-            public/images/galeria-1.jpg
-          </code>{" "}
-          … (luego, desde el panel de administración).
-        </p>
       </section>
 
       {/* ---------- REDES SOCIALES ---------- */}
@@ -123,9 +109,9 @@ export default function InstitucionalPage() {
           <SectionHeading
             align="center"
             tone="dark"
-            eyebrow="Seguinos"
-            title="Mirá el campo en nuestras redes"
-            subtitle="Compartimos fotos, videos y novedades de cada actividad."
+            eyebrow="Lorem ipsum"
+            title="Lorem ipsum dolor sit amet"
+            subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
             className="mb-8"
           />
           <div className="flex flex-wrap justify-center gap-4">
@@ -157,10 +143,10 @@ export default function InstitucionalPage() {
 }
 
 const hitos = [
-  { anio: "1980s", texto: "Se establece el predio como campo de ejercicios scouts." },
-  { anio: "1990s", texto: "Incorporación de instalaciones y servicios para los grupos." },
-  { anio: "2000s", texto: "Consolidación de los subcampos y mejoras del entorno natural." },
-  { anio: "Hoy", texto: "Un espacio activo para campamentos, cursos y formación." },
+  { anio: "1980s", texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
+  { anio: "1990s", texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
+  { anio: "2000s", texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
+  { anio: "Hoy", texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
 ];
 
 const redes = [
