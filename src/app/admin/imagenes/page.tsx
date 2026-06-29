@@ -1,12 +1,29 @@
-import { existsSync } from "fs";
-import path from "path";
 import { IMAGE_SLOTS, GROUPS } from "./imageSlots";
 import ImageUploadCard from "./ImageUploadCard";
 
 export const metadata = { title: "Imágenes — Admin" };
 
-export default function AdminImagenesPage() {
+async function getExistingSlots(): Promise<Set<string>> {
+  if (process.env.NETLIFY) {
+    const { getStore } = await import("@netlify/blobs");
+    const store = getStore("site-images");
+    const { blobs } = await store.list();
+    return new Set(blobs.map((b) => b.key));
+  }
+  const { existsSync } = await import("fs");
+  const { join } = await import("path");
+  const found = new Set<string>();
+  for (const slot of IMAGE_SLOTS) {
+    if (existsSync(join(process.cwd(), "public", "images", `${slot.id}.jpg`))) {
+      found.add(slot.id);
+    }
+  }
+  return found;
+}
+
+export default async function AdminImagenesPage() {
   const ts = Date.now();
+  const existing = await getExistingSlots();
 
   return (
     <div>
@@ -28,21 +45,16 @@ export default function AdminImagenesPage() {
                 {group}
               </h2>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {slots.map((slot) => {
-                  const exists = existsSync(
-                    path.join(process.cwd(), "public", "images", `${slot.id}.jpg`)
-                  );
-                  return (
-                    <ImageUploadCard
-                      key={slot.id}
-                      slotId={slot.id}
-                      label={slot.label}
-                      desc={slot.desc}
-                      exists={exists}
-                      ts={ts}
-                    />
-                  );
-                })}
+                {slots.map((slot) => (
+                  <ImageUploadCard
+                    key={slot.id}
+                    slotId={slot.id}
+                    label={slot.label}
+                    desc={slot.desc}
+                    exists={existing.has(slot.id)}
+                    ts={ts}
+                  />
+                ))}
               </div>
             </section>
           );

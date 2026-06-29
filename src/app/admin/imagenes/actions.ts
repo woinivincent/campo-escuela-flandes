@@ -1,8 +1,5 @@
 "use server";
 
-import { writeFile, mkdir } from "fs/promises";
-import { existsSync } from "fs";
-import path from "path";
 import { revalidatePath } from "next/cache";
 import { IMAGE_SLOTS } from "./imageSlots";
 
@@ -18,12 +15,19 @@ export async function uploadImageAction(formData: FormData) {
   if (!file.type.startsWith("image/")) throw new Error("El archivo no es una imagen");
 
   const bytes = await file.arrayBuffer();
-  const buffer = Buffer.from(bytes);
 
-  const imagesDir = path.join(process.cwd(), "public", "images");
-  if (!existsSync(imagesDir)) await mkdir(imagesDir, { recursive: true });
-
-  await writeFile(path.join(imagesDir, `${slot}.jpg`), buffer);
+  if (process.env.NETLIFY) {
+    const { getStore } = await import("@netlify/blobs");
+    const store = getStore("site-images");
+    await store.set(slot, bytes, { metadata: { contentType: file.type } });
+  } else {
+    const { writeFile, mkdir } = await import("fs/promises");
+    const { existsSync } = await import("fs");
+    const { join } = await import("path");
+    const dir = join(process.cwd(), "public", "images");
+    if (!existsSync(dir)) await mkdir(dir, { recursive: true });
+    await writeFile(join(dir, `${slot}.jpg`), Buffer.from(bytes));
+  }
 
   revalidatePath("/", "layout");
 }
