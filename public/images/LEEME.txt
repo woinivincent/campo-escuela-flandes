@@ -1,0 +1,15 @@
+IMÁGENES DEL SITIO
+==================
+
+Guardá acá las imágenes reales del campo. El sitio ya las referencia por nombre.
+
+PORTADA (hero):
+  Archivo: hero-campo.jpg
+  Recomendado: foto aérea del predio (la misma del flyer institucional).
+  Tamaño ideal: 1920x1080 px o más, horizontal, en .jpg
+
+  >>> Guardá la foto aérea como:  public/images/hero-campo.jpg
+  Apenas esté el archivo, aparece automáticamente de fondo en la portada.
+
+Mientras no exista el archivo, la portada muestra un fondo de respaldo
+con los tonos del campo para que no se vea rota.

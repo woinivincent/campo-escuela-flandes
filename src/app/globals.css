@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #fbfaf6; /* arena muy clara */
+  --foreground: #1a241d; /* verde casi negro */
+}
+
+@layer base {
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display font-bold tracking-tight text-forest-dark;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background-color: #f2b705;
+    color: #1e4527;
+  }
+}
+
+@layer components {
+  /* Contenedor estándar */
+  .container-flandes {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-6 lg:px-8;
+  }
+
+  /* Etiqueta / eyebrow */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em];
+  }
+
+  /* Botones */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-flandes-red px-6 py-3
+      text-[0.95rem] font-semibold text-white shadow-card transition-all duration-200
+      hover:-translate-y-0.5 hover:bg-flandes-red-dark hover:shadow-card-hover
+      focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+      focus-visible:outline-flandes-red disabled:opacity-60;
+  }
+
+  .btn-forest {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-forest px-6 py-3
+      text-[0.95rem] font-semibold text-white shadow-card transition-all duration-200
+      hover:-translate-y-0.5 hover:bg-forest-dark hover:shadow-card-hover;
+  }
+
+  .btn-whatsapp {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-6 py-3
+      text-[0.95rem] font-semibold text-white shadow-card transition-all duration-200
+      hover:-translate-y-0.5 hover:bg-[#1da851] hover:shadow-card-hover;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-white/25
+      bg-white/5 px-6 py-3 text-[0.95rem] font-semibold text-white backdrop-blur
+      transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/15;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-forest/25
+      bg-white px-6 py-3 text-[0.95rem] font-semibold text-forest-dark transition-all duration-200
+      hover:-translate-y-0.5 hover:border-forest hover:shadow-card;
+  }
+
+  /* Tarjeta */
+  .card {
+    @apply rounded-2xl border border-forest/10 bg-white p-6 shadow-card transition-all duration-200;
+  }
+  .card-hover:hover {
+    @apply -translate-y-1 border-forest/20 shadow-card-hover;
+  }
+
+  /* Encabezado de sección */
+  .section-eyebrow {
+    @apply eyebrow mb-3 text-flandes-red;
+  }
+  .section-title {
+    @apply font-display text-3xl font-bold uppercase leading-tight tracking-tight text-forest-dark sm:text-[2.5rem];
+  }
+
+  /* Admin panel — inputs y etiquetas */
+  .admin-input {
+    @apply w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white
+      placeholder-white/25 outline-none transition
+      focus:border-gold/50 focus:bg-white/10 focus:ring-2 focus:ring-gold/20;
+  }
+  .field-label {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-white/50;
+  }
+}
