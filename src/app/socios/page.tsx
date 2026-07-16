@@ -1,7 +1,7 @@
 import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { whatsappLink } from "@/lib/siteConfigService";
+import { whatsappLink, getDynamicCuota } from "@/lib/siteConfigService";
 import {
   ShieldIcon,
   BookIcon,
@@ -21,6 +21,7 @@ export const metadata = {
 };
 
 export default function SociosPage() {
+  const cuota = getDynamicCuota();
   return (
     <>
       <PageHero
@@ -60,12 +61,16 @@ export default function SociosPage() {
               Socio del campo
             </h3>
             <div className="my-5 border-y border-forest/10 py-5">
-              <p className="font-display text-4xl font-bold text-flandes-red">
-                $XXXX
-              </p>
-              <p className="mt-1 text-xs text-forest/55">
-                cuota mensual
-              </p>
+              {cuota ? (
+                <>
+                  <p className="font-display text-4xl font-bold text-flandes-red">
+                    ${Number(cuota).toLocaleString("es-AR")}
+                  </p>
+                  <p className="mt-1 text-xs text-forest/55">cuota mensual</p>
+                </>
+              ) : (
+                <p className="text-sm text-forest/50">Consultá el valor de la cuota</p>
+              )}
             </div>
             <ul className="space-y-2 text-left">
               {categorias.map((c, i) => (
@@ -89,9 +94,13 @@ export default function SociosPage() {
               <WhatsAppIcon width={18} height={18} />
               Consultar por WhatsApp
             </a>
-            <p className="mt-3 text-xs text-forest/45">
-              Lorem ipsum dolor sit amet, consectetur adipiscing.
-            </p>
+            <Link
+              href="/socios/login"
+              className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-forest/15 py-2.5 text-sm font-semibold text-forest/70 transition hover:border-forest/30 hover:text-forest-dark"
+            >
+              <LockIcon width={15} height={15} />
+              Ya soy socio — Acceder al portal
+            </Link>
           </div>
         </div>
       </section>

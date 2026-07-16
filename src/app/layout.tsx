@@ -34,14 +34,15 @@ export default async function RootLayout({
   const headersList = await headers();
   const pathname = headersList.get("x-pathname") ?? "";
   const isAdmin = pathname.startsWith("/admin");
+  const isSocioPortal = pathname.startsWith("/socios/portal") || pathname.startsWith("/socios/login");
 
   return (
     <html lang="es" className={`${inter.variable} ${oswald.variable}`}>
       <body className="flex min-h-screen flex-col font-sans">
-        {!isAdmin && <Navbar />}
+        {!isAdmin && !isSocioPortal && <Navbar />}
         <main className="flex-1">{children}</main>
-        {!isAdmin && <Footer />}
-        {!isAdmin && <WhatsAppFloat />}
+        {!isAdmin && !isSocioPortal && <Footer />}
+        {!isAdmin && !isSocioPortal && <WhatsAppFloat />}
       </body>
     </html>
   );

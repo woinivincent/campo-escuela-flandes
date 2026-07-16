@@ -3,13 +3,23 @@ import { NextRequest, NextResponse } from "next/server";
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Protect all admin routes except login
+  // Protect admin routes
   if (pathname.startsWith("/admin") && !pathname.startsWith("/admin/login")) {
     const cookie = request.cookies.get("flandes_admin");
     if (!cookie || cookie.value !== "1") {
       const url = request.nextUrl.clone();
       url.pathname = "/admin/login";
       url.searchParams.set("from", pathname);
+      return NextResponse.redirect(url);
+    }
+  }
+
+  // Protect socios portal
+  if (pathname.startsWith("/socios/portal")) {
+    const cookie = request.cookies.get("flandes_socio");
+    if (!cookie?.value) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/socios/login";
       return NextResponse.redirect(url);
     }
   }

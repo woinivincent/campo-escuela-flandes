@@ -3,6 +3,7 @@ import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageFrame from "@/components/ui/ImageFrame";
 import { whatsappLink } from "@/lib/siteConfigService";
+import { getEspecies, type Especie } from "@/lib/db";
 import {
   LeafIcon,
   QrIcon,
@@ -18,21 +19,10 @@ export const metadata = {
     "Flora y fauna del Campo Escuela Flandes. Fichas de especies con códigos QR y proyectos del área de naturaleza.",
 };
 
-type Categoria = "Flora" | "Fauna";
-
-interface Especie {
-  id: string;
-  nombreComun: string;
-  nombreCientifico: string;
-  descripcion: string;
-  curiosidad: string;
-  categoria: Categoria;
-  qrDisponible: boolean;
-}
-
 export default function NaturalezaPage() {
-  const flora = especies.filter((e) => e.categoria === "Flora");
-  const fauna = especies.filter((e) => e.categoria === "Fauna");
+  const todasEspecies = getEspecies();
+  const flora = todasEspecies.filter((e) => e.categoria === "Flora");
+  const fauna = todasEspecies.filter((e) => e.categoria === "Fauna");
 
   return (
     <>
@@ -257,80 +247,6 @@ const destacados = [
   { texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", icon: UsersIcon },
 ];
 
-const especies: Especie[] = [
-  {
-    id: "espinillo",
-    nombreComun: "Espinillo",
-    nombreCientifico: "Vachellia caven",
-    categoria: "Flora",
-    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    curiosidad: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    qrDisponible: false,
-  },
-  {
-    id: "ceibo",
-    nombreComun: "Ceibo",
-    nombreCientifico: "Erythrina crista-galli",
-    categoria: "Flora",
-    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    curiosidad: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    qrDisponible: false,
-  },
-  {
-    id: "sauce",
-    nombreComun: "Sauce criollo",
-    nombreCientifico: "Salix humboldtiana",
-    categoria: "Flora",
-    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    curiosidad: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    qrDisponible: false,
-  },
-  {
-    id: "tala",
-    nombreComun: "Tala",
-    nombreCientifico: "Celtis ehrenbergiana",
-    categoria: "Flora",
-    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    curiosidad: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    qrDisponible: false,
-  },
-  {
-    id: "carpincho",
-    nombreComun: "Carpincho",
-    nombreCientifico: "Hydrochoerus hydrochaeris",
-    categoria: "Fauna",
-    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    curiosidad: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    qrDisponible: false,
-  },
-  {
-    id: "hornero",
-    nombreComun: "Hornero",
-    nombreCientifico: "Furnarius rufus",
-    categoria: "Fauna",
-    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    curiosidad: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    qrDisponible: false,
-  },
-  {
-    id: "martin-pescador",
-    nombreComun: "Martín pescador",
-    nombreCientifico: "Megaceryle torquata",
-    categoria: "Fauna",
-    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    curiosidad: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    qrDisponible: false,
-  },
-  {
-    id: "coipo",
-    nombreComun: "Coipo / Nutria",
-    nombreCientifico: "Myocastor coypus",
-    categoria: "Fauna",
-    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    curiosidad: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    qrDisponible: false,
-  },
-];
 
 const qrPasos = [
   {

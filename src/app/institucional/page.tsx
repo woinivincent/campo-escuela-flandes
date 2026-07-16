@@ -3,6 +3,9 @@ import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageFrame from "@/components/ui/ImageFrame";
 import { siteConfig } from "@/config/site";
+import { getHitos } from "@/lib/db";
+// siteConfig used for website footer only
+import { getDynamicSocialConfig } from "@/lib/siteConfigService";
 import {
   FacebookIcon,
   InstagramIcon,
@@ -17,6 +20,13 @@ export const metadata = {
 };
 
 export default function InstitucionalPage() {
+  const hitos = getHitos();
+  const social = getDynamicSocialConfig();
+  const redes = [
+    { label: "Facebook",  href: social.facebook,  icon: FacebookIcon },
+    { label: "Instagram", href: social.instagram, icon: InstagramIcon },
+    { label: "YouTube",   href: social.youtube,   icon: YoutubeIcon },
+  ];
   return (
     <>
       <PageHero
@@ -142,15 +152,3 @@ export default function InstitucionalPage() {
   );
 }
 
-const hitos = [
-  { anio: "1980s", texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
-  { anio: "1990s", texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
-  { anio: "2000s", texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
-  { anio: "Hoy", texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
-];
-
-const redes = [
-  { label: "Facebook", href: siteConfig.social.facebook, icon: FacebookIcon },
-  { label: "Instagram", href: siteConfig.social.instagram, icon: InstagramIcon },
-  { label: "YouTube", href: siteConfig.social.youtube, icon: YoutubeIcon },
-];

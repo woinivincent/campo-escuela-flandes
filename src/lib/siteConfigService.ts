@@ -24,7 +24,7 @@ export function getDynamicContactConfig() {
     whatsappDisplay:
       getConfigValue("whatsappDisplay") ?? siteConfig.contact.whatsappDisplay,
     email: getConfigValue("email") ?? siteConfig.contact.email,
-    location: siteConfig.contact.location,
+    location: getConfigValue("location") ?? siteConfig.contact.location,
   };
 }
 
@@ -34,4 +34,17 @@ export function getDynamicSocialConfig() {
     instagram: getConfigValue("instagram") ?? siteConfig.social.instagram,
     youtube: getConfigValue("youtube") ?? siteConfig.social.youtube,
   };
+}
+
+export function getDynamicSubcampos(): { id: string; nombre: string }[] {
+  return [
+    { id: "1", nombre: getConfigValue("subcampo1") ?? siteConfig.subcampos[0].nombre },
+    { id: "2", nombre: getConfigValue("subcampo2") ?? siteConfig.subcampos[1].nombre },
+    { id: "3", nombre: getConfigValue("subcampo3") ?? siteConfig.subcampos[2].nombre },
+    { id: "4", nombre: getConfigValue("subcampo4") ?? siteConfig.subcampos[3].nombre },
+  ];
+}
+
+export function getDynamicCuota(): string {
+  return getConfigValue("cuota_mensual") ?? "";
 }

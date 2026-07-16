@@ -2,7 +2,7 @@ import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageFrame from "@/components/ui/ImageFrame";
-import { siteConfig } from "@/config/site";
+import { getDynamicSubcampos } from "@/lib/siteConfigService";
 import {
   DropletIcon,
   ZapIcon,
@@ -22,6 +22,55 @@ export const metadata = {
 };
 
 export default function AcampesPage() {
+  const subcampos = getDynamicSubcampos();
+
+  const subcamposDetalle = [
+    {
+      id: "1", nombre: subcampos[0].nombre,
+      descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      caracteristicas: [
+        { label: "Capacidad", valor: "Hasta 80 personas", icon: UsersIcon },
+        { label: "Acceso", valor: "Vehicular y peatonal", icon: CarIcon },
+        { label: "Fogón", valor: "Habilitado", icon: FlameIcon },
+        { label: "Agua", valor: "Toma propia", icon: DropletIcon },
+      ],
+      servicios: ["Agua corriente", "Baños a 50 m", "Fogón habilitado", "Estacionamiento"],
+    },
+    {
+      id: "2", nombre: subcampos[1].nombre,
+      descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      caracteristicas: [
+        { label: "Capacidad", valor: "Hasta 50 personas", icon: UsersIcon },
+        { label: "Acceso", valor: "Solo peatonal", icon: MapIcon },
+        { label: "Fogón", valor: "Habilitado", icon: FlameIcon },
+        { label: "Agua", valor: "Toma compartida", icon: DropletIcon },
+      ],
+      servicios: ["Agua corriente", "Baños a 100 m", "Fogón habilitado"],
+    },
+    {
+      id: "3", nombre: subcampos[2].nombre,
+      descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      caracteristicas: [
+        { label: "Capacidad", valor: "Hasta 60 personas", icon: UsersIcon },
+        { label: "Acceso", valor: "Vehicular y peatonal", icon: CarIcon },
+        { label: "Techado", valor: "Quincho central cercano", icon: HomeIcon },
+        { label: "Agua", valor: "Toma propia", icon: DropletIcon },
+      ],
+      servicios: ["Agua corriente", "Baños propios", "Fogón habilitado", "Quincho cercano"],
+    },
+    {
+      id: "4", nombre: subcampos[3].nombre,
+      descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      caracteristicas: [
+        { label: "Capacidad", valor: "Hasta 40 personas", icon: UsersIcon },
+        { label: "Acceso", valor: "Solo peatonal", icon: MapIcon },
+        { label: "Fogón", valor: "Habilitado", icon: FlameIcon },
+        { label: "Agua", valor: "Toma cercana", icon: DropletIcon },
+      ],
+      servicios: ["Agua corriente", "Baños a 150 m", "Fogón habilitado"],
+    },
+  ];
+
   return (
     <>
       <PageHero
@@ -197,7 +246,7 @@ export default function AcampesPage() {
             className="mx-auto aspect-[16/9] max-w-4xl w-full"
           />
           <div className="mt-6 flex flex-wrap justify-center gap-4">
-            {siteConfig.subcampos.map((s, i) => (
+            {subcampos.map((s, i) => (
               <span
                 key={s.id}
                 className="flex items-center gap-2 text-sm text-forest/70"
@@ -313,57 +362,3 @@ const servicios = [
   },
 ];
 
-const subcamposDetalle = [
-  {
-    id: "1",
-    nombre: siteConfig.subcampos[0].nombre,
-    descripcion:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    caracteristicas: [
-      { label: "Capacidad", valor: "Hasta 80 personas", icon: UsersIcon },
-      { label: "Acceso", valor: "Vehicular y peatonal", icon: CarIcon },
-      { label: "Fogón", valor: "Habilitado", icon: FlameIcon },
-      { label: "Agua", valor: "Toma propia", icon: DropletIcon },
-    ],
-    servicios: ["Agua corriente", "Baños a 50 m", "Fogón habilitado", "Estacionamiento"],
-  },
-  {
-    id: "2",
-    nombre: siteConfig.subcampos[1].nombre,
-    descripcion:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    caracteristicas: [
-      { label: "Capacidad", valor: "Hasta 50 personas", icon: UsersIcon },
-      { label: "Acceso", valor: "Solo peatonal", icon: MapIcon },
-      { label: "Fogón", valor: "Habilitado", icon: FlameIcon },
-      { label: "Agua", valor: "Toma compartida", icon: DropletIcon },
-    ],
-    servicios: ["Agua corriente", "Baños a 100 m", "Fogón habilitado"],
-  },
-  {
-    id: "3",
-    nombre: siteConfig.subcampos[2].nombre,
-    descripcion:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    caracteristicas: [
-      { label: "Capacidad", valor: "Hasta 60 personas", icon: UsersIcon },
-      { label: "Acceso", valor: "Vehicular y peatonal", icon: CarIcon },
-      { label: "Techado", valor: "Quincho central cercano", icon: HomeIcon },
-      { label: "Agua", valor: "Toma propia", icon: DropletIcon },
-    ],
-    servicios: ["Agua corriente", "Baños propios", "Fogón habilitado", "Quincho cercano"],
-  },
-  {
-    id: "4",
-    nombre: siteConfig.subcampos[3].nombre,
-    descripcion:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    caracteristicas: [
-      { label: "Capacidad", valor: "Hasta 40 personas", icon: UsersIcon },
-      { label: "Acceso", valor: "Solo peatonal", icon: MapIcon },
-      { label: "Fogón", valor: "Habilitado", icon: FlameIcon },
-      { label: "Agua", valor: "Toma cercana", icon: DropletIcon },
-    ],
-    servicios: ["Agua corriente", "Baños a 150 m", "Fogón habilitado"],
-  },
-];

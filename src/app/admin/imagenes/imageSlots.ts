@@ -32,7 +32,32 @@ export const IMAGE_SLOTS = [
   { id: "especie-hornero",         label: "Hornero",                group: "Fauna",     desc: "Furnarius rufus" },
   { id: "especie-martin-pescador", label: "Martín pescador",        group: "Fauna",     desc: "Megaceryle torquata" },
   { id: "especie-coipo",           label: "Coipo / Nutria",         group: "Fauna",     desc: "Myocastor coypus" },
+  // Libros
+  { id: "libro-escultismo-muchos", label: "Escultismo para muchachos", group: "Libros", desc: "Portada del libro" },
+  { id: "libro-flora-bonaerense",  label: "Guía flora bonaerense",    group: "Libros", desc: "Portada del libro" },
+  { id: "libro-manual-dirigente",  label: "Manual del dirigente",     group: "Libros", desc: "Portada del libro" },
+  { id: "libro-nudos",             label: "Nudos",                    group: "Libros", desc: "Portada del libro" },
+  { id: "libro-libro-selva",       label: "El libro de la selva",     group: "Libros", desc: "Portada del libro" },
+  { id: "libro-supervivencia",     label: "Supervivencia en la naturaleza", group: "Libros", desc: "Portada del libro" },
+  // Galería institucional
+  { id: "galeria-1", label: "Galería 1", group: "Galería", desc: "Foto histórica del campo" },
+  { id: "galeria-2", label: "Galería 2", group: "Galería", desc: "Foto histórica del campo" },
+  { id: "galeria-3", label: "Galería 3", group: "Galería", desc: "Foto histórica del campo" },
+  { id: "galeria-4", label: "Galería 4", group: "Galería", desc: "Foto histórica del campo" },
+  { id: "galeria-5", label: "Galería 5", group: "Galería", desc: "Foto histórica del campo" },
+  { id: "galeria-6", label: "Galería 6", group: "Galería", desc: "Foto histórica del campo" },
+  { id: "galeria-7", label: "Galería 7", group: "Galería", desc: "Foto histórica del campo" },
+  { id: "galeria-8", label: "Galería 8", group: "Galería", desc: "Foto histórica del campo" },
+  // Galería acampes
+  { id: "acampe-galeria-1", label: "Acampe galería 1", group: "Galería", desc: "Foto del predio" },
+  { id: "acampe-galeria-2", label: "Acampe galería 2", group: "Galería", desc: "Foto del predio" },
+  { id: "acampe-galeria-3", label: "Acampe galería 3", group: "Galería", desc: "Foto del predio" },
+  { id: "acampe-galeria-4", label: "Acampe galería 4", group: "Galería", desc: "Foto del predio" },
+  { id: "acampe-galeria-5", label: "Acampe galería 5", group: "Galería", desc: "Foto del predio" },
+  { id: "acampe-galeria-6", label: "Acampe galería 6", group: "Galería", desc: "Foto del predio" },
+  { id: "acampe-galeria-7", label: "Acampe galería 7", group: "Galería", desc: "Foto del predio" },
+  { id: "acampe-galeria-8", label: "Acampe galería 8", group: "Galería", desc: "Foto del predio" },
 ] as const;
 
 export type ImageSlot = (typeof IMAGE_SLOTS)[number];
-export const GROUPS = ["Portadas", "Secciones", "Subcampos", "Flora", "Fauna"] as const;
+export const GROUPS = ["Portadas", "Secciones", "Subcampos", "Flora", "Fauna", "Libros", "Galería"] as const;

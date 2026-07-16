@@ -3,8 +3,7 @@ import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageFrame from "@/components/ui/ImageFrame";
 import ReservaForm from "@/components/reservas/ReservaForm";
-import { siteConfig } from "@/config/site";
-import { getDynamicContactConfig } from "@/lib/siteConfigService";
+import { getDynamicContactConfig, getDynamicSubcampos } from "@/lib/siteConfigService";
 import {
   ShieldIcon,
   UsersIcon,
@@ -24,6 +23,13 @@ export const metadata = {
 
 export default async function ReservasPage() {
   const contact = getDynamicContactConfig();
+  const sc = getDynamicSubcampos();
+  const subcamposDetalle = [
+    { id: "1", nombre: sc[0].nombre, descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", servicios: ["Agua corriente", "Baños cercanos", "Fogón habilitado"],         capacidad: "Hasta 80 personas" },
+    { id: "2", nombre: sc[1].nombre, descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", servicios: ["Agua corriente", "Baños a 100 m", "Fogón habilitado"],          capacidad: "Hasta 50 personas" },
+    { id: "3", nombre: sc[2].nombre, descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", servicios: ["Agua corriente", "Baños propios", "Techado disponible"],        capacidad: "Hasta 60 personas" },
+    { id: "4", nombre: sc[3].nombre, descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", servicios: ["Agua corriente", "Baños cercanos", "Fogón habilitado"],        capacidad: "Hasta 40 personas" },
+  ];
   return (
     <>
       <PageHero
@@ -257,33 +263,3 @@ const normas = [
   },
 ];
 
-const subcamposDetalle = [
-  {
-    id: "1",
-    nombre: siteConfig.subcampos[0].nombre,
-    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    servicios: ["Agua corriente", "Baños cercanos", "Fogón habilitado"],
-    capacidad: "Hasta 80 personas",
-  },
-  {
-    id: "2",
-    nombre: siteConfig.subcampos[1].nombre,
-    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    servicios: ["Agua corriente", "Baños a 100 m", "Fogón habilitado"],
-    capacidad: "Hasta 50 personas",
-  },
-  {
-    id: "3",
-    nombre: siteConfig.subcampos[2].nombre,
-    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    servicios: ["Agua corriente", "Baños propios", "Techado disponible"],
-    capacidad: "Hasta 60 personas",
-  },
-  {
-    id: "4",
-    nombre: siteConfig.subcampos[3].nombre,
-    descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    servicios: ["Agua corriente", "Baños cercanos", "Fogón habilitado"],
-    capacidad: "Hasta 40 personas",
-  },
-];
