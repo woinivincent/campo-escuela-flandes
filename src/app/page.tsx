@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { siteConfig } from "@/config/site";
 import TopoPattern from "@/components/ui/TopoPattern";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageFrame from "@/components/ui/ImageFrame";
+import { getDynamicSubcampos } from "@/lib/siteConfigService";
+import { getEventosPublicos } from "@/lib/db";
 import {
   TentIcon,
   CalendarIcon,
@@ -15,6 +16,8 @@ import {
 } from "@/components/ui/icons";
 
 export default function HomePage() {
+  const subcampos = getDynamicSubcampos();
+  const eventosDB = getEventosPublicos().slice(0, 3);
   return (
     <>
       {/* ---------- HERO (foto aérea a sangre completa) ---------- */}
@@ -155,7 +158,7 @@ export default function HomePage() {
           className="mb-12"
         />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {siteConfig.subcampos.map((s, i) => (
+          {subcampos.map((s, i) => (
             <div key={s.id} className="card card-hover group overflow-hidden !p-0">
               <ImageFrame
                 src={`/images/subcampo-${s.id}.jpg`}
@@ -267,32 +270,42 @@ export default function HomePage() {
               <ArrowRightIcon width={16} height={16} />
             </Link>
           </div>
-          <ul className="mt-10 divide-y divide-forest/10 overflow-hidden rounded-2xl border border-forest/10 bg-white">
-            {eventos.map((e, i) => (
+          {eventosDB.length === 0 ? (
+            <p className="rounded-2xl border border-forest/10 bg-white py-10 text-center text-sm text-forest/50">
+              No hay eventos próximos. Consultanos por WhatsApp.
+            </p>
+          ) : (
+          <ul className="divide-y divide-forest/10 overflow-hidden rounded-2xl border border-forest/10 bg-white">
+            {eventosDB.map((e) => {
+              const [, evMes, evDia] = e.fecha.split("-");
+              const MESES_SHORT: Record<string,string> = { "01":"Ene","02":"Feb","03":"Mar","04":"Abr","05":"May","06":"Jun","07":"Jul","08":"Ago","09":"Sep","10":"Oct","11":"Nov","12":"Dic" };
+              return (
               <li
-                key={i}
+                key={e.id}
                 className="flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:gap-6"
               >
                 <div className="flex h-16 w-16 shrink-0 flex-col items-center justify-center rounded-xl bg-forest-dark text-sand">
                   <span className="font-display text-2xl font-bold leading-none text-gold">
-                    {e.dia}
+                    {evDia}
                   </span>
                   <span className="text-[0.65rem] uppercase tracking-wide text-sand/80">
-                    {e.mes}
+                    {MESES_SHORT[evMes] ?? evMes}
                   </span>
                 </div>
                 <div className="flex-1">
                   <h3 className="font-display text-lg font-bold text-forest-dark">
                     {e.titulo}
                   </h3>
-                  <p className="text-sm text-forest/70">{e.detalle}</p>
+                  <p className="text-sm text-forest/70">{e.descripcion}</p>
                 </div>
                 <span className="self-start rounded-full bg-gold/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-gold-dark sm:self-center">
                   {e.tipo}
                 </span>
               </li>
-            ))}
+              );
+            })}
           </ul>
+          )}
         </div>
       </section>
 
@@ -360,8 +373,3 @@ const pasos = [
   { title: "Lorem ipsum dolor", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.", icon: ShieldIcon },
 ];
 
-const eventos = [
-  { dia: "12", mes: "Jul", titulo: "Lorem ipsum dolor sit amet", detalle: "Lorem ipsum dolor sit amet, consectetur.", tipo: "Curso" },
-  { dia: "26", mes: "Jul", titulo: "Lorem ipsum dolor sit amet", detalle: "Lorem ipsum dolor sit amet, consectetur.", tipo: "Acampe" },
-  { dia: "09", mes: "Ago", titulo: "Lorem ipsum dolor sit amet", detalle: "Lorem ipsum dolor sit amet, consectetur.", tipo: "Charla" },
-];

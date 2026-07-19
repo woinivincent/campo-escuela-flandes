@@ -3,7 +3,7 @@ import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageFrame from "@/components/ui/ImageFrame";
 import { getCursosPublicos } from "@/lib/db";
-import { whatsappLink } from "@/lib/siteConfigService";
+import { whatsappLink, getDynamicSocialConfig } from "@/lib/siteConfigService";
 import TopoPattern from "@/components/ui/TopoPattern";
 import {
   GraduationIcon,
@@ -35,6 +35,7 @@ function toFechaDisplay(fecha: string): string {
 
 export default async function AdiestramientoPage() {
   const cursos = getCursosPublicos();
+  const social = getDynamicSocialConfig();
   return (
     <>
       <PageHero
@@ -130,7 +131,7 @@ export default async function AdiestramientoPage() {
               subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
             />
             <a
-              href="https://youtube.com/"
+              href={social.youtube || "https://youtube.com"}
               target="_blank"
               rel="noopener noreferrer"
               className="flex shrink-0 items-center gap-2 text-sm font-semibold text-flandes-red transition hover:text-flandes-red-dark"

@@ -78,7 +78,7 @@ export default function InstitucionalPage() {
           />
           <ol className="relative mx-auto max-w-3xl border-l-2 border-gold/40 pl-8">
             {hitos.map((h) => (
-              <li key={h.anio} className="relative mb-8 last:mb-0">
+              <li key={h.id} className="relative mb-8 last:mb-0">
                 <span className="absolute -left-[2.6rem] flex h-7 w-7 items-center justify-center rounded-full bg-flandes-red text-[0.7rem] font-bold text-white ring-4 ring-forest-pale/50">
                   ●
                 </span>
