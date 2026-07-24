@@ -2,7 +2,7 @@ import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageFrame from "@/components/ui/ImageFrame";
-import { getDynamicSubcampos } from "@/lib/siteConfigService";
+import { getSiteSettings } from "@/lib/siteConfigService";
 import {
   DropletIcon,
   ZapIcon,
@@ -21,8 +21,8 @@ export const metadata = {
     "Conocé el predio del Campo Escuela Flandes: cuatro subcampos, servicios e instalaciones para grupos scouts.",
 };
 
-export default function AcampesPage() {
-  const subcampos = getDynamicSubcampos();
+export default async function AcampesPage() {
+  const { subcampos } = await getSiteSettings();
 
   const subcamposDetalle = [
     {

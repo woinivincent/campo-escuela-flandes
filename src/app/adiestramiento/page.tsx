@@ -3,7 +3,7 @@ import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageFrame from "@/components/ui/ImageFrame";
 import { getCursosPublicos } from "@/lib/db";
-import { whatsappLink, getDynamicSocialConfig } from "@/lib/siteConfigService";
+import { getSiteSettings } from "@/lib/siteConfigService";
 import TopoPattern from "@/components/ui/TopoPattern";
 import {
   GraduationIcon,
@@ -34,8 +34,9 @@ function toFechaDisplay(fecha: string): string {
 }
 
 export default async function AdiestramientoPage() {
-  const cursos = getCursosPublicos();
-  const social = getDynamicSocialConfig();
+  const cursos = await getCursosPublicos();
+  const cfg = await getSiteSettings();
+  const social = cfg.social;
   return (
     <>
       <PageHero
@@ -100,7 +101,7 @@ export default async function AdiestramientoPage() {
                 </ul>
 
                 <a
-                  href={whatsappLink(waMsg)}
+                  href={cfg.whatsappLink(waMsg)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-whatsapp mt-5"
@@ -213,7 +214,7 @@ export default async function AdiestramientoPage() {
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <a
-                href={whatsappLink(
+                href={cfg.whatsappLink(
                   "Hola! Quiero proponer un curso o charla en el Campo Escuela Flandes."
                 )}
                 target="_blank"

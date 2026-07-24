@@ -18,8 +18,8 @@ export default async function AdminSociosPage({
 }) {
   await requireAuth();
   const { editRec, newRec } = await searchParams;
-  const socios = getSocios();
-  const recursos = getRecursosSocios();
+  const socios = await getSocios();
+  const recursos = await getRecursosSocios();
 
   const showRecForm = newRec === "1" || !!editRec;
   const editandoRec = editRec ? recursos.find((r) => r.id === editRec) : undefined;

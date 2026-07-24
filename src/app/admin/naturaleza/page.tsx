@@ -13,8 +13,8 @@ export default async function AdminNaturalezaPage({
 }) {
   await requireAuth();
   const { edit, new: isNew } = await searchParams;
-  const especies = getEspecies();
-  const editando = edit ? getEspecie(edit) : undefined;
+  const especies = await getEspecies();
+  const editando = edit ? await getEspecie(edit) : undefined;
   const showForm = !!editando || isNew === "1";
 
   const flora = especies.filter((e) => e.categoria === "Flora");
@@ -30,6 +30,9 @@ export default async function AdminNaturalezaPage({
         <div className="flex items-center gap-3">
           <Link href="/naturaleza" target="_blank" className="flex items-center gap-1 text-xs text-white/40 hover:text-white/70">
             Ver página <ArrowRightIcon width={12} height={12} />
+          </Link>
+          <Link href="/admin/naturaleza/qr" className="rounded-xl border border-gold/30 px-4 py-2.5 font-display text-sm font-bold uppercase tracking-wide text-gold transition hover:border-gold/60 hover:bg-gold/10">
+            Códigos QR
           </Link>
           {!showForm && (
             <Link href="/admin/naturaleza?new=1" className="rounded-xl bg-gold px-5 py-2.5 font-display text-sm font-bold uppercase tracking-wide text-forest-dark transition hover:bg-gold-dark">

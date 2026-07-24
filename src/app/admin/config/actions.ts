@@ -18,10 +18,11 @@ export async function saveConfigAction(formData: FormData) {
     "subcampo3",
     "subcampo4",
     "cuota_mensual",
+    "site_url",
   ]) {
     const val = formData.get(key);
     if (typeof val === "string") data[key] = val.trim();
   }
-  setConfigValues(data);
+  await setConfigValues(data);
   revalidatePath("/", "layout");
 }

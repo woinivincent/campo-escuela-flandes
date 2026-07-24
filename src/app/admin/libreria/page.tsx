@@ -28,8 +28,8 @@ export default async function AdminLibreriaPage({
   await requireAuth();
 
   const { edit, new: isNew } = await searchParams;
-  const libros = getLibros();
-  const editando = edit ? getLibro(edit) : undefined;
+  const libros = await getLibros();
+  const editando = edit ? await getLibro(edit) : undefined;
   const showForm = !!editando || isNew === "1";
 
   return (

@@ -17,9 +17,9 @@ export async function saveLibroAction(formData: FormData) {
   };
 
   if (id) {
-    updateLibro(id, data);
+    await updateLibro(id, data);
   } else {
-    createLibro(data);
+    await createLibro(data);
   }
 
   revalidatePath("/libreria");
@@ -30,7 +30,7 @@ export async function saveLibroAction(formData: FormData) {
 
 export async function deleteLibroAction(formData: FormData) {
   const id = formData.get("id") as string;
-  if (id) deleteLibro(id);
+  if (id) await deleteLibro(id);
   revalidatePath("/libreria");
   revalidatePath("/admin/libreria");
   revalidatePath("/admin");

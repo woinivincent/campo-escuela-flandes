@@ -5,7 +5,7 @@ import ImageFrame from "@/components/ui/ImageFrame";
 import { siteConfig } from "@/config/site";
 import { getHitos } from "@/lib/db";
 // siteConfig used for website footer only
-import { getDynamicSocialConfig } from "@/lib/siteConfigService";
+import { getSiteSettings } from "@/lib/siteConfigService";
 import {
   FacebookIcon,
   InstagramIcon,
@@ -19,9 +19,9 @@ export const metadata = {
     "Historia del Campo Escuela Flandes, galería de recuerdos, hitos y redes sociales.",
 };
 
-export default function InstitucionalPage() {
-  const hitos = getHitos();
-  const social = getDynamicSocialConfig();
+export default async function InstitucionalPage() {
+  const hitos = await getHitos();
+  const { social } = await getSiteSettings();
   const redes = [
     { label: "Facebook",  href: social.facebook,  icon: FacebookIcon },
     { label: "Instagram", href: social.instagram, icon: InstagramIcon },

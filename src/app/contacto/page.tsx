@@ -3,12 +3,7 @@ import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageFrame from "@/components/ui/ImageFrame";
 import ContactoForm from "@/components/contacto/ContactoForm";
-import {
-  whatsappLink,
-  mailtoLink,
-  getDynamicContactConfig,
-  getDynamicSocialConfig,
-} from "@/lib/siteConfigService";
+import { getSiteSettings } from "@/lib/siteConfigService";
 import {
   WhatsAppIcon,
   MailIcon,
@@ -27,15 +22,15 @@ export const metadata = {
 };
 
 export default async function ContactoPage() {
-  const contact = getDynamicContactConfig();
-  const social = getDynamicSocialConfig();
+  const contact = await getSiteSettings();
+  const social = contact.social;
 
   const canales = [
     {
       tipo: "WhatsApp",
       label: contact.whatsappDisplay,
       sub: "Lorem ipsum dolor sit amet",
-      href: whatsappLink(),
+      href: contact.whatsappLink(),
       icon: WhatsAppIcon,
       external: true,
     },
@@ -43,7 +38,7 @@ export default async function ContactoPage() {
       tipo: "Email",
       label: contact.email,
       sub: "Lorem ipsum dolor sit amet",
-      href: mailtoLink(),
+      href: contact.mailtoLink(),
       icon: MailIcon,
       external: false,
     },

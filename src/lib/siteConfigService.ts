@@ -1,50 +1,64 @@
-import { getConfigValue } from "@/lib/db";
+import { cache } from "react";
+import { getAllConfigValues } from "@/lib/db";
 import { siteConfig } from "@/config/site";
 
-export function whatsappLink(msg?: string): string {
-  const number = getConfigValue("whatsapp") ?? siteConfig.contact.whatsapp;
-  const base = `https://wa.me/${number}`;
-  return msg ? `${base}?text=${encodeURIComponent(msg)}` : base;
+export interface SiteSettings {
+  whatsapp: string;
+  whatsappDisplay: string;
+  email: string;
+  location: string;
+  social: { facebook: string; instagram: string; youtube: string };
+  subcampos: { id: string; nombre: string }[];
+  cuota: string;
+  /** URL pública del sitio, sin barra final. Usada para armar los QR. */
+  siteUrl: string;
+  whatsappLink(msg?: string): string;
+  mailtoLink(subject?: string): string;
 }
 
-export function mailtoLink(subject?: string): string {
-  const email = getConfigValue("email") ?? siteConfig.contact.email;
-  return subject
-    ? `mailto:${email}?subject=${encodeURIComponent(subject)}`
-    : `mailto:${email}`;
-}
+/**
+ * Configuración del sitio para el request actual.
+ *
+ * `cache()` la resuelve una sola vez por render, así layout y página no
+ * golpean el store por separado. Los helpers que devuelve son sincrónicos,
+ * para poder usarlos en línea dentro del JSX.
+ */
+export const getSiteSettings = cache(async (): Promise<SiteSettings> => {
+  const cfg = await getAllConfigValues();
 
-export function getWhatsappNumber(): string {
-  return getConfigValue("whatsapp") ?? siteConfig.contact.whatsapp;
-}
-
-export function getDynamicContactConfig() {
-  return {
-    whatsapp: getConfigValue("whatsapp") ?? siteConfig.contact.whatsapp,
-    whatsappDisplay:
-      getConfigValue("whatsappDisplay") ?? siteConfig.contact.whatsappDisplay,
-    email: getConfigValue("email") ?? siteConfig.contact.email,
-    location: getConfigValue("location") ?? siteConfig.contact.location,
+  const pick = (key: string, fallback: string) => {
+    const v = cfg[key];
+    return v && v.trim() !== "" ? v : fallback;
   };
-}
 
-export function getDynamicSocialConfig() {
+  const whatsapp = pick("whatsapp", siteConfig.contact.whatsapp);
+  const email = pick("email", siteConfig.contact.email);
+
   return {
-    facebook: getConfigValue("facebook") ?? siteConfig.social.facebook,
-    instagram: getConfigValue("instagram") ?? siteConfig.social.instagram,
-    youtube: getConfigValue("youtube") ?? siteConfig.social.youtube,
+    whatsapp,
+    whatsappDisplay: pick("whatsappDisplay", siteConfig.contact.whatsappDisplay),
+    email,
+    location: pick("location", siteConfig.contact.location),
+    social: {
+      facebook: pick("facebook", siteConfig.social.facebook),
+      instagram: pick("instagram", siteConfig.social.instagram),
+      youtube: pick("youtube", siteConfig.social.youtube),
+    },
+    subcampos: siteConfig.subcampos.map((s, i) => ({
+      id: s.id,
+      nombre: pick(`subcampo${i + 1}`, s.nombre),
+    })),
+    cuota: cfg.cuota_mensual ?? "",
+    siteUrl: (cfg.site_url ?? "").replace(/\/+$/, ""),
+
+    whatsappLink(msg?: string) {
+      const base = `https://wa.me/${whatsapp}`;
+      return msg ? `${base}?text=${encodeURIComponent(msg)}` : base;
+    },
+    mailtoLink(subject?: string) {
+      return subject
+        ? `mailto:${email}?subject=${encodeURIComponent(subject)}`
+        : `mailto:${email}`;
+    },
   };
-}
-
-export function getDynamicSubcampos(): { id: string; nombre: string }[] {
-  return [
-    { id: "1", nombre: getConfigValue("subcampo1") ?? siteConfig.subcampos[0].nombre },
-    { id: "2", nombre: getConfigValue("subcampo2") ?? siteConfig.subcampos[1].nombre },
-    { id: "3", nombre: getConfigValue("subcampo3") ?? siteConfig.subcampos[2].nombre },
-    { id: "4", nombre: getConfigValue("subcampo4") ?? siteConfig.subcampos[3].nombre },
-  ];
-}
-
-export function getDynamicCuota(): string {
-  return getConfigValue("cuota_mensual") ?? "";
-}
+});

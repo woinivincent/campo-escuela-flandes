@@ -1,17 +1,12 @@
 import Link from "next/link";
 import { mainNav } from "@/config/nav";
 import { siteConfig } from "@/config/site";
-import {
-  whatsappLink,
-  mailtoLink,
-  getDynamicContactConfig,
-  getDynamicSocialConfig,
-} from "@/lib/siteConfigService";
+import { getSiteSettings } from "@/lib/siteConfigService";
 import Logo from "@/components/ui/Logo";
 
 export default async function Footer() {
-  const contact = getDynamicContactConfig();
-  const social = getDynamicSocialConfig();
+  const contact = await getSiteSettings();
+  const social = contact.social;
   return (
     <footer className="mt-20 bg-forest-dark text-sand">
       <div className="container-flandes grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
@@ -23,7 +18,7 @@ export default async function Footer() {
           </div>
           <p className="mt-4 text-sm text-sand/80">{siteConfig.tagline}</p>
           <p className="mt-2 text-sm text-sand/60">
-            {siteConfig.contact.location}
+            {contact.location}
           </p>
         </div>
 
@@ -54,7 +49,7 @@ export default async function Footer() {
           <ul className="mt-4 space-y-2 text-sm">
             <li>
               <a
-                href={whatsappLink()}
+                href={contact.whatsappLink()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sand/80 hover:text-gold-light"
@@ -64,7 +59,7 @@ export default async function Footer() {
             </li>
             <li>
               <a
-                href={mailtoLink()}
+                href={contact.mailtoLink()}
                 className="text-sand/80 hover:text-gold-light"
               >
                 {contact.email}

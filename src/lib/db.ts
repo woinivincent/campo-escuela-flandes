@@ -1,118 +1,11 @@
-import path from "path";
-import type BetterSQLite3 from "better-sqlite3";
 import { hashPassword } from "@/lib/crypto-utils";
-
-const DB_PATH =
-  process.env.DB_PATH ??
-  (process.env.NODE_ENV === "production"
-    ? "/tmp/flandes.db"
-    : path.join(process.cwd(), "flandes.db"));
-
-type DBInstance = BetterSQLite3.Database;
-
-declare global {
-  // eslint-disable-next-line no-var
-  var __flandesDB: DBInstance | null | undefined;
-}
-
-function getDB(): DBInstance | null {
-  if (typeof globalThis.__flandesDB !== "undefined") {
-    return globalThis.__flandesDB ?? null;
-  }
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const Database = require("better-sqlite3") as new (p: string) => DBInstance;
-    const db = new Database(DB_PATH);
-    initSchema(db);
-    seedIfEmpty(db);
-    globalThis.__flandesDB = db;
-  } catch (e) {
-    console.error("[db] SQLite no disponible, usando datos de ejemplo:", String(e));
-    globalThis.__flandesDB = null;
-  }
-  return globalThis.__flandesDB ?? null;
-}
-
-function initSchema(db: DBInstance) {
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS eventos (
-      id            TEXT PRIMARY KEY,
-      titulo        TEXT NOT NULL,
-      fecha         TEXT NOT NULL,
-      hora          TEXT NOT NULL DEFAULT '',
-      tipo          TEXT NOT NULL,
-      descripcion   TEXT NOT NULL,
-      destinatarios TEXT NOT NULL,
-      cupos         TEXT NOT NULL DEFAULT ''
-    );
-
-    CREATE TABLE IF NOT EXISTS libros (
-      id          TEXT PRIMARY KEY,
-      titulo      TEXT NOT NULL,
-      autor       TEXT NOT NULL,
-      categoria   TEXT NOT NULL,
-      precio      INTEGER NOT NULL DEFAULT 0,
-      descripcion TEXT NOT NULL,
-      disponible  INTEGER NOT NULL DEFAULT 1
-    );
-
-    CREATE TABLE IF NOT EXISTS cursos (
-      id            TEXT PRIMARY KEY,
-      titulo        TEXT NOT NULL,
-      descripcion   TEXT NOT NULL,
-      fecha         TEXT NOT NULL,
-      hora          TEXT NOT NULL DEFAULT '',
-      nivel         TEXT NOT NULL DEFAULT 'Básico',
-      destinatarios TEXT NOT NULL,
-      cupos         TEXT NOT NULL DEFAULT ''
-    );
-
-    CREATE TABLE IF NOT EXISTS config (
-      key   TEXT PRIMARY KEY,
-      value TEXT NOT NULL
-    );
-
-    CREATE TABLE IF NOT EXISTS hitos (
-      id    TEXT PRIMARY KEY,
-      anio  TEXT NOT NULL,
-      texto TEXT NOT NULL,
-      orden INTEGER NOT NULL DEFAULT 0
-    );
-
-    CREATE TABLE IF NOT EXISTS especies (
-      id               TEXT PRIMARY KEY,
-      nombreComun      TEXT NOT NULL,
-      nombreCientifico TEXT NOT NULL,
-      categoria        TEXT NOT NULL,
-      descripcion      TEXT NOT NULL,
-      curiosidad       TEXT NOT NULL,
-      qrDisponible     INTEGER NOT NULL DEFAULT 0,
-      orden            INTEGER NOT NULL DEFAULT 0
-    );
-
-    CREATE TABLE IF NOT EXISTS socios (
-      id            TEXT PRIMARY KEY,
-      nombre        TEXT NOT NULL,
-      email         TEXT NOT NULL UNIQUE,
-      password_hash TEXT NOT NULL,
-      salt          TEXT NOT NULL,
-      activo        INTEGER NOT NULL DEFAULT 1,
-      created_at    TEXT NOT NULL DEFAULT (date('now'))
-    );
-
-    CREATE TABLE IF NOT EXISTS recursos_socios (
-      id          TEXT PRIMARY KEY,
-      titulo      TEXT NOT NULL,
-      descripcion TEXT NOT NULL,
-      tipo        TEXT NOT NULL DEFAULT 'link',
-      url         TEXT NOT NULL DEFAULT '',
-      categoria   TEXT NOT NULL DEFAULT 'General',
-      icono       TEXT NOT NULL DEFAULT 'book',
-      orden       INTEGER NOT NULL DEFAULT 0,
-      activo      INTEGER NOT NULL DEFAULT 1
-    );
-  `);
-}
+import {
+  readCollection,
+  writeCollection,
+  mutateCollection,
+  readConfig,
+  writeConfig,
+} from "@/lib/store";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -155,425 +48,318 @@ export interface RecursoSocio {
   url: string; categoria: string; icono: string; orden: number; activo: number;
 }
 
-// ─── Seed ─────────────────────────────────────────────────────────────────────
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 
-function seedIfEmpty(db: DBInstance) {
-  const evCount = db.prepare("SELECT COUNT(*) as c FROM eventos").get() as { c: number };
-  if (evCount.c === 0) {
-    const ins = db.prepare(
-      "INSERT INTO eventos (id,titulo,fecha,hora,tipo,descripcion,destinatarios,cupos) VALUES (?,?,?,?,?,?,?,?)"
-    );
-    for (const e of SEED_EVENTOS) {
-      ins.run(e.id, e.titulo, e.fecha, e.hora, e.tipo, e.descripcion, e.destinatarios, e.cupos);
-    }
-  }
+const byFecha = (a: { fecha: string }, b: { fecha: string }) => a.fecha.localeCompare(b.fecha);
+const byOrden = (a: { orden: number }, b: { orden: number }) => a.orden - b.orden;
+const hoy = () => new Date().toISOString().slice(0, 10);
 
-  const libCount = db.prepare("SELECT COUNT(*) as c FROM libros").get() as { c: number };
-  if (libCount.c === 0) {
-    const ins = db.prepare(
-      "INSERT INTO libros (id,titulo,autor,categoria,precio,descripcion,disponible) VALUES (?,?,?,?,?,?,?)"
-    );
-    for (const l of SEED_LIBROS) {
-      ins.run(l.id, l.titulo, l.autor, l.categoria, l.precio, l.descripcion, l.disponible ? 1 : 0);
-    }
-  }
-
-  const cursosCount = db.prepare("SELECT COUNT(*) as c FROM cursos").get() as { c: number };
-  if (cursosCount.c === 0) {
-    const ins = db.prepare(
-      "INSERT INTO cursos (id,titulo,descripcion,fecha,hora,nivel,destinatarios,cupos) VALUES (?,?,?,?,?,?,?,?)"
-    );
-    for (const c of SEED_CURSOS) {
-      ins.run(c.id, c.titulo, c.descripcion, c.fecha, c.hora, c.nivel, c.destinatarios, c.cupos);
-    }
-  }
-
-  const cfgCount = db.prepare("SELECT COUNT(*) as c FROM config").get() as { c: number };
-  if (cfgCount.c === 0) {
-    const ins = db.prepare("INSERT INTO config (key,value) VALUES (?,?)");
-    for (const [key, value] of Object.entries(SEED_CONFIG)) {
-      ins.run(key, value);
-    }
-  } else {
-    // Add new config keys if missing (for existing DBs)
-    const stmt = db.prepare("INSERT OR IGNORE INTO config (key,value) VALUES (?,?)");
-    for (const [key, value] of Object.entries(SEED_CONFIG)) {
-      stmt.run(key, value);
-    }
-  }
-
-  const hitosCount = db.prepare("SELECT COUNT(*) as c FROM hitos").get() as { c: number };
-  if (hitosCount.c === 0) {
-    const ins = db.prepare("INSERT INTO hitos (id,anio,texto,orden) VALUES (?,?,?,?)");
-    for (const h of SEED_HITOS) {
-      ins.run(h.id, h.anio, h.texto, h.orden);
-    }
-  }
-
-  const especiesCount = db.prepare("SELECT COUNT(*) as c FROM especies").get() as { c: number };
-  if (especiesCount.c === 0) {
-    const ins = db.prepare(
-      "INSERT INTO especies (id,nombreComun,nombreCientifico,categoria,descripcion,curiosidad,qrDisponible,orden) VALUES (?,?,?,?,?,?,?,?)"
-    );
-    for (const e of SEED_ESPECIES) {
-      ins.run(e.id, e.nombreComun, e.nombreCientifico, e.categoria, e.descripcion, e.curiosidad, e.qrDisponible ? 1 : 0, e.orden);
-    }
-  }
-
-  const sociosCount = db.prepare("SELECT COUNT(*) as c FROM socios").get() as { c: number };
-  if (sociosCount.c === 0) {
-    const ins = db.prepare(
-      "INSERT INTO socios (id,nombre,email,password_hash,salt,activo,created_at) VALUES (?,?,?,?,?,?,?)"
-    );
-    for (const s of SEED_SOCIOS) {
-      ins.run(s.id, s.nombre, s.email, s.password_hash, s.salt, s.activo, s.created_at);
-    }
-  }
-
-  const recursosCount = db.prepare("SELECT COUNT(*) as c FROM recursos_socios").get() as { c: number };
-  if (recursosCount.c === 0) {
-    const ins = db.prepare(
-      "INSERT INTO recursos_socios (id,titulo,descripcion,tipo,url,categoria,icono,orden,activo) VALUES (?,?,?,?,?,?,?,?,?)"
-    );
-    for (const r of SEED_RECURSOS) {
-      ins.run(r.id, r.titulo, r.descripcion, r.tipo, r.url, r.categoria, r.icono, r.orden, r.activo);
-    }
-  }
+function nextOrden(rows: { orden: number }[]): number {
+  return rows.reduce((max, r) => Math.max(max, r.orden), -1) + 1;
 }
 
 // ─── Eventos ─────────────────────────────────────────────────────────────────
 
-export function getEventos(): Evento[] {
-  const db = getDB();
-  if (!db) return [...SEED_EVENTOS].sort((a, b) => a.fecha.localeCompare(b.fecha));
-  return db.prepare("SELECT * FROM eventos ORDER BY fecha ASC").all() as Evento[];
+export async function getEventos(): Promise<Evento[]> {
+  const rows = await readCollection<Evento>("eventos", SEED_EVENTOS);
+  return [...rows].sort(byFecha);
 }
 
-export function getEventosPublicos(): Evento[] {
-  const today = new Date().toISOString().slice(0, 10);
-  const db = getDB();
-  if (!db) return SEED_EVENTOS.filter((e) => e.fecha >= today).sort((a, b) => a.fecha.localeCompare(b.fecha));
-  return db.prepare("SELECT * FROM eventos WHERE fecha >= ? ORDER BY fecha ASC").all(today) as Evento[];
+export async function getEventosPublicos(): Promise<Evento[]> {
+  const rows = await getEventos();
+  return rows.filter((e) => e.fecha >= hoy());
 }
 
-export function getEvento(id: string): Evento | undefined {
-  const db = getDB();
-  if (!db) return SEED_EVENTOS.find((e) => e.id === id);
-  return db.prepare("SELECT * FROM eventos WHERE id=?").get(id) as Evento | undefined;
+export async function getEvento(id: string): Promise<Evento | undefined> {
+  const rows = await readCollection<Evento>("eventos", SEED_EVENTOS);
+  return rows.find((e) => e.id === id);
 }
 
-export function createEvento(data: Omit<Evento, "id">): string {
-  const db = getDB();
-  if (!db) throw new Error("Base de datos no disponible");
+export async function createEvento(data: Omit<Evento, "id">): Promise<string> {
   const id = `ev-${Date.now()}`;
-  db.prepare(
-    "INSERT INTO eventos (id,titulo,fecha,hora,tipo,descripcion,destinatarios,cupos) VALUES (?,?,?,?,?,?,?,?)"
-  ).run(id, data.titulo, data.fecha, data.hora, data.tipo, data.descripcion, data.destinatarios, data.cupos);
-  return id;
+  return mutateCollection<Evento, string>("eventos", SEED_EVENTOS, (rows) => ({
+    rows: [...rows, { ...data, id }],
+    result: id,
+  }));
 }
 
-export function updateEvento(id: string, data: Omit<Evento, "id">): void {
-  const db = getDB();
-  if (!db) throw new Error("Base de datos no disponible");
-  db.prepare(
-    "UPDATE eventos SET titulo=?,fecha=?,hora=?,tipo=?,descripcion=?,destinatarios=?,cupos=? WHERE id=?"
-  ).run(data.titulo, data.fecha, data.hora, data.tipo, data.descripcion, data.destinatarios, data.cupos, id);
+export async function updateEvento(id: string, data: Omit<Evento, "id">): Promise<void> {
+  await mutateCollection<Evento, void>("eventos", SEED_EVENTOS, (rows) => ({
+    rows: rows.map((e) => (e.id === id ? { ...data, id } : e)),
+    result: undefined,
+  }));
 }
 
-export function deleteEvento(id: string): void {
-  const db = getDB();
-  if (!db) throw new Error("Base de datos no disponible");
-  db.prepare("DELETE FROM eventos WHERE id=?").run(id);
+export async function deleteEvento(id: string): Promise<void> {
+  await mutateCollection<Evento, void>("eventos", SEED_EVENTOS, (rows) => ({
+    rows: rows.filter((e) => e.id !== id),
+    result: undefined,
+  }));
 }
 
 // ─── Libros ──────────────────────────────────────────────────────────────────
 
-type LibroRow = Omit<Libro, "disponible"> & { disponible: number };
-
-export function getLibros(): Libro[] {
-  const db = getDB();
-  if (!db) return SEED_LIBROS;
-  const rows = db.prepare("SELECT * FROM libros ORDER BY titulo ASC").all() as LibroRow[];
-  return rows.map((r) => ({ ...r, disponible: r.disponible === 1 }));
+export async function getLibros(): Promise<Libro[]> {
+  const rows = await readCollection<Libro>("libros", SEED_LIBROS);
+  return [...rows].sort((a, b) => a.titulo.localeCompare(b.titulo));
 }
 
-export function getLibro(id: string): Libro | undefined {
-  const db = getDB();
-  if (!db) return SEED_LIBROS.find((l) => l.id === id);
-  const row = db.prepare("SELECT * FROM libros WHERE id=?").get(id) as LibroRow | undefined;
-  return row ? { ...row, disponible: row.disponible === 1 } : undefined;
+export async function getLibro(id: string): Promise<Libro | undefined> {
+  const rows = await readCollection<Libro>("libros", SEED_LIBROS);
+  return rows.find((l) => l.id === id);
 }
 
-export function createLibro(data: Omit<Libro, "id">): string {
-  const db = getDB();
-  if (!db) throw new Error("Base de datos no disponible");
+export async function createLibro(data: Omit<Libro, "id">): Promise<string> {
   const id = `lib-${Date.now()}`;
-  db.prepare(
-    "INSERT INTO libros (id,titulo,autor,categoria,precio,descripcion,disponible) VALUES (?,?,?,?,?,?,?)"
-  ).run(id, data.titulo, data.autor, data.categoria, data.precio, data.descripcion, data.disponible ? 1 : 0);
-  return id;
+  return mutateCollection<Libro, string>("libros", SEED_LIBROS, (rows) => ({
+    rows: [...rows, { ...data, id }],
+    result: id,
+  }));
 }
 
-export function updateLibro(id: string, data: Omit<Libro, "id">): void {
-  const db = getDB();
-  if (!db) throw new Error("Base de datos no disponible");
-  db.prepare(
-    "UPDATE libros SET titulo=?,autor=?,categoria=?,precio=?,descripcion=?,disponible=? WHERE id=?"
-  ).run(data.titulo, data.autor, data.categoria, data.precio, data.descripcion, data.disponible ? 1 : 0, id);
+export async function updateLibro(id: string, data: Omit<Libro, "id">): Promise<void> {
+  await mutateCollection<Libro, void>("libros", SEED_LIBROS, (rows) => ({
+    rows: rows.map((l) => (l.id === id ? { ...data, id } : l)),
+    result: undefined,
+  }));
 }
 
-export function deleteLibro(id: string): void {
-  const db = getDB();
-  if (!db) throw new Error("Base de datos no disponible");
-  db.prepare("DELETE FROM libros WHERE id=?").run(id);
+export async function deleteLibro(id: string): Promise<void> {
+  await mutateCollection<Libro, void>("libros", SEED_LIBROS, (rows) => ({
+    rows: rows.filter((l) => l.id !== id),
+    result: undefined,
+  }));
 }
 
 // ─── Cursos ──────────────────────────────────────────────────────────────────
 
-export function getCursos(): Curso[] {
-  const db = getDB();
-  if (!db) return [...SEED_CURSOS].sort((a, b) => a.fecha.localeCompare(b.fecha));
-  return db.prepare("SELECT * FROM cursos ORDER BY fecha ASC").all() as Curso[];
+export async function getCursos(): Promise<Curso[]> {
+  const rows = await readCollection<Curso>("cursos", SEED_CURSOS);
+  return [...rows].sort(byFecha);
 }
 
-export function getCursosPublicos(): Curso[] {
-  const today = new Date().toISOString().slice(0, 10);
-  const db = getDB();
-  if (!db) return SEED_CURSOS.filter((c) => c.fecha >= today).sort((a, b) => a.fecha.localeCompare(b.fecha));
-  return db.prepare("SELECT * FROM cursos WHERE fecha >= ? ORDER BY fecha ASC").all(today) as Curso[];
+export async function getCursosPublicos(): Promise<Curso[]> {
+  const rows = await getCursos();
+  return rows.filter((c) => c.fecha >= hoy());
 }
 
-export function getCurso(id: string): Curso | undefined {
-  const db = getDB();
-  if (!db) return SEED_CURSOS.find((c) => c.id === id);
-  return db.prepare("SELECT * FROM cursos WHERE id=?").get(id) as Curso | undefined;
+export async function getCurso(id: string): Promise<Curso | undefined> {
+  const rows = await readCollection<Curso>("cursos", SEED_CURSOS);
+  return rows.find((c) => c.id === id);
 }
 
-export function createCurso(data: Omit<Curso, "id">): string {
-  const db = getDB();
-  if (!db) throw new Error("Base de datos no disponible");
+export async function createCurso(data: Omit<Curso, "id">): Promise<string> {
   const id = `cur-${Date.now()}`;
-  db.prepare(
-    "INSERT INTO cursos (id,titulo,descripcion,fecha,hora,nivel,destinatarios,cupos) VALUES (?,?,?,?,?,?,?,?)"
-  ).run(id, data.titulo, data.descripcion, data.fecha, data.hora, data.nivel, data.destinatarios, data.cupos);
-  return id;
+  return mutateCollection<Curso, string>("cursos", SEED_CURSOS, (rows) => ({
+    rows: [...rows, { ...data, id }],
+    result: id,
+  }));
 }
 
-export function updateCurso(id: string, data: Omit<Curso, "id">): void {
-  const db = getDB();
-  if (!db) throw new Error("Base de datos no disponible");
-  db.prepare(
-    "UPDATE cursos SET titulo=?,descripcion=?,fecha=?,hora=?,nivel=?,destinatarios=?,cupos=? WHERE id=?"
-  ).run(data.titulo, data.descripcion, data.fecha, data.hora, data.nivel, data.destinatarios, data.cupos, id);
+export async function updateCurso(id: string, data: Omit<Curso, "id">): Promise<void> {
+  await mutateCollection<Curso, void>("cursos", SEED_CURSOS, (rows) => ({
+    rows: rows.map((c) => (c.id === id ? { ...data, id } : c)),
+    result: undefined,
+  }));
 }
 
-export function deleteCurso(id: string): void {
-  const db = getDB();
-  if (!db) throw new Error("Base de datos no disponible");
-  db.prepare("DELETE FROM cursos WHERE id=?").run(id);
+export async function deleteCurso(id: string): Promise<void> {
+  await mutateCollection<Curso, void>("cursos", SEED_CURSOS, (rows) => ({
+    rows: rows.filter((c) => c.id !== id),
+    result: undefined,
+  }));
 }
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 
-export function getConfigValue(key: string): string | undefined {
-  const db = getDB();
-  if (!db) return SEED_CONFIG[key];
-  const row = db.prepare("SELECT value FROM config WHERE key=?").get(key) as { value: string } | undefined;
-  return row?.value;
+export async function getAllConfigValues(): Promise<Record<string, string>> {
+  return readConfig(SEED_CONFIG);
 }
 
-export function getAllConfigValues(): Record<string, string> {
-  const db = getDB();
-  if (!db) return { ...SEED_CONFIG };
-  const rows = db.prepare("SELECT key, value FROM config").all() as { key: string; value: string }[];
-  return Object.fromEntries(rows.map((r) => [r.key, r.value]));
+export async function getConfigValue(key: string): Promise<string | undefined> {
+  const cfg = await readConfig(SEED_CONFIG);
+  return cfg[key];
 }
 
-export function setConfigValues(data: Record<string, string>): void {
-  const db = getDB();
-  if (!db) throw new Error("Base de datos no disponible");
-  const stmt = db.prepare(
-    "INSERT INTO config (key,value) VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value"
-  );
-  for (const [key, value] of Object.entries(data)) {
-    stmt.run(key, value);
-  }
+export async function setConfigValues(data: Record<string, string>): Promise<void> {
+  await writeConfig(SEED_CONFIG, data);
 }
 
 // ─── Hitos ───────────────────────────────────────────────────────────────────
 
-export function getHitos(): Hito[] {
-  const db = getDB();
-  if (!db) return SEED_HITOS;
-  return db.prepare("SELECT * FROM hitos ORDER BY orden ASC").all() as Hito[];
+export async function getHitos(): Promise<Hito[]> {
+  const rows = await readCollection<Hito>("hitos", SEED_HITOS);
+  return [...rows].sort(byOrden);
 }
 
-export function getHito(id: string): Hito | undefined {
-  const db = getDB();
-  if (!db) return SEED_HITOS.find((h) => h.id === id);
-  return db.prepare("SELECT * FROM hitos WHERE id=?").get(id) as Hito | undefined;
+export async function getHito(id: string): Promise<Hito | undefined> {
+  const rows = await readCollection<Hito>("hitos", SEED_HITOS);
+  return rows.find((h) => h.id === id);
 }
 
-export function createHito(data: Omit<Hito, "id">): string {
-  const db = getDB();
-  if (!db) throw new Error("Base de datos no disponible");
+export async function createHito(data: Omit<Hito, "id" | "orden">): Promise<string> {
   const id = `hito-${Date.now()}`;
-  const maxOrden = (db.prepare("SELECT MAX(orden) as m FROM hitos").get() as { m: number | null }).m ?? -1;
-  db.prepare("INSERT INTO hitos (id,anio,texto,orden) VALUES (?,?,?,?)").run(
-    id, data.anio, data.texto, maxOrden + 1
-  );
-  return id;
+  return mutateCollection<Hito, string>("hitos", SEED_HITOS, (rows) => ({
+    rows: [...rows, { ...data, id, orden: nextOrden(rows) }],
+    result: id,
+  }));
 }
 
-export function updateHito(id: string, data: Pick<Hito, "anio" | "texto">): void {
-  const db = getDB();
-  if (!db) throw new Error("Base de datos no disponible");
-  db.prepare("UPDATE hitos SET anio=?,texto=? WHERE id=?").run(data.anio, data.texto, id);
+export async function updateHito(id: string, data: Pick<Hito, "anio" | "texto">): Promise<void> {
+  await mutateCollection<Hito, void>("hitos", SEED_HITOS, (rows) => ({
+    rows: rows.map((h) => (h.id === id ? { ...h, ...data } : h)),
+    result: undefined,
+  }));
 }
 
-export function deleteHito(id: string): void {
-  const db = getDB();
-  if (!db) throw new Error("Base de datos no disponible");
-  db.prepare("DELETE FROM hitos WHERE id=?").run(id);
+export async function deleteHito(id: string): Promise<void> {
+  await mutateCollection<Hito, void>("hitos", SEED_HITOS, (rows) => ({
+    rows: rows.filter((h) => h.id !== id),
+    result: undefined,
+  }));
 }
 
 // ─── Especies ─────────────────────────────────────────────────────────────────
 
-type EspecieRow = Omit<Especie, "qrDisponible"> & { qrDisponible: number };
-
-export function getEspecies(): Especie[] {
-  const db = getDB();
-  if (!db) return SEED_ESPECIES;
-  const rows = db.prepare("SELECT * FROM especies ORDER BY orden ASC, categoria ASC").all() as EspecieRow[];
-  return rows.map((r) => ({ ...r, qrDisponible: r.qrDisponible === 1 }));
+export async function getEspecies(): Promise<Especie[]> {
+  const rows = await readCollection<Especie>("especies", SEED_ESPECIES);
+  return [...rows].sort((a, b) => a.orden - b.orden || a.categoria.localeCompare(b.categoria));
 }
 
-export function getEspecie(id: string): Especie | undefined {
-  const db = getDB();
-  if (!db) return SEED_ESPECIES.find((e) => e.id === id);
-  const row = db.prepare("SELECT * FROM especies WHERE id=?").get(id) as EspecieRow | undefined;
-  return row ? { ...row, qrDisponible: row.qrDisponible === 1 } : undefined;
+export async function getEspecie(id: string): Promise<Especie | undefined> {
+  const rows = await readCollection<Especie>("especies", SEED_ESPECIES);
+  return rows.find((e) => e.id === id);
 }
 
-export function createEspecie(data: Omit<Especie, "id" | "orden">): string {
-  const db = getDB();
-  if (!db) throw new Error("Base de datos no disponible");
+export async function createEspecie(data: Omit<Especie, "id" | "orden">): Promise<string> {
   const id = `esp-${Date.now()}`;
-  const maxOrden = (db.prepare("SELECT MAX(orden) as m FROM especies").get() as { m: number | null }).m ?? -1;
-  db.prepare(
-    "INSERT INTO especies (id,nombreComun,nombreCientifico,categoria,descripcion,curiosidad,qrDisponible,orden) VALUES (?,?,?,?,?,?,?,?)"
-  ).run(id, data.nombreComun, data.nombreCientifico, data.categoria, data.descripcion, data.curiosidad, data.qrDisponible ? 1 : 0, maxOrden + 1);
-  return id;
+  return mutateCollection<Especie, string>("especies", SEED_ESPECIES, (rows) => ({
+    rows: [...rows, { ...data, id, orden: nextOrden(rows) }],
+    result: id,
+  }));
 }
 
-export function updateEspecie(id: string, data: Omit<Especie, "id" | "orden">): void {
-  const db = getDB();
-  if (!db) throw new Error("Base de datos no disponible");
-  db.prepare(
-    "UPDATE especies SET nombreComun=?,nombreCientifico=?,categoria=?,descripcion=?,curiosidad=?,qrDisponible=? WHERE id=?"
-  ).run(data.nombreComun, data.nombreCientifico, data.categoria, data.descripcion, data.curiosidad, data.qrDisponible ? 1 : 0, id);
+export async function updateEspecie(id: string, data: Omit<Especie, "id" | "orden">): Promise<void> {
+  await mutateCollection<Especie, void>("especies", SEED_ESPECIES, (rows) => ({
+    rows: rows.map((e) => (e.id === id ? { ...e, ...data } : e)),
+    result: undefined,
+  }));
 }
 
-export function deleteEspecie(id: string): void {
-  const db = getDB();
-  if (!db) throw new Error("Base de datos no disponible");
-  db.prepare("DELETE FROM especies WHERE id=?").run(id);
+export async function deleteEspecie(id: string): Promise<void> {
+  await mutateCollection<Especie, void>("especies", SEED_ESPECIES, (rows) => ({
+    rows: rows.filter((e) => e.id !== id),
+    result: undefined,
+  }));
 }
 
 // ─── Socios ──────────────────────────────────────────────────────────────────
 
-export function getSocios(): Socio[] {
-  const db = getDB();
-  if (!db) return SEED_SOCIOS;
-  return db.prepare("SELECT * FROM socios ORDER BY nombre ASC").all() as Socio[];
+export async function getSocios(): Promise<Socio[]> {
+  const rows = await readCollection<Socio>("socios", SEED_SOCIOS);
+  return [...rows].sort((a, b) => a.nombre.localeCompare(b.nombre));
 }
 
-export function getSocioById(id: string): Socio | undefined {
-  const db = getDB();
-  if (!db) return SEED_SOCIOS.find((s) => s.id === id);
-  return db.prepare("SELECT * FROM socios WHERE id=?").get(id) as Socio | undefined;
+export async function getSocioById(id: string): Promise<Socio | undefined> {
+  const rows = await readCollection<Socio>("socios", SEED_SOCIOS);
+  return rows.find((s) => s.id === id);
 }
 
-export function getSocioByEmail(email: string): Socio | undefined {
-  const db = getDB();
-  if (!db) return SEED_SOCIOS.find((s) => s.email === email.toLowerCase());
-  return db.prepare("SELECT * FROM socios WHERE email=?").get(email.toLowerCase()) as Socio | undefined;
+export async function getSocioByEmail(email: string): Promise<Socio | undefined> {
+  const rows = await readCollection<Socio>("socios", SEED_SOCIOS);
+  return rows.find((s) => s.email === email.toLowerCase());
 }
 
-export function createSocio(data: { nombre: string; email: string; password_hash: string; salt: string }): string {
-  const db = getDB();
-  if (!db) throw new Error("Base de datos no disponible");
+export async function createSocio(data: {
+  nombre: string; email: string; password_hash: string; salt: string;
+}): Promise<string> {
   const id = `socio-${Date.now()}`;
-  db.prepare(
-    "INSERT INTO socios (id,nombre,email,password_hash,salt,activo,created_at) VALUES (?,?,?,?,?,1,date('now'))"
-  ).run(id, data.nombre, data.email.toLowerCase(), data.password_hash, data.salt);
-  return id;
+  return mutateCollection<Socio, string>("socios", SEED_SOCIOS, (rows) => ({
+    rows: [
+      ...rows,
+      {
+        id,
+        nombre: data.nombre,
+        email: data.email.toLowerCase(),
+        password_hash: data.password_hash,
+        salt: data.salt,
+        activo: 1,
+        created_at: hoy(),
+      },
+    ],
+    result: id,
+  }));
 }
 
-export function toggleSocioActivo(id: string): void {
-  const db = getDB();
-  if (!db) throw new Error("Base de datos no disponible");
-  db.prepare("UPDATE socios SET activo = CASE WHEN activo=1 THEN 0 ELSE 1 END WHERE id=?").run(id);
+export async function toggleSocioActivo(id: string): Promise<void> {
+  await mutateCollection<Socio, void>("socios", SEED_SOCIOS, (rows) => ({
+    rows: rows.map((s) => (s.id === id ? { ...s, activo: s.activo === 1 ? 0 : 1 } : s)),
+    result: undefined,
+  }));
 }
 
-export function updateSocioPassword(id: string, password_hash: string, salt: string): void {
-  const db = getDB();
-  if (!db) throw new Error("Base de datos no disponible");
-  db.prepare("UPDATE socios SET password_hash=?,salt=? WHERE id=?").run(password_hash, salt, id);
+export async function updateSocioPassword(
+  id: string, password_hash: string, salt: string
+): Promise<void> {
+  await mutateCollection<Socio, void>("socios", SEED_SOCIOS, (rows) => ({
+    rows: rows.map((s) => (s.id === id ? { ...s, password_hash, salt } : s)),
+    result: undefined,
+  }));
 }
 
-export function deleteSocio(id: string): void {
-  const db = getDB();
-  if (!db) throw new Error("Base de datos no disponible");
-  db.prepare("DELETE FROM socios WHERE id=?").run(id);
+export async function deleteSocio(id: string): Promise<void> {
+  await mutateCollection<Socio, void>("socios", SEED_SOCIOS, (rows) => ({
+    rows: rows.filter((s) => s.id !== id),
+    result: undefined,
+  }));
 }
 
 // ─── Recursos socios ──────────────────────────────────────────────────────────
 
-export function getRecursosSocios(soloActivos = false): RecursoSocio[] {
-  const db = getDB();
-  if (!db) return soloActivos ? SEED_RECURSOS.filter((r) => r.activo === 1) : SEED_RECURSOS;
-  const q = soloActivos
-    ? "SELECT * FROM recursos_socios WHERE activo=1 ORDER BY orden ASC, categoria ASC"
-    : "SELECT * FROM recursos_socios ORDER BY orden ASC, categoria ASC";
-  return db.prepare(q).all() as RecursoSocio[];
+export async function getRecursosSocios(soloActivos = false): Promise<RecursoSocio[]> {
+  const rows = await readCollection<RecursoSocio>("recursos_socios", SEED_RECURSOS);
+  const sorted = [...rows].sort(
+    (a, b) => a.orden - b.orden || a.categoria.localeCompare(b.categoria)
+  );
+  return soloActivos ? sorted.filter((r) => r.activo === 1) : sorted;
 }
 
-export function getRecursoSocio(id: string): RecursoSocio | undefined {
-  const db = getDB();
-  if (!db) return SEED_RECURSOS.find((r) => r.id === id);
-  return db.prepare("SELECT * FROM recursos_socios WHERE id=?").get(id) as RecursoSocio | undefined;
+export async function getRecursoSocio(id: string): Promise<RecursoSocio | undefined> {
+  const rows = await readCollection<RecursoSocio>("recursos_socios", SEED_RECURSOS);
+  return rows.find((r) => r.id === id);
 }
 
-export function createRecursoSocio(data: Omit<RecursoSocio, "id" | "orden">): string {
-  const db = getDB();
-  if (!db) throw new Error("Base de datos no disponible");
+export async function createRecursoSocio(
+  data: Omit<RecursoSocio, "id" | "orden">
+): Promise<string> {
   const id = `rec-${Date.now()}`;
-  const maxOrden = (db.prepare("SELECT MAX(orden) as m FROM recursos_socios").get() as { m: number | null }).m ?? -1;
-  db.prepare(
-    "INSERT INTO recursos_socios (id,titulo,descripcion,tipo,url,categoria,icono,orden,activo) VALUES (?,?,?,?,?,?,?,?,?)"
-  ).run(id, data.titulo, data.descripcion, data.tipo, data.url, data.categoria, data.icono, maxOrden + 1, data.activo);
-  return id;
+  return mutateCollection<RecursoSocio, string>("recursos_socios", SEED_RECURSOS, (rows) => ({
+    rows: [...rows, { ...data, id, orden: nextOrden(rows) }],
+    result: id,
+  }));
 }
 
-export function updateRecursoSocio(id: string, data: Omit<RecursoSocio, "id" | "orden">): void {
-  const db = getDB();
-  if (!db) throw new Error("Base de datos no disponible");
-  db.prepare(
-    "UPDATE recursos_socios SET titulo=?,descripcion=?,tipo=?,url=?,categoria=?,icono=?,activo=? WHERE id=?"
-  ).run(data.titulo, data.descripcion, data.tipo, data.url, data.categoria, data.icono, data.activo, id);
+export async function updateRecursoSocio(
+  id: string, data: Omit<RecursoSocio, "id" | "orden">
+): Promise<void> {
+  await mutateCollection<RecursoSocio, void>("recursos_socios", SEED_RECURSOS, (rows) => ({
+    rows: rows.map((r) => (r.id === id ? { ...r, ...data } : r)),
+    result: undefined,
+  }));
 }
 
-export function toggleRecursoActivo(id: string): void {
-  const db = getDB();
-  if (!db) throw new Error("Base de datos no disponible");
-  db.prepare("UPDATE recursos_socios SET activo = CASE WHEN activo=1 THEN 0 ELSE 1 END WHERE id=?").run(id);
+export async function toggleRecursoActivo(id: string): Promise<void> {
+  await mutateCollection<RecursoSocio, void>("recursos_socios", SEED_RECURSOS, (rows) => ({
+    rows: rows.map((r) => (r.id === id ? { ...r, activo: r.activo === 1 ? 0 : 1 } : r)),
+    result: undefined,
+  }));
 }
 
-export function deleteRecursoSocio(id: string): void {
-  const db = getDB();
-  if (!db) throw new Error("Base de datos no disponible");
-  db.prepare("DELETE FROM recursos_socios WHERE id=?").run(id);
+export async function deleteRecursoSocio(id: string): Promise<void> {
+  await mutateCollection<RecursoSocio, void>("recursos_socios", SEED_RECURSOS, (rows) => ({
+    rows: rows.filter((r) => r.id !== id),
+    result: undefined,
+  }));
 }
 
 // ─── Seed data ────────────────────────────────────────────────────────────────
@@ -705,6 +491,7 @@ const SEED_CONFIG: Record<string, string> = {
   subcampo3: "Subcampo 3",
   subcampo4: "Subcampo 4",
   cuota_mensual: "",
+  site_url: "https://campoescuelaflandes.netlify.app",
 };
 
 const SEED_HITOS: Hito[] = [

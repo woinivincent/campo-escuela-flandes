@@ -2,7 +2,7 @@ import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageFrame from "@/components/ui/ImageFrame";
-import { whatsappLink } from "@/lib/siteConfigService";
+import { getSiteSettings } from "@/lib/siteConfigService";
 import { getEspecies, type Especie } from "@/lib/db";
 import {
   LeafIcon,
@@ -19,8 +19,9 @@ export const metadata = {
     "Flora y fauna del Campo Escuela Flandes. Fichas de especies con códigos QR y proyectos del área de naturaleza.",
 };
 
-export default function NaturalezaPage() {
-  const todasEspecies = getEspecies();
+export default async function NaturalezaPage() {
+  const cfg = await getSiteSettings();
+  const todasEspecies = await getEspecies();
   const flora = todasEspecies.filter((e) => e.categoria === "Flora");
   const fauna = todasEspecies.filter((e) => e.categoria === "Fauna");
 
@@ -183,7 +184,7 @@ export default function NaturalezaPage() {
               <ArrowRightIcon width={18} height={18} />
             </Link>
             <a
-              href={whatsappLink(
+              href={cfg.whatsappLink(
                 "Hola! Quiero consultar sobre las actividades de naturaleza del Campo Escuela Flandes."
               )}
               target="_blank"
@@ -202,7 +203,10 @@ export default function NaturalezaPage() {
 
 function EspecieCard({ especie }: { especie: Especie }) {
   return (
-    <article className="card card-hover flex flex-col overflow-hidden !p-0">
+    <Link
+      href={`/naturaleza/${especie.id}`}
+      className="card card-hover group flex flex-col overflow-hidden !p-0"
+    >
       <ImageFrame
         src={`/images/especie-${especie.id}.jpg`}
         label={`Foto de ${especie.nombreComun}`}
@@ -219,7 +223,7 @@ function EspecieCard({ especie }: { especie: Especie }) {
         >
           {especie.categoria}
         </span>
-        <h3 className="mt-2 font-display text-base font-bold text-forest-dark">
+        <h3 className="mt-2 font-display text-base font-bold text-forest-dark group-hover:text-flandes-red">
           {especie.nombreComun}
         </h3>
         <p className="text-xs italic text-forest/50">{especie.nombreCientifico}</p>
@@ -235,8 +239,16 @@ function EspecieCard({ especie }: { especie: Especie }) {
             QR disponible en el predio
           </span>
         )}
+        <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-flandes-red">
+          Ver ficha
+          <ArrowRightIcon
+            width={13}
+            height={13}
+            className="transition-transform group-hover:translate-x-1"
+          />
+        </span>
       </div>
-    </article>
+    </Link>
   );
 }
 

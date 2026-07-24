@@ -17,14 +17,14 @@ export async function createSocioAction(formData: FormData) {
 
   const salt = generateSalt();
   const password_hash = hashPassword(password, salt);
-  createSocio({ nombre, email, password_hash, salt });
+  await createSocio({ nombre, email, password_hash, salt });
   revalidatePath("/admin/socios");
 }
 
 export async function toggleSocioAction(formData: FormData) {
   await requireAuth();
   const id = formData.get("id") as string;
-  if (id) toggleSocioActivo(id);
+  if (id) await toggleSocioActivo(id);
   revalidatePath("/admin/socios");
 }
 
@@ -34,14 +34,14 @@ export async function resetSocioPasswordAction(formData: FormData) {
   const password = (formData.get("password") as string);
   if (!id || !password) return;
   const salt = generateSalt();
-  updateSocioPassword(id, hashPassword(password, salt), salt);
+  await updateSocioPassword(id, hashPassword(password, salt), salt);
   revalidatePath("/admin/socios");
 }
 
 export async function deleteSocioAction(formData: FormData) {
   await requireAuth();
   const id = formData.get("id") as string;
-  if (id) deleteSocio(id);
+  if (id) await deleteSocio(id);
   revalidatePath("/admin/socios");
 }
 
@@ -60,9 +60,9 @@ export async function saveRecursoAction(formData: FormData) {
   if (!data.titulo) return;
 
   if (id) {
-    updateRecursoSocio(id, data);
+    await updateRecursoSocio(id, data);
   } else {
-    createRecursoSocio(data);
+    await createRecursoSocio(data);
   }
   revalidatePath("/admin/socios");
   revalidatePath("/socios/portal");
@@ -71,7 +71,7 @@ export async function saveRecursoAction(formData: FormData) {
 export async function toggleRecursoAction(formData: FormData) {
   await requireAuth();
   const id = formData.get("id") as string;
-  if (id) toggleRecursoActivo(id);
+  if (id) await toggleRecursoActivo(id);
   revalidatePath("/admin/socios");
   revalidatePath("/socios/portal");
 }
@@ -79,7 +79,7 @@ export async function toggleRecursoAction(formData: FormData) {
 export async function deleteRecursoAction(formData: FormData) {
   await requireAuth();
   const id = formData.get("id") as string;
-  if (id) deleteRecursoSocio(id);
+  if (id) await deleteRecursoSocio(id);
   revalidatePath("/admin/socios");
   revalidatePath("/socios/portal");
 }

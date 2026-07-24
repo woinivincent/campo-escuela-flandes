@@ -38,3 +38,7 @@ next-env.d.ts
 *.db-shm
 *.db-wal
 /data/
+
+# Datos locales del panel (equivalente a Netlify Blobs en dev)
+.data/
+flandes.db

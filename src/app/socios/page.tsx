@@ -1,7 +1,7 @@
 import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { whatsappLink, getDynamicCuota } from "@/lib/siteConfigService";
+import { getSiteSettings } from "@/lib/siteConfigService";
 import {
   ShieldIcon,
   BookIcon,
@@ -20,8 +20,9 @@ export const metadata = {
     "Área exclusiva para socios del Campo Escuela Flandes. Acceso a recursos digitales, beneficios y más.",
 };
 
-export default function SociosPage() {
-  const cuota = getDynamicCuota();
+export default async function SociosPage() {
+  const cfg = await getSiteSettings();
+  const cuota = cfg.cuota;
   return (
     <>
       <PageHero
@@ -84,7 +85,7 @@ export default function SociosPage() {
               ))}
             </ul>
             <a
-              href={whatsappLink(
+              href={cfg.whatsappLink(
                 "Hola! Quiero información para hacerme socio del Campo Escuela Flandes."
               )}
               target="_blank"
@@ -188,7 +189,7 @@ export default function SociosPage() {
 
         <div className="mt-10 flex flex-wrap justify-center gap-3">
           <a
-            href={whatsappLink(
+            href={cfg.whatsappLink(
               "Hola! Quiero información para asociarme al Campo Escuela Flandes."
             )}
             target="_blank"

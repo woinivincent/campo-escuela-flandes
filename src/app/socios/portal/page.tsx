@@ -55,7 +55,7 @@ function RecursoCard({ r }: { r: RecursoSocio }) {
 
 export default async function SociosPortalPage() {
   const socio = await requireSocioAuth();
-  const recursos = getRecursosSocios(true);
+  const recursos = await getRecursosSocios(true);
 
   const categorias = Array.from(new Set(recursos.map((r) => r.categoria)));
 

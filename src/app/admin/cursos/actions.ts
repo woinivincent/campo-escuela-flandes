@@ -17,9 +17,9 @@ export async function saveCursoAction(formData: FormData) {
   };
 
   if (id) {
-    updateCurso(id, data);
+    await updateCurso(id, data);
   } else {
-    createCurso(data);
+    await createCurso(data);
   }
 
   revalidatePath("/adiestramiento");
@@ -30,7 +30,7 @@ export async function saveCursoAction(formData: FormData) {
 
 export async function deleteCursoAction(formData: FormData) {
   const id = formData.get("id") as string;
-  deleteCurso(id);
+  await deleteCurso(id);
   revalidatePath("/adiestramiento");
   revalidatePath("/admin/cursos");
   revalidatePath("/admin");

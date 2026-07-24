@@ -22,8 +22,8 @@ export default async function AdminCursosPage({
   await requireAuth();
 
   const { edit, new: isNew } = await searchParams;
-  const cursos = getCursos();
-  const editando = edit ? getCurso(edit) : undefined;
+  const cursos = await getCursos();
+  const editando = edit ? await getCurso(edit) : undefined;
   const showForm = !!editando || isNew === "1";
 
   return (

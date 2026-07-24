@@ -9,7 +9,7 @@ export async function getSocioSession(): Promise<Socio | null> {
   const store = await cookies();
   const socioId = store.get(COOKIE_NAME)?.value;
   if (!socioId) return null;
-  const socio = getSocioById(socioId);
+  const socio = await getSocioById(socioId);
   if (!socio || !socio.activo) return null;
   return socio;
 }
@@ -21,7 +21,7 @@ export async function requireSocioAuth(): Promise<Socio> {
 }
 
 export async function loginSocio(email: string, password: string): Promise<Socio | null> {
-  const socio = getSocioByEmail(email.trim().toLowerCase());
+  const socio = await getSocioByEmail(email.trim().toLowerCase());
   if (!socio || !socio.activo) return null;
   if (!verifyPassword(password, socio.salt, socio.password_hash)) return null;
   return socio;

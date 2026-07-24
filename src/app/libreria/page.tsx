@@ -2,7 +2,7 @@ import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageFrame from "@/components/ui/ImageFrame";
-import { whatsappLink } from "@/lib/siteConfigService";
+import { getSiteSettings } from "@/lib/siteConfigService";
 import { getLibros, type CategoriaLibro } from "@/lib/db";
 import {
   BookIcon,
@@ -25,8 +25,9 @@ const categoriaColor: Record<CategoriaLibro, string> = {
   Literatura: "bg-forest/10 text-forest-dark",
 };
 
-export default function LibreriaPage() {
-  const libros = getLibros();
+export default async function LibreriaPage() {
+  const cfg = await getSiteSettings();
+  const libros = await getLibros();
   const categorias = Array.from(new Set(libros.map((l) => l.categoria)));
 
   return (
@@ -130,7 +131,7 @@ export default function LibreriaPage() {
 
                     {libro.disponible ? (
                       <a
-                        href={whatsappLink(waMsg)}
+                        href={cfg.whatsappLink(waMsg)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn-whatsapp px-3 py-2 text-xs"
@@ -140,7 +141,7 @@ export default function LibreriaPage() {
                       </a>
                     ) : (
                       <a
-                        href={whatsappLink(
+                        href={cfg.whatsappLink(
                           `Hola! Quiero consultar cuándo estará disponible "${libro.titulo}".`
                         )}
                         target="_blank"
@@ -182,7 +183,7 @@ export default function LibreriaPage() {
         </div>
         <div className="container-flandes mt-10 flex flex-wrap gap-3">
           <a
-            href={whatsappLink(
+            href={cfg.whatsappLink(
               "Hola! Quiero consultar sobre los libros disponibles en la librería del Campo Escuela Flandes."
             )}
             target="_blank"
@@ -217,7 +218,7 @@ export default function LibreriaPage() {
             </div>
           </div>
           <a
-            href={whatsappLink(
+            href={cfg.whatsappLink(
               "Hola! Quiero consultar sobre la donación de libros para la librería del campo."
             )}
             target="_blank"

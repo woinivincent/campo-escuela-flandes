@@ -24,6 +24,9 @@ const SUBCAMPOS = [
 const PORTAL = [
   { key: "cuota_mensual", label: "Cuota mensual socios (ARS)", type: "text", placeholder: "5000", hint: "Monto que aparece en la página de Socios. Dejar vacío para ocultar el precio." },
 ];
+const SITIO = [
+  { key: "site_url", label: "URL pública del sitio", type: "url", placeholder: "https://campoescuelaflandes.com.ar", hint: "Se usa para armar los códigos QR de las especies. Si cambia el dominio, hay que regenerar los QR." },
+];
 
 function Section({ title, campos, cfg }: { title: string; campos: typeof CONTACTO; cfg: Record<string, string> }) {
   return (
@@ -44,7 +47,7 @@ function Section({ title, campos, cfg }: { title: string; campos: typeof CONTACT
 
 export default async function AdminConfigPage() {
   await requireAuth();
-  const cfg = getAllConfigValues();
+  const cfg = await getAllConfigValues();
 
   return (
     <div className="space-y-8">
@@ -58,6 +61,7 @@ export default async function AdminConfigPage() {
         <Section title="Redes sociales" campos={REDES} cfg={cfg} />
         <Section title="Nombres de subcampos" campos={SUBCAMPOS} cfg={cfg} />
         <Section title="Portal de socios" campos={PORTAL} cfg={cfg} />
+        <Section title="Sitio y códigos QR" campos={SITIO} cfg={cfg} />
 
         <div className="flex items-center justify-between gap-4 border-t border-white/10 pt-4">
           <p className="text-xs text-white/30">Los cambios se aplican en todo el sitio de inmediato.</p>

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { whatsappLink } from "@/lib/siteConfigService";
+import { getSiteSettings } from "@/lib/siteConfigService";
 import { getEventosPublicos, type TipoEvento, type Evento } from "@/lib/db";
 import {
   CalendarIcon,
@@ -55,8 +55,9 @@ const MESES_SHORT: Record<string, string> = {
   "09": "Sep", "10": "Oct", "11": "Nov", "12": "Dic",
 };
 
-export default function AgendaPage() {
-  const grupos = groupByMonth(getEventosPublicos());
+export default async function AgendaPage() {
+  const cfg = await getSiteSettings();
+  const grupos = groupByMonth(await getEventosPublicos());
 
   return (
     <>
@@ -163,7 +164,7 @@ export default function AgendaPage() {
                           </div>
 
                           <a
-                            href={whatsappLink(waMsg)}
+                            href={cfg.whatsappLink(waMsg)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="btn-whatsapp shrink-0 self-start px-4 py-2 text-sm"
@@ -200,7 +201,7 @@ export default function AgendaPage() {
           </div>
           <div className="flex flex-col gap-3 sm:flex-row md:justify-end">
             <a
-              href={whatsappLink(
+              href={cfg.whatsappLink(
                 "Hola! Quiero proponer un evento o actividad en el Campo Escuela Flandes."
               )}
               target="_blank"

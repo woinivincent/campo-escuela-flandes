@@ -1,11 +1,12 @@
-import { whatsappLink } from "@/lib/siteConfigService";
+import { getSiteSettings } from "@/lib/siteConfigService";
 import { WhatsAppIcon } from "@/components/ui/icons";
 
 /** Botón flotante de WhatsApp, presente en todo el sitio. */
-export default function WhatsAppFloat() {
+export default async function WhatsAppFloat() {
+  const cfg = await getSiteSettings();
   return (
     <a
-      href={whatsappLink(
+      href={cfg.whatsappLink(
         "Hola! Me comunico desde el sitio del Campo Escuela Flandes.",
       )}
       target="_blank"

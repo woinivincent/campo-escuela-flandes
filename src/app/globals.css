@@ -99,3 +99,38 @@
     @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-white/50;
   }
 }
+
+/* ---- Planilla imprimible (etiquetas QR del predio) ---- */
+@media print {
+  /* Oculta el chrome del admin y fuerza fondo blanco en la página de impresión */
+  body:has(.print-sheet) header,
+  .print-hide {
+    display: none !important;
+  }
+
+  body:has(.print-sheet),
+  body:has(.print-sheet) > div,
+  body:has(.print-sheet) main {
+    background: #fff !important;
+    color: #000 !important;
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .print-sheet {
+    gap: 0 !important;
+  }
+
+  /* Cada etiqueta se imprime entera, sin cortarse entre páginas */
+  .print-label {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    border: 1px dashed #9ca3af !important;
+    background: #fff !important;
+  }
+
+  @page {
+    margin: 10mm;
+  }
+}

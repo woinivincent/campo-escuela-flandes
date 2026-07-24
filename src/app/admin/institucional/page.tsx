@@ -13,8 +13,8 @@ export default async function AdminInstitucionalPage({
 }) {
   await requireAuth();
   const { edit, new: isNew } = await searchParams;
-  const hitos = getHitos();
-  const editando = edit ? getHito(edit) : undefined;
+  const hitos = await getHitos();
+  const editando = edit ? await getHito(edit) : undefined;
   const showForm = !!editando || isNew === "1";
 
   return (

@@ -23,8 +23,8 @@ export default async function AdminAgendaPage({
   await requireAuth();
 
   const { edit, new: isNew } = await searchParams;
-  const eventos = getEventos();
-  const editando = edit ? getEvento(edit) : undefined;
+  const eventos = await getEventos();
+  const editando = edit ? await getEvento(edit) : undefined;
   const showForm = !!editando || isNew === "1";
 
   return (

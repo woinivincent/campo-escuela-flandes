@@ -13,9 +13,9 @@ export async function saveHitoAction(formData: FormData) {
   if (!anio || !texto) return;
 
   if (id) {
-    updateHito(id, { anio, texto });
+    await updateHito(id, { anio, texto });
   } else {
-    createHito({ anio, texto, orden: 999 });
+    await createHito({ anio, texto });
   }
   revalidatePath("/institucional");
   revalidatePath("/admin/institucional");
@@ -24,7 +24,7 @@ export async function saveHitoAction(formData: FormData) {
 export async function deleteHitoAction(formData: FormData) {
   await requireAuth();
   const id = formData.get("id") as string;
-  if (id) deleteHito(id);
+  if (id) await deleteHito(id);
   revalidatePath("/institucional");
   revalidatePath("/admin/institucional");
 }

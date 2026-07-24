@@ -6,8 +6,8 @@ import { CalendarIcon, BookIcon, ArrowRightIcon } from "@/components/ui/icons";
 export default async function AdminDashboard() {
   await requireAuth();
 
-  const eventos = getEventos();
-  const libros = getLibros();
+  const eventos = await getEventos();
+  const libros = await getLibros();
   const today = new Date().toISOString().slice(0, 10);
   const proximos = eventos.filter((e) => e.fecha >= today);
   const disponibles = libros.filter((l) => l.disponible);

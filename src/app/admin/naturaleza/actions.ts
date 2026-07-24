@@ -19,9 +19,9 @@ export async function saveEspecieAction(formData: FormData) {
   if (!data.nombreComun) return;
 
   if (id) {
-    updateEspecie(id, data);
+    await updateEspecie(id, data);
   } else {
-    createEspecie(data);
+    await createEspecie(data);
   }
   revalidatePath("/naturaleza");
   revalidatePath("/admin/naturaleza");
@@ -30,7 +30,7 @@ export async function saveEspecieAction(formData: FormData) {
 export async function deleteEspecieAction(formData: FormData) {
   await requireAuth();
   const id = formData.get("id") as string;
-  if (id) deleteEspecie(id);
+  if (id) await deleteEspecie(id);
   revalidatePath("/naturaleza");
   revalidatePath("/admin/naturaleza");
 }

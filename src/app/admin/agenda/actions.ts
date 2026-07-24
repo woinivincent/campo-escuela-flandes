@@ -18,9 +18,9 @@ export async function saveEventoAction(formData: FormData) {
   };
 
   if (id) {
-    updateEvento(id, data);
+    await updateEvento(id, data);
   } else {
-    createEvento(data);
+    await createEvento(data);
   }
 
   revalidatePath("/agenda");
@@ -31,7 +31,7 @@ export async function saveEventoAction(formData: FormData) {
 
 export async function deleteEventoAction(formData: FormData) {
   const id = formData.get("id") as string;
-  if (id) deleteEvento(id);
+  if (id) await deleteEvento(id);
   revalidatePath("/agenda");
   revalidatePath("/admin/agenda");
   revalidatePath("/admin");

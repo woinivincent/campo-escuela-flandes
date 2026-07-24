@@ -2,7 +2,7 @@ import Link from "next/link";
 import TopoPattern from "@/components/ui/TopoPattern";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageFrame from "@/components/ui/ImageFrame";
-import { getDynamicSubcampos } from "@/lib/siteConfigService";
+import { getSiteSettings } from "@/lib/siteConfigService";
 import { getEventosPublicos } from "@/lib/db";
 import {
   TentIcon,
@@ -15,9 +15,9 @@ import {
   ArrowRightIcon,
 } from "@/components/ui/icons";
 
-export default function HomePage() {
-  const subcampos = getDynamicSubcampos();
-  const eventosDB = getEventosPublicos().slice(0, 3);
+export default async function HomePage() {
+  const { subcampos } = await getSiteSettings();
+  const eventosDB = (await getEventosPublicos()).slice(0, 3);
   return (
     <>
       {/* ---------- HERO (foto aérea a sangre completa) ---------- */}
