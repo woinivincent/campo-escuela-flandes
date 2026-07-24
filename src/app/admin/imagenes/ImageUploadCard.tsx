@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef } from "react";
-import { uploadImageAction } from "./actions";
-// uploadImageAction is a server action — safe to import in client component
+import { uploadImageAction, deleteImageAction } from "./actions";
+// server actions — safe to import in client component
 
 interface Props {
   slotId: string;
@@ -51,28 +51,44 @@ export default function ImageUploadCard({ slotId, label, desc, exists, ts }: Pro
           <p className="text-[0.65rem] text-white/40">{desc}</p>
         </div>
 
-        <form
-          ref={formRef}
-          action={uploadImageAction}
-          className="mt-auto"
-        >
-          <input type="hidden" name="slot" value={slotId} />
-          <input
-            ref={inputRef}
-            type="file"
-            name="image"
-            accept="image/*"
-            className="hidden"
-            onChange={() => formRef.current?.requestSubmit()}
-          />
-          <button
-            type="button"
-            onClick={() => inputRef.current?.click()}
-            className="w-full rounded-lg border border-white/15 px-3 py-1.5 text-[0.7rem] font-semibold text-white/60 transition hover:border-white/30 hover:text-white/90"
-          >
-            {exists ? "Reemplazar imagen" : "Subir imagen"}
-          </button>
-        </form>
+        <div className="mt-auto flex gap-1.5">
+          <form ref={formRef} action={uploadImageAction} className="flex-1">
+            <input type="hidden" name="slot" value={slotId} />
+            <input
+              ref={inputRef}
+              type="file"
+              name="image"
+              accept="image/*"
+              className="hidden"
+              onChange={() => formRef.current?.requestSubmit()}
+            />
+            <button
+              type="button"
+              onClick={() => inputRef.current?.click()}
+              className="w-full rounded-lg border border-white/15 px-3 py-1.5 text-[0.7rem] font-semibold text-white/60 transition hover:border-white/30 hover:text-white/90"
+            >
+              {exists ? "Reemplazar" : "Subir imagen"}
+            </button>
+          </form>
+
+          {exists && (
+            <form
+              action={deleteImageAction}
+              onSubmit={(e) => {
+                if (!confirm(`¿Quitar la imagen de "${label}"?`)) e.preventDefault();
+              }}
+            >
+              <input type="hidden" name="slot" value={slotId} />
+              <button
+                type="submit"
+                title="Quitar imagen"
+                className="rounded-lg border border-flandes-red/25 px-3 py-1.5 text-[0.7rem] font-semibold text-flandes-red/70 transition hover:border-flandes-red/50 hover:text-flandes-red"
+              >
+                Quitar
+              </button>
+            </form>
+          )}
+        </div>
       </div>
     </div>
   );

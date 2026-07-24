@@ -40,3 +40,30 @@ export async function uploadImageAction(formData: FormData) {
 
   revalidatePath("/", "layout");
 }
+
+export async function deleteImageAction(formData: FormData) {
+  const slot = formData.get("slot") as string;
+  if (!VALID_IDS.has(slot as never)) throw new Error("Slot de imagen inválido");
+
+  const store = await getBlobStore("site-images");
+  if (store) {
+    await store.delete(slot);
+  } else {
+    const { unlink } = await import("fs/promises");
+    const { join } = await import("path");
+    try {
+      await unlink(join(process.cwd(), "public", "images", `${slot}.jpg`));
+    } catch (e) {
+      // Si el archivo ya no está, la operación igual cumplió su objetivo
+      const code = (e as NodeJS.ErrnoException)?.code;
+      if (code !== "ENOENT") {
+        throw new Error(
+          "No se pudo quitar la imagen: el almacenamiento del sitio no está disponible. " +
+            `Detalle: ${e instanceof Error ? e.message : String(e)}`
+        );
+      }
+    }
+  }
+
+  revalidatePath("/", "layout");
+}

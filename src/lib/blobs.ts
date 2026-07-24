@@ -19,6 +19,7 @@ export interface BlobStore {
     opts?: { metadata?: Record<string, unknown> }
   ): Promise<unknown>;
   setJSON(key: string, value: unknown): Promise<unknown>;
+  delete(key: string): Promise<unknown>;
   list(): Promise<{ blobs: { key: string }[] }>;
 }
 
