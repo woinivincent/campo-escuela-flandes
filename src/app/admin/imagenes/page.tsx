@@ -4,6 +4,10 @@ import ImageUploadCard from "./ImageUploadCard";
 
 export const metadata = { title: "Imágenes — Admin" };
 
+// El listado tiene que reflejar lo que se acaba de subir o quitar, sin caché.
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 async function getExistingSlots(): Promise<Set<string>> {
   const store = await getBlobStore("site-images");
   if (store) {
