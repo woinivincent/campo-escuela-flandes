@@ -59,13 +59,7 @@ export default async function LoginPage({
           </button>
         </form>
 
-        <p className="mt-6 text-center text-xs text-white/25">
-          Contraseña por defecto:{" "}
-          <code className="text-white/40">flandes2024</code>
-          <br />
-          Cambiala con la variable de entorno{" "}
-          <code className="text-white/40">ADMIN_PASSWORD</code>
-        </p>
+        {/* No se muestra ninguna pista de la contraseña: esta página es pública. */}
       </div>
     </div>
   );
