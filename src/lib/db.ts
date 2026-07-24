@@ -495,21 +495,21 @@ const SEED_CONFIG: Record<string, string> = {
 };
 
 const SEED_HITOS: Hito[] = [
-  { id: "hito-1", anio: "1980s", texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", orden: 0 },
-  { id: "hito-2", anio: "1990s", texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", orden: 1 },
-  { id: "hito-3", anio: "2000s", texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", orden: 2 },
-  { id: "hito-4", anio: "Hoy",   texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", orden: 3 },
+  { id: "hito-1", anio: "Los inicios", texto: "Contar acá cómo se consiguió el predio y quiénes impulsaron el proyecto.", orden: 0 },
+  { id: "hito-2", anio: "El crecimiento", texto: "Contar acá las primeras obras y los campamentos que marcaron una época.", orden: 1 },
+  { id: "hito-3", anio: "La consolidación", texto: "Contar acá cómo el campo se afianzó como sede de actividades scouts.", orden: 2 },
+  { id: "hito-4", anio: "Hoy", texto: "Contar acá en qué situación está el campo actualmente y qué se viene.", orden: 3 },
 ];
 
 const SEED_ESPECIES: Especie[] = [
-  { id: "espinillo",      nombreComun: "Espinillo",        nombreCientifico: "Vachellia caven",        categoria: "Flora", descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.", curiosidad: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", qrDisponible: false, orden: 0 },
-  { id: "ceibo",          nombreComun: "Ceibo",            nombreCientifico: "Erythrina crista-galli", categoria: "Flora", descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.", curiosidad: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", qrDisponible: false, orden: 1 },
-  { id: "sauce",          nombreComun: "Sauce criollo",    nombreCientifico: "Salix humboldtiana",     categoria: "Flora", descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.", curiosidad: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", qrDisponible: false, orden: 2 },
-  { id: "tala",           nombreComun: "Tala",             nombreCientifico: "Celtis ehrenbergiana",   categoria: "Flora", descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.", curiosidad: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", qrDisponible: false, orden: 3 },
-  { id: "carpincho",      nombreComun: "Carpincho",        nombreCientifico: "Hydrochoerus hydrochaeris", categoria: "Fauna", descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.", curiosidad: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", qrDisponible: false, orden: 4 },
-  { id: "hornero",        nombreComun: "Hornero",          nombreCientifico: "Furnarius rufus",        categoria: "Fauna", descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.", curiosidad: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", qrDisponible: false, orden: 5 },
-  { id: "martin-pescador",nombreComun: "Martín pescador",  nombreCientifico: "Megaceryle torquata",    categoria: "Fauna", descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.", curiosidad: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", qrDisponible: false, orden: 6 },
-  { id: "coipo",          nombreComun: "Coipo / Nutria",   nombreCientifico: "Myocastor coypus",       categoria: "Fauna", descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.", curiosidad: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", qrDisponible: false, orden: 7 },
+  { id: "espinillo",      nombreComun: "Espinillo",        nombreCientifico: "Vachellia caven",        categoria: "Flora", descripcion: "Describir acá la especie: cómo reconocerla, dónde encontrarla en el predio y en qué época.", curiosidad: "Agregar acá un dato curioso que llame la atención de los chicos.", qrDisponible: false, orden: 0 },
+  { id: "ceibo",          nombreComun: "Ceibo",            nombreCientifico: "Erythrina crista-galli", categoria: "Flora", descripcion: "Describir acá la especie: cómo reconocerla, dónde encontrarla en el predio y en qué época.", curiosidad: "Agregar acá un dato curioso que llame la atención de los chicos.", qrDisponible: false, orden: 1 },
+  { id: "sauce",          nombreComun: "Sauce criollo",    nombreCientifico: "Salix humboldtiana",     categoria: "Flora", descripcion: "Describir acá la especie: cómo reconocerla, dónde encontrarla en el predio y en qué época.", curiosidad: "Agregar acá un dato curioso que llame la atención de los chicos.", qrDisponible: false, orden: 2 },
+  { id: "tala",           nombreComun: "Tala",             nombreCientifico: "Celtis ehrenbergiana",   categoria: "Flora", descripcion: "Describir acá la especie: cómo reconocerla, dónde encontrarla en el predio y en qué época.", curiosidad: "Agregar acá un dato curioso que llame la atención de los chicos.", qrDisponible: false, orden: 3 },
+  { id: "carpincho",      nombreComun: "Carpincho",        nombreCientifico: "Hydrochoerus hydrochaeris", categoria: "Fauna", descripcion: "Describir acá la especie: cómo reconocerla, dónde encontrarla en el predio y en qué época.", curiosidad: "Agregar acá un dato curioso que llame la atención de los chicos.", qrDisponible: false, orden: 4 },
+  { id: "hornero",        nombreComun: "Hornero",          nombreCientifico: "Furnarius rufus",        categoria: "Fauna", descripcion: "Describir acá la especie: cómo reconocerla, dónde encontrarla en el predio y en qué época.", curiosidad: "Agregar acá un dato curioso que llame la atención de los chicos.", qrDisponible: false, orden: 5 },
+  { id: "martin-pescador",nombreComun: "Martín pescador",  nombreCientifico: "Megaceryle torquata",    categoria: "Fauna", descripcion: "Describir acá la especie: cómo reconocerla, dónde encontrarla en el predio y en qué época.", curiosidad: "Agregar acá un dato curioso que llame la atención de los chicos.", qrDisponible: false, orden: 6 },
+  { id: "coipo",          nombreComun: "Coipo / Nutria",   nombreCientifico: "Myocastor coypus",       categoria: "Fauna", descripcion: "Describir acá la especie: cómo reconocerla, dónde encontrarla en el predio y en qué época.", curiosidad: "Agregar acá un dato curioso que llame la atención de los chicos.", qrDisponible: false, orden: 7 },
 ];
 
 const SEED_SALT = "flandes-seed-salt-demo-001";
@@ -526,10 +526,10 @@ const SEED_SOCIOS: Socio[] = [
 ];
 
 const SEED_RECURSOS: RecursoSocio[] = [
-  { id: "rec-seed-1", titulo: "Lorem ipsum dolor sit amet", descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", tipo: "link", url: "", categoria: "Formación", icono: "book",     orden: 0, activo: 1 },
-  { id: "rec-seed-2", titulo: "Lorem ipsum dolor sit amet", descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", tipo: "link", url: "", categoria: "Formación", icono: "shield",   orden: 1, activo: 1 },
-  { id: "rec-seed-3", titulo: "Lorem ipsum dolor sit amet", descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", tipo: "link", url: "", categoria: "Técnicas",  icono: "users",    orden: 2, activo: 1 },
-  { id: "rec-seed-4", titulo: "Lorem ipsum dolor sit amet", descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", tipo: "link", url: "", categoria: "Técnicas",  icono: "calendar", orden: 3, activo: 1 },
-  { id: "rec-seed-5", titulo: "Lorem ipsum dolor sit amet", descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", tipo: "link", url: "", categoria: "General",   icono: "star",     orden: 4, activo: 1 },
-  { id: "rec-seed-6", titulo: "Lorem ipsum dolor sit amet", descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", tipo: "link", url: "", categoria: "General",   icono: "map",      orden: 5, activo: 1 },
+  { id: "rec-seed-1", titulo: "Manual del dirigente",      descripcion: "Cargar acá el enlace al documento.", tipo: "link", url: "", categoria: "Formación", icono: "book",     orden: 0, activo: 1 },
+  { id: "rec-seed-2", titulo: "Protocolos del campo",      descripcion: "Cargar acá el enlace al documento.", tipo: "link", url: "", categoria: "Formación", icono: "shield",   orden: 1, activo: 1 },
+  { id: "rec-seed-3", titulo: "Fichas de actividades",     descripcion: "Cargar acá el enlace al documento.", tipo: "link", url: "", categoria: "Técnicas",  icono: "users",    orden: 2, activo: 1 },
+  { id: "rec-seed-4", titulo: "Planificación anual",       descripcion: "Cargar acá el enlace al documento.", tipo: "link", url: "", categoria: "Técnicas",  icono: "calendar", orden: 3, activo: 1 },
+  { id: "rec-seed-5", titulo: "Novedades para socios",     descripcion: "Cargar acá el enlace al documento.", tipo: "link", url: "", categoria: "General",   icono: "star",     orden: 4, activo: 1 },
+  { id: "rec-seed-6", titulo: "Mapa del predio",           descripcion: "Cargar acá el enlace al documento.", tipo: "link", url: "", categoria: "General",   icono: "map",      orden: 5, activo: 1 },
 ];

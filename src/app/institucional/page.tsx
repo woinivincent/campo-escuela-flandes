@@ -31,8 +31,8 @@ export default async function InstitucionalPage() {
     <>
       <PageHero
         eyebrow="Institucional"
-        title="Lorem ipsum dolor sit amet"
-        subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        title="Nuestra historia"
+        subtitle="De dónde viene el campo, quiénes lo sostienen y cómo llegó hasta hoy."
         src="/images/institucional-portada.jpg"
       />
 
@@ -41,21 +41,17 @@ export default async function InstitucionalPage() {
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div>
             <SectionHeading
-              eyebrow="Lorem ipsum"
-              title="Lorem ipsum dolor sit amet"
+              eyebrow="Institucional"
+              title="Cómo nació el campo"
             />
             <div className="mt-5 space-y-4 leading-relaxed text-forest/85">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
+                Acá va la historia del campo: cómo se consiguió el predio, en qué
+                año empezó a funcionar y quiénes impulsaron el proyecto.
               </p>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat duis aute irure dolor.
+                Un segundo párrafo puede contar cómo fue creciendo, las obras que
+                se hicieron y qué lugar ocupa hoy dentro del escultismo.
               </p>
             </div>
           </div>
@@ -72,8 +68,8 @@ export default async function InstitucionalPage() {
         <div className="container-flandes">
           <SectionHeading
             align="center"
-            eyebrow="Lorem ipsum"
-            title="Lorem ipsum dolor sit amet"
+            eyebrow="Línea de tiempo"
+            title="Los hitos del campo"
             className="mb-12"
           />
           <ol className="relative mx-auto max-w-3xl border-l-2 border-gold/40 pl-8">
@@ -96,9 +92,9 @@ export default async function InstitucionalPage() {
       <section className="container-flandes py-20">
         <SectionHeading
           align="center"
-          eyebrow="Lorem ipsum"
-          title="Lorem ipsum dolor sit amet"
-          subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."
+          eyebrow="Galería"
+          title="Recuerdos del campo"
+          subtitle="Fotos de campamentos, obras y actividades a lo largo de los años."
           className="mb-12"
         />
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
@@ -119,9 +115,9 @@ export default async function InstitucionalPage() {
           <SectionHeading
             align="center"
             tone="dark"
-            eyebrow="Lorem ipsum"
-            title="Lorem ipsum dolor sit amet"
-            subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            eyebrow="Redes"
+            title="Seguinos"
+            subtitle="Ahí publicamos las novedades, las fechas y las fotos de cada acampe."
             className="mb-8"
           />
           <div className="flex flex-wrap justify-center gap-4">

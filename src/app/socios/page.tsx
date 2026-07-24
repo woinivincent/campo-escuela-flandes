@@ -27,8 +27,8 @@ export default async function SociosPage() {
     <>
       <PageHero
         eyebrow="Socios"
-        title="Lorem ipsum dolor sit amet"
-        subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        title="Hacete socio"
+        subtitle="Sostené el campo y accedé al material exclusivo del portal de socios."
         src="/images/socios-portada.jpg"
       />
 
@@ -37,9 +37,9 @@ export default async function SociosPage() {
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div>
             <SectionHeading
-              eyebrow="Lorem ipsum"
-              title="Lorem ipsum dolor sit amet"
-              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+              eyebrow="Ser socio"
+              title="Qué significa ser socio del campo"
+              subtitle="Acá va la explicación de qué implica asociarse: en qué se usa la cuota, qué sostiene y por qué es importante para el campo."
             />
             <ul className="mt-7 space-y-3">
               {beneficios.map((b, i) => (
@@ -111,9 +111,9 @@ export default async function SociosPage() {
         <div className="container-flandes">
           <SectionHeading
             align="center"
-            eyebrow="Lorem ipsum"
-            title="Lorem ipsum dolor sit amet"
-            subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
+            eyebrow="Portal"
+            title="Material exclusivo para socios"
+            subtitle="Documentos, guías y recursos disponibles al iniciar sesión."
             className="mb-10"
           />
 
@@ -150,9 +150,9 @@ export default async function SociosPage() {
               className="mt-0.5 shrink-0 text-forest/40"
             />
             <p className="text-sm text-forest/65">
-              <strong className="text-forest-dark">Lorem ipsum dolor sit amet.</strong>{" "}
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+              <strong className="text-forest-dark">¿Ya sos socio?</strong>{" "}
+              Entrá al portal con tu correo y contraseña. Si todavía no tenés
+              acceso, escribinos y te lo generamos.
             </p>
           </div>
         </div>
@@ -162,9 +162,9 @@ export default async function SociosPage() {
       <section className="container-flandes py-20">
         <SectionHeading
           align="center"
-          eyebrow="Lorem ipsum"
-          title="Lorem ipsum dolor sit amet"
-          subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          eyebrow="Asociarse"
+          title="Cómo hacerte socio"
+          subtitle="Son tres pasos y se coordina todo por WhatsApp."
           className="mb-12"
         />
 
@@ -211,10 +211,10 @@ export default async function SociosPage() {
         <div className="container-flandes flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
           <div>
             <h2 className="font-display text-2xl font-bold uppercase text-forest-dark">
-              Lorem ipsum dolor sit amet?
+              ¿Querés conocer el campo primero?
             </h2>
             <p className="mt-1 text-sm text-forest/70">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Recorré el predio o reservá una fecha para tu grupo.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -233,89 +233,32 @@ export default async function SociosPage() {
 }
 
 const beneficios = [
-  {
-    texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    icon: BookIcon,
-  },
-  {
-    texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    icon: CalendarIcon,
-  },
-  {
-    texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    icon: ShieldIcon,
-  },
-  {
-    texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    icon: UsersIcon,
-  },
-  {
-    texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    icon: StarIcon,
-  },
+  { texto: "Acceso al material digital del portal", icon: BookIcon },
+  { texto: "Prioridad en la reserva de fechas", icon: CalendarIcon },
+  { texto: "Completar acá otro beneficio para socios", icon: ShieldIcon },
+  { texto: "Participación en las decisiones del campo", icon: UsersIcon },
+  { texto: "Completar acá otro beneficio para socios", icon: StarIcon },
 ];
 
 const categorias = [
-  "Lorem ipsum dolor sit amet",
-  "Lorem ipsum dolor sit amet",
-  "Lorem ipsum dolor sit amet",
-  "Lorem ipsum dolor sit amet",
-  "Lorem ipsum dolor sit amet",
+  "Acceso al portal de socios",
+  "Material de formación descargable",
+  "Prioridad en reservas",
+  "Novedades del campo",
+  "Completar acá lo que incluye la cuota",
 ];
 
 const recursos = [
-  {
-    titulo: "Lorem ipsum dolor",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    cantidad: "12 documentos",
-    icon: BookIcon,
-  },
-  {
-    titulo: "Lorem ipsum dolor",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    cantidad: "8 archivos",
-    icon: ShieldIcon,
-  },
-  {
-    titulo: "Lorem ipsum dolor",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    cantidad: "20+ fichas",
-    icon: UsersIcon,
-  },
-  {
-    titulo: "Lorem ipsum dolor",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    cantidad: "15 recursos",
-    icon: CalendarIcon,
-  },
-  {
-    titulo: "Lorem ipsum dolor",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    cantidad: "Actualizado mensual",
-    icon: StarIcon,
-  },
-  {
-    titulo: "Lorem ipsum dolor",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    cantidad: "Actualizado",
-    icon: UsersIcon,
-  },
+  { titulo: "Material de formación", desc: "Documentos para dirigentes y responsables.", cantidad: "Solo socios", icon: BookIcon },
+  { titulo: "Protocolos del campo", desc: "Normas y procedimientos internos.", cantidad: "Solo socios", icon: ShieldIcon },
+  { titulo: "Fichas de actividades", desc: "Propuestas listas para usar con el grupo.", cantidad: "Solo socios", icon: UsersIcon },
+  { titulo: "Planificación anual", desc: "Calendario y planificación del campo.", cantidad: "Solo socios", icon: CalendarIcon },
+  { titulo: "Novedades", desc: "Información que se comparte solo con socios.", cantidad: "Solo socios", icon: StarIcon },
+  { titulo: "Documentación", desc: "Formularios y material administrativo.", cantidad: "Solo socios", icon: UsersIcon },
 ];
 
 const pasos = [
-  {
-    titulo: "Lorem ipsum",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
-    icon: WhatsAppIcon,
-  },
-  {
-    titulo: "Lorem ipsum",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
-    icon: UsersIcon,
-  },
-  {
-    titulo: "Lorem ipsum",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
-    icon: StarIcon,
-  },
+  { titulo: "Escribinos", desc: "Contanos que querés asociarte y te pasamos los datos.", icon: WhatsAppIcon },
+  { titulo: "Completá tus datos", desc: "Te pedimos la información necesaria para el registro.", icon: UsersIcon },
+  { titulo: "Recibí tu acceso", desc: "Te creamos el usuario para entrar al portal de socios.", icon: StarIcon },
 ];

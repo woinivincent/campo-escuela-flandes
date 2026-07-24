@@ -29,8 +29,8 @@ export default async function NaturalezaPage() {
     <>
       <PageHero
         eyebrow="Naturaleza"
-        title="Lorem ipsum dolor sit amet"
-        subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        title="Flora y fauna del campo"
+        subtitle="Las especies que viven en el predio, con fichas y códigos QR para reconocerlas."
         src="/images/naturaleza-portada.jpg"
       />
 
@@ -39,9 +39,9 @@ export default async function NaturalezaPage() {
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div>
             <SectionHeading
-              eyebrow="Lorem ipsum"
-              title="Lorem ipsum dolor sit amet"
-              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco."
+              eyebrow="El entorno"
+              title="Un ambiente para descubrir"
+              subtitle="Acá va la descripción del entorno natural del campo: el tipo de monte, la cercanía al agua y qué se puede observar en cada época del año."
             />
             <ul className="mt-7 grid gap-3 sm:grid-cols-2">
               {destacados.map((d, i) => (
@@ -70,8 +70,8 @@ export default async function NaturalezaPage() {
         <div className="container-flandes">
           <SectionHeading
             eyebrow="Flora"
-            title="Lorem ipsum dolor sit amet"
-            subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            title="Los árboles y plantas del predio"
+            subtitle="Tocá cualquiera para ver su ficha completa."
             className="mb-10"
           />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -86,8 +86,8 @@ export default async function NaturalezaPage() {
       <section className="container-flandes py-20">
         <SectionHeading
           eyebrow="Fauna"
-          title="Lorem ipsum dolor sit amet"
-          subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          title="Los animales que podés ver"
+          subtitle="Tocá cualquiera para ver su ficha completa."
           className="mb-10"
         />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -102,9 +102,9 @@ export default async function NaturalezaPage() {
         <div className="container-flandes grid items-center gap-12 lg:grid-cols-2">
           <div>
             <SectionHeading
-              eyebrow="Lorem ipsum"
-              title="Lorem ipsum dolor sit amet"
-              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+              eyebrow="Códigos QR"
+              title="Reconocé las especies en el predio"
+              subtitle="Varias especies están señalizadas con un cartel. Escaneándolo con el celular se abre su ficha, con la descripción y un dato curioso."
             />
             <ul className="mt-6 space-y-3">
               {qrPasos.map((p, i) => (
@@ -131,7 +131,7 @@ export default async function NaturalezaPage() {
                 Código QR
               </p>
               <p className="max-w-xs text-sm text-forest/65">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+                Buscá los carteles con este símbolo mientras recorrés el campo.
               </p>
             </div>
           </div>
@@ -142,9 +142,9 @@ export default async function NaturalezaPage() {
       <section className="container-flandes py-20">
         <SectionHeading
           align="center"
-          eyebrow="Lorem ipsum"
-          title="Lorem ipsum dolor sit amet"
-          subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          eyebrow="Proyectos"
+          title="En qué estamos trabajando"
+          subtitle="Iniciativas del área de naturaleza del campo."
           className="mb-10"
         />
         <div className="grid gap-5 sm:grid-cols-3">
@@ -172,10 +172,10 @@ export default async function NaturalezaPage() {
         <div className="container-flandes flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
           <div>
             <h2 className="font-display text-2xl font-bold uppercase text-forest-dark">
-              Lorem ipsum dolor sit amet?
+              ¿Querés recorrer el campo?
             </h2>
             <p className="mt-1 text-sm text-forest/70">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Coordiná una visita o reservá para tu grupo.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -253,48 +253,21 @@ function EspecieCard({ especie }: { especie: Especie }) {
 }
 
 const destacados = [
-  { texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", icon: LeafIcon },
-  { texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", icon: ShieldIcon },
-  { texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", icon: QrIcon },
-  { texto: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", icon: UsersIcon },
+  { texto: "Especies nativas identificadas en el predio", icon: LeafIcon },
+  { texto: "Espacios de monte conservados", icon: ShieldIcon },
+  { texto: "Señalización con códigos QR", icon: QrIcon },
+  { texto: "Actividades de educación ambiental", icon: UsersIcon },
 ];
 
 
 const qrPasos = [
-  {
-    n: "1",
-    titulo: "Lorem ipsum dolor sit amet",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-  },
-  {
-    n: "2",
-    titulo: "Lorem ipsum dolor sit amet",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-  },
-  {
-    n: "3",
-    titulo: "Lorem ipsum dolor sit amet",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-  },
+  { n: "1", titulo: "Encontrá el cartel", desc: "Están junto a los árboles y en los puntos de observación del predio." },
+  { n: "2", titulo: "Escaneá el código", desc: "Con la cámara del celular, sin instalar ninguna aplicación." },
+  { n: "3", titulo: "Leé la ficha", desc: "Se abre la descripción de la especie y un dato curioso sobre ella." },
 ];
 
 const proyectos = [
-  {
-    titulo: "Lorem ipsum dolor",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
-    estado: "En desarrollo",
-    icon: QrIcon,
-  },
-  {
-    titulo: "Lorem ipsum dolor",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
-    estado: "En curso",
-    icon: LeafIcon,
-  },
-  {
-    titulo: "Lorem ipsum dolor",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
-    estado: "Planificado",
-    icon: ShieldIcon,
-  },
+  { titulo: "Señalización con QR", desc: "Colocar carteles con código en las especies del predio.", estado: "En desarrollo", icon: QrIcon },
+  { titulo: "Relevamiento de especies", desc: "Describir acá el trabajo de identificación de flora y fauna.", estado: "En curso", icon: LeafIcon },
+  { titulo: "Conservación del monte", desc: "Describir acá el proyecto de cuidado del ambiente natural.", estado: "Planificado", icon: ShieldIcon },
 ];

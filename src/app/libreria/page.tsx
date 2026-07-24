@@ -34,8 +34,8 @@ export default async function LibreriaPage() {
     <>
       <PageHero
         eyebrow="Librería"
-        title="Lorem ipsum dolor sit amet"
-        subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        title="Librería del campo"
+        subtitle="Material scout, guías de naturaleza y libros de formación."
         src="/images/libreria-portada.jpg"
       />
 
@@ -49,8 +49,8 @@ export default async function LibreriaPage() {
           />
           <p className="text-sm text-forest/80">
             <strong>Precios y stock:</strong>{" "}
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua.
+            Los valores pueden variar. Consultá disponibilidad antes de pasar a
+            retirar tu pedido.
           </p>
         </div>
       </section>
@@ -59,9 +59,9 @@ export default async function LibreriaPage() {
       <section className="container-flandes py-20">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
           <SectionHeading
-            eyebrow="Lorem ipsum"
-            title="Lorem ipsum dolor sit amet"
-            subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            eyebrow="Catálogo"
+            title="Libros disponibles"
+            subtitle="El catálogo se actualiza desde el panel del campo."
           />
           {/* Categorías (decorativas — sin filtrado JS por ahora) */}
           <div className="flex flex-wrap gap-2">
@@ -163,9 +163,9 @@ export default async function LibreriaPage() {
       <section className="bg-sand-dark/40 py-20">
         <div className="container-flandes grid gap-12 md:grid-cols-2 md:items-center">
           <SectionHeading
-            eyebrow="Lorem ipsum"
-            title="Lorem ipsum dolor sit amet"
-            subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            eyebrow="Pedidos"
+            title="Cómo comprar"
+            subtitle="Los pedidos se coordinan por WhatsApp y se retiran en el campo."
           />
           <ol className="space-y-4">
             {pasosPedido.map((p, i) => (
@@ -209,11 +209,11 @@ export default async function LibreriaPage() {
             </span>
             <div>
               <h3 className="font-display text-base font-bold uppercase text-forest-dark">
-                Lorem ipsum dolor sit amet
+                ¿Querés donar libros?
               </h3>
               <p className="mt-1 text-sm text-forest/70">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua.
+                Recibimos material scout y de naturaleza para sumar al catálogo
+                de la librería.
               </p>
             </div>
           </div>
@@ -236,20 +236,8 @@ export default async function LibreriaPage() {
 
 
 const pasosPedido = [
-  {
-    titulo: "Lorem ipsum dolor sit amet",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-  },
-  {
-    titulo: "Lorem ipsum dolor sit amet",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-  },
-  {
-    titulo: "Lorem ipsum dolor sit amet",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-  },
-  {
-    titulo: "Lorem ipsum dolor sit amet",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-  },
+  { titulo: "Elegí el libro", desc: "Mirá el catálogo y fijate cuáles están disponibles." },
+  { titulo: "Escribinos por WhatsApp", desc: "El botón de cada libro ya arma el mensaje con el título." },
+  { titulo: "Confirmamos el pedido", desc: "Te avisamos el precio final y la forma de pago." },
+  { titulo: "Retiralo en el campo", desc: "Coordinamos día y horario para que lo pases a buscar." },
 ];

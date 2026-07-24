@@ -45,8 +45,8 @@ export default async function HomePage() {
             </span>
           </div>
           <p className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Un campo de ejercicios scout para acampes, formación y actividades
+            al aire libre.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             <Link href="/reservas" className="btn-primary">
@@ -93,9 +93,9 @@ export default async function HomePage() {
           />
           <div>
             <SectionHeading
-              eyebrow="Lorem ipsum"
-              title="Lorem ipsum dolor sit amet consectetur"
-              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip."
+              eyebrow="El campo"
+              title="Un espacio pensado para el escultismo"
+              subtitle="Acá va la presentación del campo: qué es, desde cuándo funciona y para quién está pensado. Con uno o dos párrafos alcanza."
             />
             <ul className="mt-7 grid gap-3 sm:grid-cols-2">
               {bienvenidaPuntos.map((p, i) => (
@@ -119,8 +119,8 @@ export default async function HomePage() {
       <section className="bg-sand-dark/40 py-20">
         <div className="container-flandes">
         <div className="mb-10 max-w-2xl">
-          <p className="section-eyebrow">Lorem ipsum</p>
-          <h2 className="section-title">Lorem ipsum dolor sit amet</h2>
+          <p className="section-eyebrow">Explorá</p>
+          <h2 className="section-title">¿Qué querés hacer?</h2>
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {quickLinks.map((q) => (
@@ -152,9 +152,9 @@ export default async function HomePage() {
       <section className="container-flandes py-20">
         <SectionHeading
           align="center"
-          eyebrow="Lorem ipsum"
-          title="Lorem ipsum dolor sit amet"
-          subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          eyebrow="El predio"
+          title="Cuatro subcampos"
+          subtitle="Acá va una descripción general del predio y de cómo se reparten los subcampos."
           className="mb-12"
         />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -174,7 +174,7 @@ export default async function HomePage() {
                   {s.nombre}
                 </h3>
                 <p className="mt-1 text-sm text-forest/75">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Breve descripción del subcampo.
                 </p>
               </div>
             </div>
@@ -192,14 +192,13 @@ export default async function HomePage() {
       <section className="bg-forest-pale/50 py-20">
         <div className="container-flandes grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>
-            <p className="section-eyebrow">Lorem ipsum</p>
+            <p className="section-eyebrow">Por qué Flandes</p>
             <h2 className="section-title">
-              Lorem ipsum dolor sit amet consectetur
+              Todo lo que tu grupo necesita
             </h2>
             <p className="mt-5 max-w-lg leading-relaxed text-forest/80">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco.
+              Acá va el texto que cuenta qué ofrece el campo y por qué elegirlo:
+              la infraestructura, el entorno y el acompañamiento a los grupos.
             </p>
             <Link href="/institucional" className="btn-outline mt-8">
               Conocer nuestra historia
@@ -229,8 +228,8 @@ export default async function HomePage() {
       <section className="container-flandes py-20">
         <SectionHeading
           align="center"
-          eyebrow="Lorem ipsum"
-          title="Lorem ipsum dolor sit amet"
+          eyebrow="Reservas"
+          title="Cómo reservar, paso a paso"
           className="mb-12"
         />
         <ol className="grid gap-6 md:grid-cols-3">
@@ -259,8 +258,8 @@ export default async function HomePage() {
           <div className="flex flex-wrap items-end justify-between gap-4">
             <SectionHeading
               eyebrow="Agenda"
-              title="Lorem ipsum dolor sit amet"
-              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+              title="Próximas actividades"
+              subtitle="Los eventos se cargan desde el panel y aparecen acá automáticamente."
             />
             <Link
               href="/agenda"
@@ -315,11 +314,11 @@ export default async function HomePage() {
           <TopoPattern className="absolute inset-0 h-full w-full text-white/10" />
           <div className="relative mx-auto max-w-2xl">
             <h2 className="font-display text-3xl font-bold text-white sm:text-4xl">
-              Lorem ipsum dolor sit amet?
+              ¿Listos para acampar?
             </h2>
             <p className="mt-4 text-lg text-white/85">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore.
+              Escribinos y coordinamos la fecha, el subcampo y todo lo que
+              necesite tu grupo.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Link
@@ -340,36 +339,37 @@ export default async function HomePage() {
   );
 }
 
+// El valor de "Años de trayectoria" y "Hectáreas" lo tiene que confirmar el campo.
 const stats = [
   { value: "4", label: "Subcampos disponibles" },
-  { value: "40+", label: "Años de trayectoria" },
-  { value: "100%", label: "Naturaleza scout" },
+  { value: "—", label: "Años de trayectoria" },
+  { value: "—", label: "Hectáreas de predio" },
 ];
 
 const quickLinks = [
-  { title: "Acampes", desc: "Lorem ipsum dolor sit amet.", href: "/acampes", icon: TentIcon },
-  { title: "Reservas", desc: "Lorem ipsum dolor sit amet.", href: "/reservas", icon: CalendarIcon },
-  { title: "Naturaleza", desc: "Lorem ipsum dolor sit amet.", href: "/naturaleza", icon: LeafIcon },
-  { title: "Adiestramiento", desc: "Lorem ipsum dolor sit amet.", href: "/adiestramiento", icon: GraduationIcon },
+  { title: "Acampes", desc: "Conocé el predio y los subcampos.", href: "/acampes", icon: TentIcon },
+  { title: "Reservas", desc: "Pedí fecha para tu grupo.", href: "/reservas", icon: CalendarIcon },
+  { title: "Naturaleza", desc: "La flora y fauna del campo.", href: "/naturaleza", icon: LeafIcon },
+  { title: "Adiestramiento", desc: "Cursos, charlas y videos.", href: "/adiestramiento", icon: GraduationIcon },
 ];
 
 const features = [
-  { title: "Lorem ipsum", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", icon: MapIcon },
-  { title: "Lorem ipsum", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", icon: CalendarIcon },
-  { title: "Lorem ipsum", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", icon: LeafIcon },
-  { title: "Lorem ipsum", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", icon: UsersIcon },
+  { title: "El predio", desc: "Describir acá la extensión y los espacios disponibles.", icon: MapIcon },
+  { title: "Disponibilidad", desc: "Describir acá cómo es la disponibilidad durante el año.", icon: CalendarIcon },
+  { title: "Entorno natural", desc: "Describir acá el entorno y la vegetación del campo.", icon: LeafIcon },
+  { title: "Acompañamiento", desc: "Describir acá el apoyo que se le da a cada grupo.", icon: UsersIcon },
 ];
 
 const bienvenidaPuntos = [
-  "Lorem ipsum dolor sit amet",
-  "Lorem ipsum dolor sit amet",
-  "Lorem ipsum dolor sit amet",
-  "Lorem ipsum dolor sit amet",
+  "Cuatro subcampos independientes",
+  "Agua, sanitarios y fogones",
+  "Entorno natural para actividades",
+  "Reserva coordinada por WhatsApp",
 ];
 
 const pasos = [
-  { title: "Lorem ipsum dolor", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.", icon: MapIcon },
-  { title: "Lorem ipsum dolor", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.", icon: CalendarIcon },
-  { title: "Lorem ipsum dolor", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.", icon: ShieldIcon },
+  { title: "Elegí el subcampo", desc: "Mirá el predio y decidí cuál se ajusta mejor al tamaño de tu grupo.", icon: MapIcon },
+  { title: "Completá el formulario", desc: "Cargá las fechas, la cantidad de personas y los datos de contacto.", icon: CalendarIcon },
+  { title: "Confirmamos por WhatsApp", desc: "Recibís la respuesta del campo con la confirmación y las indicaciones.", icon: ShieldIcon },
 ];
 

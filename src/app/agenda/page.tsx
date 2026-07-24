@@ -63,8 +63,8 @@ export default async function AgendaPage() {
     <>
       <PageHero
         eyebrow="Agenda"
-        title="Lorem ipsum dolor sit amet"
-        subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
+        title="Agenda del campo"
+        subtitle="Acampes, cursos, charlas y actividades de los próximos meses."
         src="/images/agenda-portada.jpg"
       />
 
@@ -194,9 +194,9 @@ export default async function AgendaPage() {
         <div className="container-flandes grid gap-8 md:grid-cols-2 md:items-center">
           <div>
             <SectionHeading
-              eyebrow="Lorem ipsum"
-              title="Lorem ipsum dolor sit amet"
-              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
+              eyebrow="Propuestas"
+              title="¿Querés organizar una actividad?"
+              subtitle="Si tu grupo quiere proponer un curso, una charla o un encuentro en el campo, escribinos."
             />
           </div>
           <div className="flex flex-col gap-3 sm:flex-row md:justify-end">

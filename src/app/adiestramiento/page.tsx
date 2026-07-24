@@ -41,17 +41,17 @@ export default async function AdiestramientoPage() {
     <>
       <PageHero
         eyebrow="Adiestramiento"
-        title="Lorem ipsum dolor sit amet"
-        subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        title="Adiestramiento"
+        subtitle="Cursos, charlas y videos de formación para dirigentes y scouts."
         src="/images/adiestramiento-portada.jpg"
       />
 
       {/* ---- PRÓXIMOS CURSOS ---- */}
       <section className="container-flandes py-20">
         <SectionHeading
-          eyebrow="Lorem ipsum"
-          title="Lorem ipsum dolor sit amet"
-          subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
+          eyebrow="Formación"
+          title="Próximos cursos"
+          subtitle="Inscribite por WhatsApp desde cada curso."
           className="mb-10"
         />
 
@@ -127,9 +127,9 @@ export default async function AdiestramientoPage() {
         <div className="container-flandes">
           <div className="mb-12 flex flex-wrap items-end justify-between gap-4">
             <SectionHeading
-              eyebrow="Lorem ipsum"
-              title="Lorem ipsum dolor sit amet"
-              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+              eyebrow="Canal de YouTube"
+              title="Videos por tema"
+              subtitle="Material de formación grabado en el campo."
             />
             <a
               href={social.youtube || "https://youtube.com"}
@@ -206,11 +206,11 @@ export default async function AdiestramientoPage() {
           <TopoPattern className="absolute inset-0 h-full w-full text-gold/10" />
           <div className="relative mx-auto max-w-2xl">
             <h2 className="font-display text-3xl font-bold uppercase text-white sm:text-4xl">
-              Lorem ipsum dolor sit amet?
+              ¿Querés dictar un curso?
             </h2>
             <p className="mt-4 text-lg text-sand/80">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Si tenés una propuesta de formación para compartir con otros grupos,
+              escribinos y lo coordinamos.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <a
@@ -237,70 +237,28 @@ export default async function AdiestramientoPage() {
 
 const categorias = [
   {
-    titulo: "Lorem ipsum",
+    titulo: "Técnicas de campamento",
     icon: GraduationIcon,
     videos: [
-      {
-        id: "v1",
-        videoId: "",
-        titulo: "Lorem ipsum dolor sit amet consectetur",
-        descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-        duracion: "8:24",
-      },
-      {
-        id: "v2",
-        videoId: "",
-        titulo: "Lorem ipsum dolor sit amet consectetur",
-        descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-        duracion: "12:10",
-      },
-      {
-        id: "v3",
-        videoId: "",
-        titulo: "Lorem ipsum dolor sit amet consectetur",
-        descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-        duracion: "15:45",
-      },
+      { id: "v1", videoId: "", titulo: "Título del video", descripcion: "Cargar acá el enlace del video del canal.", duracion: "—" },
+      { id: "v2", videoId: "", titulo: "Título del video", descripcion: "Cargar acá el enlace del video del canal.", duracion: "—" },
+      { id: "v3", videoId: "", titulo: "Título del video", descripcion: "Cargar acá el enlace del video del canal.", duracion: "—" },
     ],
   },
   {
-    titulo: "Lorem ipsum",
+    titulo: "Naturaleza y entorno",
     icon: LeafIcon,
     videos: [
-      {
-        id: "v4",
-        videoId: "",
-        titulo: "Lorem ipsum dolor sit amet consectetur",
-        descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-        duracion: "18:32",
-      },
-      {
-        id: "v5",
-        videoId: "",
-        titulo: "Lorem ipsum dolor sit amet consectetur",
-        descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-        duracion: "11:07",
-      },
+      { id: "v4", videoId: "", titulo: "Título del video", descripcion: "Cargar acá el enlace del video del canal.", duracion: "—" },
+      { id: "v5", videoId: "", titulo: "Título del video", descripcion: "Cargar acá el enlace del video del canal.", duracion: "—" },
     ],
   },
   {
-    titulo: "Lorem ipsum",
+    titulo: "Dirigentes y grupo",
     icon: UsersIcon,
     videos: [
-      {
-        id: "v6",
-        videoId: "",
-        titulo: "Lorem ipsum dolor sit amet consectetur",
-        descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-        duracion: "22:15",
-      },
-      {
-        id: "v7",
-        videoId: "",
-        titulo: "Lorem ipsum dolor sit amet consectetur",
-        descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-        duracion: "9:50",
-      },
+      { id: "v6", videoId: "", titulo: "Título del video", descripcion: "Cargar acá el enlace del video del canal.", duracion: "—" },
+      { id: "v7", videoId: "", titulo: "Título del video", descripcion: "Cargar acá el enlace del video del canal.", duracion: "—" },
     ],
   },
 ];

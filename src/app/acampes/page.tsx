@@ -27,7 +27,7 @@ export default async function AcampesPage() {
   const subcamposDetalle = [
     {
       id: "1", nombre: subcampos[0].nombre,
-      descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      descripcion: "Describir acá este subcampo: el terreno, la sombra y para qué tipo de actividad sirve mejor.",
       caracteristicas: [
         { label: "Capacidad", valor: "Hasta 80 personas", icon: UsersIcon },
         { label: "Acceso", valor: "Vehicular y peatonal", icon: CarIcon },
@@ -38,7 +38,7 @@ export default async function AcampesPage() {
     },
     {
       id: "2", nombre: subcampos[1].nombre,
-      descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      descripcion: "Describir acá este subcampo: el terreno, la sombra y para qué tipo de actividad sirve mejor.",
       caracteristicas: [
         { label: "Capacidad", valor: "Hasta 50 personas", icon: UsersIcon },
         { label: "Acceso", valor: "Solo peatonal", icon: MapIcon },
@@ -49,7 +49,7 @@ export default async function AcampesPage() {
     },
     {
       id: "3", nombre: subcampos[2].nombre,
-      descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      descripcion: "Describir acá este subcampo: el terreno, la sombra y para qué tipo de actividad sirve mejor.",
       caracteristicas: [
         { label: "Capacidad", valor: "Hasta 60 personas", icon: UsersIcon },
         { label: "Acceso", valor: "Vehicular y peatonal", icon: CarIcon },
@@ -60,7 +60,7 @@ export default async function AcampesPage() {
     },
     {
       id: "4", nombre: subcampos[3].nombre,
-      descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      descripcion: "Describir acá este subcampo: el terreno, la sombra y para qué tipo de actividad sirve mejor.",
       caracteristicas: [
         { label: "Capacidad", valor: "Hasta 40 personas", icon: UsersIcon },
         { label: "Acceso", valor: "Solo peatonal", icon: MapIcon },
@@ -75,8 +75,8 @@ export default async function AcampesPage() {
     <>
       <PageHero
         eyebrow="Acampes"
-        title="Lorem ipsum dolor sit amet"
-        subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        title="El predio"
+        subtitle="Cuatro subcampos, servicios e instalaciones para que tu grupo acampe."
         src="/images/acampes-portada.jpg"
       />
 
@@ -85,20 +85,17 @@ export default async function AcampesPage() {
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div>
             <SectionHeading
-              eyebrow="Lorem ipsum"
-              title="Lorem ipsum dolor sit amet"
+              eyebrow="El campo"
+              title="Un predio preparado para acampar"
             />
             <div className="mt-5 space-y-4 text-[0.95rem] leading-relaxed text-forest/85">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
+                Acá va la descripción general del predio: cuánta superficie tiene,
+                cómo es el terreno y qué lo hace apto para acampar.
               </p>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+                Un segundo párrafo puede detallar los accesos, el estacionamiento y
+                las áreas comunes que comparten todos los subcampos.
               </p>
             </div>
 
@@ -132,9 +129,9 @@ export default async function AcampesPage() {
         <div className="container-flandes">
           <SectionHeading
             align="center"
-            eyebrow="Lorem ipsum"
-            title="Lorem ipsum dolor sit amet"
-            subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            eyebrow="Subcampos"
+            title="Los cuatro subcampos"
+            subtitle="Cada uno tiene su capacidad y sus servicios. Se reservan por separado."
             className="mb-12"
           />
 
@@ -208,9 +205,9 @@ export default async function AcampesPage() {
       <section className="container-flandes py-20">
         <SectionHeading
           align="center"
-          eyebrow="Lorem ipsum"
-          title="Lorem ipsum dolor sit amet"
-          subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          eyebrow="Servicios"
+          title="Qué encontrás en el campo"
+          subtitle="Instalaciones disponibles para todos los grupos."
           className="mb-12"
         />
         <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -235,9 +232,9 @@ export default async function AcampesPage() {
         <div className="container-flandes">
           <SectionHeading
             align="center"
-            eyebrow="Lorem ipsum"
-            title="Lorem ipsum dolor sit amet"
-            subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            eyebrow="Mapa"
+            title="Cómo está distribuido el predio"
+            subtitle="Ubicación de cada subcampo y de las instalaciones comunes."
             className="mb-10"
           />
           <ImageFrame
@@ -265,9 +262,9 @@ export default async function AcampesPage() {
       <section className="container-flandes py-20">
         <SectionHeading
           align="center"
-          eyebrow="Lorem ipsum"
-          title="Lorem ipsum dolor sit amet"
-          subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          eyebrow="Galería"
+          title="El campo en fotos"
+          subtitle="Imágenes del predio y de los acampes."
           className="mb-12"
         />
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
@@ -292,10 +289,10 @@ export default async function AcampesPage() {
           <div className="absolute inset-0 bg-[url('/images/hero-campo.jpg')] bg-cover bg-center opacity-20" />
           <div className="relative mx-auto max-w-2xl">
             <h2 className="font-display text-3xl font-bold uppercase text-white sm:text-4xl">
-              Lorem ipsum dolor sit amet?
+              ¿Querés acampar acá?
             </h2>
             <p className="mt-4 text-lg text-sand/80">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+              Pedí tu fecha y coordinamos el subcampo que mejor le sirva a tu grupo.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Link href="/reservas" className="btn-primary">
@@ -313,52 +310,21 @@ export default async function AcampesPage() {
   );
 }
 
+// Los valores con "—" los tiene que confirmar el campo.
 const stats = [
   { valor: "4", label: "Subcampos" },
-  { valor: "40+", label: "Años" },
+  { valor: "—", label: "Años" },
   { valor: "—", label: "Hectáreas" },
 ];
 
 const servicios = [
-  {
-    titulo: "Agua corriente",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    icon: DropletIcon,
-  },
-  {
-    titulo: "Sanitarios",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    icon: UsersIcon,
-  },
-  {
-    titulo: "Electricidad",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    icon: ZapIcon,
-  },
-  {
-    titulo: "Fogones",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    icon: FlameIcon,
-  },
-  {
-    titulo: "Quincho / techado",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    icon: HomeIcon,
-  },
-  {
-    titulo: "Estacionamiento",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    icon: CarIcon,
-  },
-  {
-    titulo: "Seguridad",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    icon: ShieldIcon,
-  },
-  {
-    titulo: "Orientación",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    icon: MapIcon,
-  },
+  { titulo: "Agua corriente", desc: "Detallar acá las tomas de agua disponibles.", icon: DropletIcon },
+  { titulo: "Sanitarios", desc: "Detallar acá los baños y su ubicación en el predio.", icon: UsersIcon },
+  { titulo: "Electricidad", desc: "Detallar acá dónde hay conexión eléctrica.", icon: ZapIcon },
+  { titulo: "Fogones", desc: "Detallar acá los fogones habilitados y sus normas.", icon: FlameIcon },
+  { titulo: "Quincho / techado", desc: "Detallar acá los espacios techados y su capacidad.", icon: HomeIcon },
+  { titulo: "Estacionamiento", desc: "Detallar acá dónde se estaciona y cuántos vehículos entran.", icon: CarIcon },
+  { titulo: "Seguridad", desc: "Detallar acá las medidas de seguridad del predio.", icon: ShieldIcon },
+  { titulo: "Orientación", desc: "Detallar acá la señalización y los circuitos del campo.", icon: MapIcon },
 ];
 

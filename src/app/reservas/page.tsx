@@ -25,26 +25,26 @@ export default async function ReservasPage() {
   const contact = await getSiteSettings();
   const sc = contact.subcampos;
   const subcamposDetalle = [
-    { id: "1", nombre: sc[0].nombre, descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", servicios: ["Agua corriente", "Baños cercanos", "Fogón habilitado"],         capacidad: "Hasta 80 personas" },
-    { id: "2", nombre: sc[1].nombre, descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", servicios: ["Agua corriente", "Baños a 100 m", "Fogón habilitado"],          capacidad: "Hasta 50 personas" },
-    { id: "3", nombre: sc[2].nombre, descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", servicios: ["Agua corriente", "Baños propios", "Techado disponible"],        capacidad: "Hasta 60 personas" },
-    { id: "4", nombre: sc[3].nombre, descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", servicios: ["Agua corriente", "Baños cercanos", "Fogón habilitado"],        capacidad: "Hasta 40 personas" },
+    { id: "1", nombre: sc[0].nombre, descripcion: "Describir acá el subcampo en una línea.", servicios: ["Agua corriente", "Baños cercanos", "Fogón habilitado"],         capacidad: "Hasta 80 personas" },
+    { id: "2", nombre: sc[1].nombre, descripcion: "Describir acá el subcampo en una línea.", servicios: ["Agua corriente", "Baños a 100 m", "Fogón habilitado"],          capacidad: "Hasta 50 personas" },
+    { id: "3", nombre: sc[2].nombre, descripcion: "Describir acá el subcampo en una línea.", servicios: ["Agua corriente", "Baños propios", "Techado disponible"],        capacidad: "Hasta 60 personas" },
+    { id: "4", nombre: sc[3].nombre, descripcion: "Describir acá el subcampo en una línea.", servicios: ["Agua corriente", "Baños cercanos", "Fogón habilitado"],        capacidad: "Hasta 40 personas" },
   ];
   return (
     <>
       <PageHero
         eyebrow="Reservas"
-        title="Lorem ipsum dolor sit amet"
-        subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        title="Reservá tu acampe"
+        subtitle="Elegí subcampo y fechas, completá el formulario y coordinamos por WhatsApp."
         src="/images/reservas-portada.jpg"
       />
 
       {/* ---- NORMAS DEL ACAMPE ---- */}
       <section className="container-flandes py-20">
         <SectionHeading
-          eyebrow="Lorem ipsum"
-          title="Lorem ipsum dolor sit amet"
-          subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore."
+          eyebrow="Normas"
+          title="Normas del acampe"
+          subtitle="Lo que todo grupo tiene que saber antes de llegar al campo."
           className="mb-10"
         />
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -73,8 +73,8 @@ export default async function ReservasPage() {
           />
           <p className="text-sm leading-relaxed text-forest-dark">
             <strong>Costos y aranceles:</strong>{" "}
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Indicar acá el valor por persona o por grupo, y si hay diferencia
+            entre socios y no socios.
           </p>
         </div>
       </section>
@@ -84,9 +84,9 @@ export default async function ReservasPage() {
         <div className="container-flandes">
           <SectionHeading
             align="center"
-            eyebrow="Lorem ipsum"
-            title="Lorem ipsum dolor sit amet"
-            subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
+            eyebrow="Subcampos"
+            title="Elegí dónde acampar"
+            subtitle="Capacidad y servicios de cada subcampo."
             className="mb-12"
           />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -138,9 +138,9 @@ export default async function ReservasPage() {
           {/* Lado izquierdo: info */}
           <div>
             <SectionHeading
-              eyebrow="Lorem ipsum"
-              title="Lorem ipsum dolor sit amet"
-              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
+              eyebrow="Solicitud"
+              title="Pedí tu fecha"
+              subtitle="Completá el formulario y te respondemos por WhatsApp."
             />
 
             <div className="mt-8 space-y-4">
@@ -150,10 +150,10 @@ export default async function ReservasPage() {
                 </span>
                 <div>
                   <p className="text-sm font-semibold text-forest-dark">
-                    Lorem ipsum dolor sit amet
+                    Reservá con anticipación
                   </p>
                   <p className="text-xs text-forest/65">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing.
+                    Indicar acá con cuánto tiempo conviene pedir la fecha.
                   </p>
                 </div>
               </div>
@@ -164,10 +164,10 @@ export default async function ReservasPage() {
                 </span>
                 <div>
                   <p className="text-sm font-semibold text-forest-dark">
-                    Lorem ipsum dolor sit amet
+                    Contanos cuántos son
                   </p>
                   <p className="text-xs text-forest/65">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+                    Con la cantidad de personas te sugerimos el subcampo más adecuado.
                   </p>
                 </div>
               </div>
@@ -178,10 +178,10 @@ export default async function ReservasPage() {
                 </span>
                 <div>
                   <p className="text-sm font-semibold text-forest-dark">
-                    Lorem ipsum dolor sit amet
+                    Seguro y responsables
                   </p>
                   <p className="text-xs text-forest/65">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
+                    Indicar acá qué documentación se pide a cada grupo.
                   </p>
                 </div>
               </div>
@@ -214,10 +214,10 @@ export default async function ReservasPage() {
         <div className="container-flandes flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
           <div>
             <h2 className="font-display text-2xl font-bold uppercase text-forest-dark">
-              Lorem ipsum dolor sit amet?
+              ¿Todavía no conocés el predio?
             </h2>
             <p className="mt-1 text-sm text-forest/70">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Mirá los subcampos y las instalaciones antes de reservar.
             </p>
           </div>
           <Link href="/acampes" className="btn-forest shrink-0">
@@ -231,35 +231,11 @@ export default async function ReservasPage() {
 }
 
 const normas = [
-  {
-    titulo: "Lorem ipsum dolor",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.",
-    icon: UsersIcon,
-  },
-  {
-    titulo: "Lorem ipsum dolor",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.",
-    icon: FlameIcon,
-  },
-  {
-    titulo: "Lorem ipsum dolor",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.",
-    icon: ShieldIcon,
-  },
-  {
-    titulo: "Lorem ipsum dolor",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.",
-    icon: AlertIcon,
-  },
-  {
-    titulo: "Lorem ipsum dolor",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.",
-    icon: CalendarIcon,
-  },
-  {
-    titulo: "Lorem ipsum dolor",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.",
-    icon: MapIcon,
-  },
+  { titulo: "Responsables a cargo", desc: "Completar acá la norma sobre dirigentes responsables por grupo.", icon: UsersIcon },
+  { titulo: "Uso del fuego", desc: "Completar acá dónde se permite hacer fuego y con qué cuidados.", icon: FlameIcon },
+  { titulo: "Seguridad", desc: "Completar acá las normas de seguridad dentro del predio.", icon: ShieldIcon },
+  { titulo: "Cuidado del lugar", desc: "Completar acá las normas de limpieza y residuos.", icon: AlertIcon },
+  { titulo: "Horarios", desc: "Completar acá los horarios de ingreso, silencio y salida.", icon: CalendarIcon },
+  { titulo: "Circulación", desc: "Completar acá por dónde se puede circular y por dónde no.", icon: MapIcon },
 ];
 
