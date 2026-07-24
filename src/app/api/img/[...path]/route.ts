@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getBlobStore } from "@/lib/blobs";
 
 export const runtime = "nodejs";
 
@@ -10,17 +11,20 @@ export async function GET(
   const filename = segments.join("/");
   const slot = filename.replace(/\.[^.]+$/, ""); // strip extension
 
-  if (process.env.NETLIFY) {
-    const { getStore } = await import("@netlify/blobs");
-    const store = getStore("site-images");
-    const data = await store.get(slot, { type: "arrayBuffer" });
-    if (!data) return new NextResponse(null, { status: 404 });
-    return new NextResponse(data, {
-      headers: {
-        "Content-Type": "image/jpeg",
-        "Cache-Control": "public, max-age=31536000, immutable",
-      },
-    });
+  const store = await getBlobStore("site-images");
+  if (store) {
+    try {
+      const data = await store.get(slot, { type: "arrayBuffer" });
+      if (!data) return new NextResponse(null, { status: 404 });
+      return new NextResponse(data, {
+        headers: {
+          "Content-Type": "image/jpeg",
+          "Cache-Control": "public, max-age=31536000, immutable",
+        },
+      });
+    } catch {
+      return new NextResponse(null, { status: 404 });
+    }
   }
 
   // Desarrollo local: leer desde public/images/

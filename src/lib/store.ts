@@ -1,31 +1,25 @@
 /**
  * Capa de persistencia del sitio.
  *
- * En Netlify usa Netlify Blobs (persistente entre despliegues e instancias).
- * En desarrollo local usa archivos JSON dentro de `.data/`.
+ * Usa Netlify Blobs cuando está disponible (producción) y archivos JSON en
+ * `.data/` cuando no lo está (desarrollo local). La elección no se hace por
+ * variable de entorno sino intentando abrir el store, porque `process.env.NETLIFY`
+ * no es confiable en tiempo de ejecución dentro de las funciones.
  *
  * Se eligió Blobs en lugar de SQLite porque en un entorno serverless el
  * filesystem es de solo lectura y `/tmp` es efímero por instancia: los datos
  * cargados desde el panel se perdían en cada arranque en frío.
  */
 
-const STORE_NAME = "site-data";
+import { getBlobStore } from "@/lib/blobs";
 
-function isNetlify(): boolean {
-  return Boolean(process.env.NETLIFY);
-}
+const STORE_NAME = "site-data";
 
 function localDir(): string {
   return process.env.DATA_DIR ?? ".data";
 }
 
-async function readRaw<T>(key: string): Promise<T | null> {
-  if (isNetlify()) {
-    const { getStore } = await import("@netlify/blobs");
-    const store = getStore(STORE_NAME);
-    return (await store.get(key, { type: "json" })) as T | null;
-  }
-
+async function readFromDisk<T>(key: string): Promise<T | null> {
   const { readFile } = await import("fs/promises");
   const { join } = await import("path");
   try {
@@ -36,19 +30,36 @@ async function readRaw<T>(key: string): Promise<T | null> {
   }
 }
 
-async function writeRaw(key: string, value: unknown): Promise<void> {
-  if (isNetlify()) {
-    const { getStore } = await import("@netlify/blobs");
-    const store = getStore(STORE_NAME);
-    await store.setJSON(key, value);
-    return;
-  }
-
+async function writeToDisk(key: string, value: unknown): Promise<void> {
   const { writeFile, mkdir } = await import("fs/promises");
   const { join } = await import("path");
   const dir = join(process.cwd(), localDir());
   await mkdir(dir, { recursive: true });
   await writeFile(join(dir, `${key}.json`), JSON.stringify(value, null, 2), "utf8");
+}
+
+async function readRaw<T>(key: string): Promise<T | null> {
+  const store = await getBlobStore(STORE_NAME);
+  if (store) {
+    return (await store.get(key, { type: "json" })) as T | null;
+  }
+  return readFromDisk<T>(key);
+}
+
+async function writeRaw(key: string, value: unknown): Promise<void> {
+  const store = await getBlobStore(STORE_NAME);
+  if (store) {
+    await store.setJSON(key, value);
+    return;
+  }
+  try {
+    await writeToDisk(key, value);
+  } catch (e) {
+    throw new Error(
+      "No se pudo guardar: el almacenamiento del sitio no está disponible. " +
+        `Detalle: ${e instanceof Error ? e.message : String(e)}`
+    );
+  }
 }
 
 /**

@@ -1,14 +1,18 @@
+import { getBlobStore } from "@/lib/blobs";
 import { IMAGE_SLOTS, GROUPS } from "./imageSlots";
 import ImageUploadCard from "./ImageUploadCard";
 
 export const metadata = { title: "Imágenes — Admin" };
 
 async function getExistingSlots(): Promise<Set<string>> {
-  if (process.env.NETLIFY) {
-    const { getStore } = await import("@netlify/blobs");
-    const store = getStore("site-images");
-    const { blobs } = await store.list();
-    return new Set(blobs.map((b) => b.key));
+  const store = await getBlobStore("site-images");
+  if (store) {
+    try {
+      const { blobs } = await store.list();
+      return new Set(blobs.map((b) => b.key));
+    } catch {
+      return new Set(); // el listado no es crítico: la página igual debe abrir
+    }
   }
   const { existsSync } = await import("fs");
   const { join } = await import("path");
