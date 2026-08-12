@@ -235,30 +235,26 @@ export default async function AdiestramientoPage() {
   );
 }
 
+// Videos del canal del campo. Los identificadores salen de los enlaces que
+// mandó el campo; los títulos hay que confirmarlos (solo se conocía el del
+// capítulo 3, el resto se numeró siguiendo el orden en que llegaron).
 const categorias = [
   {
-    titulo: "Técnicas de campamento",
+    titulo: "Campo Escuela Flandes",
     icon: GraduationIcon,
     videos: [
-      { id: "v1", videoId: "", titulo: "Título del video", descripcion: "Cargar acá el enlace del video del canal.", duracion: "—" },
-      { id: "v2", videoId: "", titulo: "Título del video", descripcion: "Cargar acá el enlace del video del canal.", duracion: "—" },
-      { id: "v3", videoId: "", titulo: "Título del video", descripcion: "Cargar acá el enlace del video del canal.", duracion: "—" },
+      { id: "v1", videoId: "KSIpD4xacyw", titulo: "Capítulo 1", descripcion: "Confirmar el título de este video.", duracion: "" },
+      { id: "v2", videoId: "hRMVZiSJyQ4", titulo: "Capítulo 2", descripcion: "Confirmar el título de este video.", duracion: "" },
+      { id: "v3", videoId: "Ml5t6EDs-wg", titulo: "Capítulo 3", descripcion: "Confirmar el título de este video.", duracion: "" },
     ],
   },
   {
-    titulo: "Naturaleza y entorno",
+    titulo: "Más videos del canal",
     icon: LeafIcon,
     videos: [
-      { id: "v4", videoId: "", titulo: "Título del video", descripcion: "Cargar acá el enlace del video del canal.", duracion: "—" },
-      { id: "v5", videoId: "", titulo: "Título del video", descripcion: "Cargar acá el enlace del video del canal.", duracion: "—" },
-    ],
-  },
-  {
-    titulo: "Dirigentes y grupo",
-    icon: UsersIcon,
-    videos: [
-      { id: "v6", videoId: "", titulo: "Título del video", descripcion: "Cargar acá el enlace del video del canal.", duracion: "—" },
-      { id: "v7", videoId: "", titulo: "Título del video", descripcion: "Cargar acá el enlace del video del canal.", duracion: "—" },
+      { id: "v4", videoId: "2hOKzy371X8", titulo: "Capítulo 4", descripcion: "Confirmar el título de este video.", duracion: "" },
+      { id: "v5", videoId: "gkm_ZsRQbyc", titulo: "Capítulo 5", descripcion: "Confirmar el título de este video.", duracion: "" },
+      { id: "v6", videoId: "gP07CuF3q-k", titulo: "Capítulo 6", descripcion: "Confirmar el título de este video.", duracion: "" },
     ],
   },
 ];

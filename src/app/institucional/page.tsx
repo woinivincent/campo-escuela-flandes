@@ -32,7 +32,7 @@ export default async function InstitucionalPage() {
       <PageHero
         eyebrow="Institucional"
         title="Nuestra historia"
-        subtitle="De dónde viene el campo, quiénes lo sostienen y cómo llegó hasta hoy."
+        subtitle="Una entidad de servicio y bien público sin fines de lucro, fundada en 1958."
         src="/images/institucional-portada.jpg"
       />
 
@@ -46,12 +46,17 @@ export default async function InstitucionalPage() {
             />
             <div className="mt-5 space-y-4 leading-relaxed text-forest/85">
               <p>
-                Acá va la historia del campo: cómo se consiguió el predio, en qué
-                año empezó a funcionar y quiénes impulsaron el proyecto.
+                El Campo Escuela Flandes es una entidad de servicio y bien público
+                sin fines de lucro, fundada en 1958. El predio que ocupa fue cedido
+                por Algodonera Flandria a los Scouts para que pudieran realizar allí
+                sus actividades.
               </p>
               <p>
-                Un segundo párrafo puede contar cómo fue creciendo, las obras que
-                se hicieron y qué lugar ocupa hoy dentro del escultismo.
+                Desde entonces, ininterrumpidamente se han conservado y mejorado
+                tanto su estructura edilicia como sus diferentes ambientes naturales,
+                que permiten contar con comodidades suficientes para una confortable
+                estadía y al mismo tiempo con la armonía de la biodiversidad que allí
+                se puede encontrar.
               </p>
             </div>
           </div>

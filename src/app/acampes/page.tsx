@@ -76,7 +76,7 @@ export default async function AcampesPage() {
       <PageHero
         eyebrow="Acampes"
         title="El predio"
-        subtitle="Cuatro subcampos, servicios e instalaciones para que tu grupo acampe."
+        subtitle="Cuatro subcampos sobre el Río Luján, con servicios e instalaciones para tu grupo."
         src="/images/acampes-portada.jpg"
       />
 
@@ -90,12 +90,15 @@ export default async function AcampesPage() {
             />
             <div className="mt-5 space-y-4 text-[0.95rem] leading-relaxed text-forest/85">
               <p>
-                Acá va la descripción general del predio: cuánta superficie tiene,
-                cómo es el terreno y qué lo hace apto para acampar.
+                El predio limita al Norte con el camino privado de acceso a
+                Algodonera Flandria, cruzado de Oeste a Este por el Río Luján y
+                bordeado por un bosque ribereño mixto natural. Al Este y al Sur
+                limita con la calle San Martín, y al Oeste con la calle Flandes.
               </p>
               <p>
-                Un segundo párrafo puede detallar los accesos, el estacionamiento y
-                las áreas comunes que comparten todos los subcampos.
+                Fue forestado en diferentes etapas, lo que permite hoy diferenciar
+                varios ambientes y contar con comodidades suficientes para una
+                estadía confortable en plena naturaleza.
               </p>
             </div>
 
@@ -310,10 +313,10 @@ export default async function AcampesPage() {
   );
 }
 
-// Los valores con "—" los tiene que confirmar el campo.
+// La superficie en hectáreas la tiene que confirmar el campo.
 const stats = [
   { valor: "4", label: "Subcampos" },
-  { valor: "—", label: "Años" },
+  { valor: "1958", label: "Desde" },
   { valor: "—", label: "Hectáreas" },
 ];
 

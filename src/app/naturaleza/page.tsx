@@ -30,7 +30,7 @@ export default async function NaturalezaPage() {
       <PageHero
         eyebrow="Naturaleza"
         title="Flora y fauna del campo"
-        subtitle="Las especies que viven en el predio, con fichas y códigos QR para reconocerlas."
+        subtitle="Área Forestal Protegida sobre el Río Luján, con especies señalizadas para reconocerlas."
         src="/images/naturaleza-portada.jpg"
       />
 
@@ -40,8 +40,8 @@ export default async function NaturalezaPage() {
           <div>
             <SectionHeading
               eyebrow="El entorno"
-              title="Un ambiente para descubrir"
-              subtitle="Acá va la descripción del entorno natural del campo: el tipo de monte, la cercanía al agua y qué se puede observar en cada época del año."
+              title="Un pulmón verde sobre el Río Luján"
+              subtitle="El predio está bordeado por un bosque ribereño mixto natural y fue forestado en distintas etapas, lo que permite diferenciar varios ambientes. Por la tranquilidad del lugar y la abundante vegetación se observa allí una gran cantidad de animales, entre los que predominan las aves."
             />
             <ul className="mt-7 grid gap-3 sm:grid-cols-2">
               {destacados.map((d, i) => (
@@ -253,10 +253,10 @@ function EspecieCard({ especie }: { especie: Especie }) {
 }
 
 const destacados = [
-  { texto: "Especies nativas identificadas en el predio", icon: LeafIcon },
-  { texto: "Espacios de monte conservados", icon: ShieldIcon },
-  { texto: "Señalización con códigos QR", icon: QrIcon },
-  { texto: "Actividades de educación ambiental", icon: UsersIcon },
+  { texto: "Bosque ribereño mixto natural sobre el Río Luján", icon: LeafIcon },
+  { texto: "Área Forestal Protegida (Decreto Municipal 787/00)", icon: ShieldIcon },
+  { texto: "Especies arbóreas señalizadas con carteles", icon: QrIcon },
+  { texto: "Gran diversidad de aves y fauna nativa", icon: UsersIcon },
 ];
 
 
@@ -267,7 +267,7 @@ const qrPasos = [
 ];
 
 const proyectos = [
-  { titulo: "Señalización con QR", desc: "Colocar carteles con código en las especies del predio.", estado: "En desarrollo", icon: QrIcon },
-  { titulo: "Relevamiento de especies", desc: "Describir acá el trabajo de identificación de flora y fauna.", estado: "En curso", icon: LeafIcon },
-  { titulo: "Conservación del monte", desc: "Describir acá el proyecto de cuidado del ambiente natural.", estado: "Planificado", icon: ShieldIcon },
+  { titulo: "Señalización con QR", desc: "Sumar el código a los carteles que ya identifican las especies arbóreas del predio.", estado: "En desarrollo", icon: QrIcon },
+  { titulo: "Sitio M.C.", desc: "En la barranca del Río Luján se han extraído importantes piezas fósiles de la megafauna pampeana, desaparecida hace unos 10.000 años.", estado: "Sitio paleontológico", icon: LeafIcon },
+  { titulo: "Área Forestal Protegida", desc: "El predio fue declarado protegido junto con otros terrenos locales lindantes al río, asegurando la conservación de este pulmón verde.", estado: "Vigente", icon: ShieldIcon },
 ];

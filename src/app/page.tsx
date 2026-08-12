@@ -45,8 +45,8 @@ export default async function HomePage() {
             </span>
           </div>
           <p className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
-            Un campo de ejercicios scout para acampes, formación y actividades
-            al aire libre.
+            Entidad de servicio y bien público sin fines de lucro, fundada en 1958.
+            Acampes, formación y vida al aire libre sobre el Río Luján.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             <Link href="/reservas" className="btn-primary">
@@ -95,7 +95,7 @@ export default async function HomePage() {
             <SectionHeading
               eyebrow="El campo"
               title="Un espacio pensado para el escultismo"
-              subtitle="Acá va la presentación del campo: qué es, desde cuándo funciona y para quién está pensado. Con uno o dos párrafos alcanza."
+              subtitle="Fundado en 1958 sobre un predio cedido por Algodonera Flandria a los Scouts, el campo se sostiene como entidad de bien público sin fines de lucro y se conserva y mejora de forma ininterrumpida desde entonces."
             />
             <ul className="mt-7 grid gap-3 sm:grid-cols-2">
               {bienvenidaPuntos.map((p, i) => (
@@ -192,13 +192,13 @@ export default async function HomePage() {
       <section className="bg-forest-pale/50 py-20">
         <div className="container-flandes grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>
-            <p className="section-eyebrow">Por qué Flandes</p>
+            <p className="section-eyebrow">Nuestros objetivos</p>
             <h2 className="section-title">
-              Todo lo que tu grupo necesita
+              Para qué existe el campo
             </h2>
             <p className="mt-5 max-w-lg leading-relaxed text-forest/80">
-              Acá va el texto que cuenta qué ofrece el campo y por qué elegirlo:
-              la infraestructura, el entorno y el acompañamiento a los grupos.
+              Cuatro objetivos guían la tarea del Campo Escuela Flandes desde su
+              fundación, acordes a los principios del escultismo.
             </p>
             <Link href="/institucional" className="btn-outline mt-8">
               Conocer nuestra historia
@@ -339,11 +339,10 @@ export default async function HomePage() {
   );
 }
 
-// El valor de "Años de trayectoria" y "Hectáreas" lo tiene que confirmar el campo.
 const stats = [
   { value: "4", label: "Subcampos disponibles" },
-  { value: "—", label: "Años de trayectoria" },
-  { value: "—", label: "Hectáreas de predio" },
+  { value: "1958", label: "Funcionando desde" },
+  { value: "100%", label: "Sin fines de lucro" },
 ];
 
 const quickLinks = [
@@ -353,11 +352,12 @@ const quickLinks = [
   { title: "Adiestramiento", desc: "Cursos, charlas y videos.", href: "/adiestramiento", icon: GraduationIcon },
 ];
 
+// Los cuatro objetivos institucionales del campo.
 const features = [
-  { title: "El predio", desc: "Describir acá la extensión y los espacios disponibles.", icon: MapIcon },
-  { title: "Disponibilidad", desc: "Describir acá cómo es la disponibilidad durante el año.", icon: CalendarIcon },
-  { title: "Entorno natural", desc: "Describir acá el entorno y la vegetación del campo.", icon: LeafIcon },
-  { title: "Acompañamiento", desc: "Describir acá el apoyo que se le da a cada grupo.", icon: UsersIcon },
+  { title: "Adiestramiento", desc: "Brindar, fomentar y facilitar la capacitación y el adiestramiento scout.", icon: GraduationIcon },
+  { title: "Vida al aire libre", desc: "Posibilitar el campismo y la vida al aire libre como tarea educativa.", icon: MapIcon },
+  { title: "Naturaleza", desc: "Fomentar el conocimiento, respeto y protección de la naturaleza.", icon: LeafIcon },
+  { title: "Confraternidad", desc: "Alentar la amistad, el compañerismo y la camaradería entre niños y jóvenes.", icon: UsersIcon },
 ];
 
 const bienvenidaPuntos = [

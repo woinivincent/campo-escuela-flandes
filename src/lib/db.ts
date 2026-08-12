@@ -495,10 +495,10 @@ const SEED_CONFIG: Record<string, string> = {
 };
 
 const SEED_HITOS: Hito[] = [
-  { id: "hito-1", anio: "Los inicios", texto: "Contar acá cómo se consiguió el predio y quiénes impulsaron el proyecto.", orden: 0 },
-  { id: "hito-2", anio: "El crecimiento", texto: "Contar acá las primeras obras y los campamentos que marcaron una época.", orden: 1 },
-  { id: "hito-3", anio: "La consolidación", texto: "Contar acá cómo el campo se afianzó como sede de actividades scouts.", orden: 2 },
-  { id: "hito-4", anio: "Hoy", texto: "Contar acá en qué situación está el campo actualmente y qué se viene.", orden: 3 },
+  { id: "hito-1", anio: "1958", texto: "Se funda el Campo Escuela Flandes. Algodonera Flandria cede el predio a los Scouts para que puedan realizar allí sus actividades.", orden: 0 },
+  { id: "hito-2", anio: "Desde entonces", texto: "Se conservan y mejoran de forma ininterrumpida la estructura edilicia y los distintos ambientes naturales del predio.", orden: 1 },
+  { id: "hito-3", anio: "2000", texto: "El predio es declarado Área Forestal Protegida junto con otros terrenos locales lindantes al río (Decreto Municipal 787/00).", orden: 2 },
+  { id: "hito-4", anio: "Hoy", texto: "Completar acá la situación actual del campo y los proyectos en marcha.", orden: 3 },
 ];
 
 const SEED_ESPECIES: Especie[] = [
