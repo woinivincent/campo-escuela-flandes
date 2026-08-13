@@ -38,6 +38,7 @@ function ClockIcon({ width = 14, height = 14 }: { width?: number; height?: numbe
 
 const navItems = [
   { href: "/admin/agenda",        label: "Agenda",        Icon: CalendarIcon },
+  { href: "/admin/biblioteca",    label: "Biblioteca",    Icon: BookIcon },
   { href: "/admin/libreria",      label: "Librería",      Icon: BookIcon },
   { href: "/admin/cursos",        label: "Cursos",        Icon: GraduationIcon },
   { href: "/admin/institucional", label: "Institucional", Icon: ClockIcon },

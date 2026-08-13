@@ -1,7 +1,6 @@
 import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
-import ImageFrame from "@/components/ui/ImageFrame";
 import { getCursosPublicos } from "@/lib/db";
 import { getSiteSettings } from "@/lib/siteConfigService";
 import TopoPattern from "@/components/ui/TopoPattern";
@@ -9,7 +8,6 @@ import {
   GraduationIcon,
   CalendarIcon,
   UsersIcon,
-  LeafIcon,
   PlayIcon,
   YoutubeIcon,
   WhatsAppIcon,
@@ -122,81 +120,45 @@ export default async function AdiestramientoPage() {
         </div>
       </section>
 
-      {/* ---- VIDEOS POR TEMA ---- */}
+      {/* ---- BORDÓN DIGITAL (vive en Biblioteca) ---- */}
       <section className="bg-sand-dark/40 py-20">
         <div className="container-flandes">
-          <div className="mb-12 flex flex-wrap items-end justify-between gap-4">
-            <SectionHeading
-              eyebrow="Canal de YouTube"
-              title="Videos por tema"
-              subtitle="Material de formación grabado en el campo."
-            />
-            <a
-              href={social.youtube || "https://youtube.com"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex shrink-0 items-center gap-2 text-sm font-semibold text-flandes-red transition hover:text-flandes-red-dark"
-            >
-              <YoutubeIcon width={18} height={18} />
-              Ver canal completo
-              <ExternalLinkIcon width={14} height={14} />
-            </a>
-          </div>
-
-          <div className="space-y-14">
-            {categorias.map((cat, i) => (
-              <div key={i}>
-                <div className="mb-5 flex items-center gap-3">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-flandes-red/10 text-flandes-red">
-                    <cat.icon width={18} height={18} />
-                  </span>
-                  <h3 className="font-display text-lg font-bold uppercase tracking-wide text-forest-dark">
-                    {cat.titulo}
-                  </h3>
-                  <div className="h-px flex-1 bg-forest/10" />
-                </div>
-
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {cat.videos.map((v) => (
-                    <a
-                      key={v.id}
-                      href={v.videoId ? `https://www.youtube.com/watch?v=${v.videoId}` : "#"}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group block overflow-hidden rounded-2xl border border-forest/10 bg-white shadow-card transition hover:-translate-y-1 hover:shadow-card-hover"
-                    >
-                      {/* Thumbnail */}
-                      <div className="relative aspect-video overflow-hidden">
-                        <ImageFrame
-                          src={v.videoId ? `https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg` : undefined}
-                          label={`Video: ${v.titulo}`}
-                          rounded="rounded-none"
-                          className="h-full w-full"
-                        />
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition group-hover:opacity-100">
-                          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-flandes-red text-white shadow-lg">
-                            <PlayIcon width={22} height={22} />
-                          </span>
-                        </div>
-                        <span className="absolute bottom-2 right-2 rounded bg-black/70 px-1.5 py-0.5 text-[0.65rem] font-semibold text-white">
-                          {v.duracion}
-                        </span>
-                      </div>
-                      <div className="p-4">
-                        <h4 className="line-clamp-2 font-display text-sm font-bold uppercase leading-tight tracking-tight text-forest-dark group-hover:text-flandes-red">
-                          {v.titulo}
-                        </h4>
-                        <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-forest/60">
-                          {v.descripcion}
-                        </p>
-                      </div>
-                    </a>
-                  ))}
-                </div>
+          <div className="grid items-center gap-10 lg:grid-cols-[1.2fr_1fr]">
+            <div>
+              <SectionHeading
+                eyebrow="Bordón digital"
+                title="El boletín del campo, en video"
+                subtitle="Las ediciones del Bordón digital se publican en el canal de YouTube del campo y están reunidas en la biblioteca."
+              />
+              <div className="mt-7 flex flex-wrap gap-3">
+                <Link href="/biblioteca" className="btn-forest">
+                  Ver el Bordón digital
+                  <ArrowRightIcon width={18} height={18} />
+                </Link>
+                <a
+                  href={social.youtube || "https://youtube.com"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-outline"
+                >
+                  <YoutubeIcon width={18} height={18} />
+                  Ir al canal
+                  <ExternalLinkIcon width={14} height={14} />
+                </a>
               </div>
-            ))}
+            </div>
+            <div className="card flex flex-col items-center gap-3 py-10 text-center">
+              <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-flandes-red/10 text-flandes-red">
+                <PlayIcon width={30} height={30} />
+              </span>
+              <p className="font-display text-lg font-bold uppercase text-forest-dark">
+                Bordón digital
+              </p>
+              <p className="max-w-xs text-sm text-forest/65">
+                Todas las ediciones publicadas, en un solo lugar.
+              </p>
+            </div>
           </div>
-
         </div>
       </section>
 
@@ -234,27 +196,3 @@ export default async function AdiestramientoPage() {
     </>
   );
 }
-
-// Videos del canal del campo. Los identificadores salen de los enlaces que
-// mandó el campo; los títulos hay que confirmarlos (solo se conocía el del
-// capítulo 3, el resto se numeró siguiendo el orden en que llegaron).
-const categorias = [
-  {
-    titulo: "Campo Escuela Flandes",
-    icon: GraduationIcon,
-    videos: [
-      { id: "v1", videoId: "KSIpD4xacyw", titulo: "Capítulo 1", descripcion: "Confirmar el título de este video.", duracion: "" },
-      { id: "v2", videoId: "hRMVZiSJyQ4", titulo: "Capítulo 2", descripcion: "Confirmar el título de este video.", duracion: "" },
-      { id: "v3", videoId: "Ml5t6EDs-wg", titulo: "Capítulo 3", descripcion: "Confirmar el título de este video.", duracion: "" },
-    ],
-  },
-  {
-    titulo: "Más videos del canal",
-    icon: LeafIcon,
-    videos: [
-      { id: "v4", videoId: "2hOKzy371X8", titulo: "Capítulo 4", descripcion: "Confirmar el título de este video.", duracion: "" },
-      { id: "v5", videoId: "gkm_ZsRQbyc", titulo: "Capítulo 5", descripcion: "Confirmar el título de este video.", duracion: "" },
-      { id: "v6", videoId: "gP07CuF3q-k", titulo: "Capítulo 6", descripcion: "Confirmar el título de este video.", duracion: "" },
-    ],
-  },
-];

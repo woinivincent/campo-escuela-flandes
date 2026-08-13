@@ -48,6 +48,14 @@ export interface RecursoSocio {
   url: string; categoria: string; icono: string; orden: number; activo: number;
 }
 
+/** Bordón: las ediciones del boletín. Digital: material descargable. Físico: libros para consultar en el campo. */
+export type TipoMaterial = "Bordón" | "Digital" | "Físico";
+
+export interface MaterialBiblioteca {
+  id: string; titulo: string; descripcion: string;
+  tipo: TipoMaterial; url: string; orden: number; activo: number;
+}
+
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 const byFecha = (a: { fecha: string }, b: { fecha: string }) => a.fecha.localeCompare(b.fecha);
@@ -362,6 +370,54 @@ export async function deleteRecursoSocio(id: string): Promise<void> {
   }));
 }
 
+// ─── Biblioteca ───────────────────────────────────────────────────────────────
+
+export async function getMateriales(soloActivos = false): Promise<MaterialBiblioteca[]> {
+  const rows = await readCollection<MaterialBiblioteca>("biblioteca", SEED_BIBLIOTECA);
+  const sorted = [...rows].sort(byOrden);
+  return soloActivos ? sorted.filter((m) => m.activo === 1) : sorted;
+}
+
+export async function getMaterial(id: string): Promise<MaterialBiblioteca | undefined> {
+  const rows = await readCollection<MaterialBiblioteca>("biblioteca", SEED_BIBLIOTECA);
+  return rows.find((m) => m.id === id);
+}
+
+export async function createMaterial(
+  data: Omit<MaterialBiblioteca, "id" | "orden">
+): Promise<string> {
+  const id = `mat-${Date.now()}`;
+  return mutateCollection<MaterialBiblioteca, string>("biblioteca", SEED_BIBLIOTECA, (rows) => ({
+    rows: [...rows, { ...data, id, orden: nextOrden(rows) }],
+    result: id,
+  }));
+}
+
+/** No toca `activo`: mostrar u ocultar se hace con toggleMaterialActivo. */
+export async function updateMaterial(
+  id: string,
+  data: Omit<MaterialBiblioteca, "id" | "orden" | "activo">
+): Promise<void> {
+  await mutateCollection<MaterialBiblioteca, void>("biblioteca", SEED_BIBLIOTECA, (rows) => ({
+    rows: rows.map((m) => (m.id === id ? { ...m, ...data } : m)),
+    result: undefined,
+  }));
+}
+
+export async function toggleMaterialActivo(id: string): Promise<void> {
+  await mutateCollection<MaterialBiblioteca, void>("biblioteca", SEED_BIBLIOTECA, (rows) => ({
+    rows: rows.map((m) => (m.id === id ? { ...m, activo: m.activo === 1 ? 0 : 1 } : m)),
+    result: undefined,
+  }));
+}
+
+export async function deleteMaterial(id: string): Promise<void> {
+  await mutateCollection<MaterialBiblioteca, void>("biblioteca", SEED_BIBLIOTECA, (rows) => ({
+    rows: rows.filter((m) => m.id !== id),
+    result: undefined,
+  }));
+}
+
 // ─── Seed data ────────────────────────────────────────────────────────────────
 
 const SEED_EVENTOS: Evento[] = [
@@ -532,4 +588,16 @@ const SEED_RECURSOS: RecursoSocio[] = [
   { id: "rec-seed-4", titulo: "Planificación anual",       descripcion: "Cargar acá el enlace al documento.", tipo: "link", url: "", categoria: "Técnicas",  icono: "calendar", orden: 3, activo: 1 },
   { id: "rec-seed-5", titulo: "Novedades para socios",     descripcion: "Cargar acá el enlace al documento.", tipo: "link", url: "", categoria: "General",   icono: "star",     orden: 4, activo: 1 },
   { id: "rec-seed-6", titulo: "Mapa del predio",           descripcion: "Cargar acá el enlace al documento.", tipo: "link", url: "", categoria: "General",   icono: "map",      orden: 5, activo: 1 },
+];
+
+// El Bordón digital son los videos del canal del campo. Los identificadores
+// salen de los enlaces enviados; los títulos hay que confirmarlos (solo se
+// conocía el del capítulo 3).
+const SEED_BIBLIOTECA: MaterialBiblioteca[] = [
+  { id: "bordon-1", titulo: "Bordón digital — Capítulo 1", descripcion: "Confirmar el título de esta edición.", tipo: "Bordón", url: "https://youtu.be/KSIpD4xacyw", orden: 0, activo: 1 },
+  { id: "bordon-2", titulo: "Bordón digital — Capítulo 2", descripcion: "Confirmar el título de esta edición.", tipo: "Bordón", url: "https://youtu.be/hRMVZiSJyQ4", orden: 1, activo: 1 },
+  { id: "bordon-3", titulo: "Bordón digital — Capítulo 3", descripcion: "Confirmar el título de esta edición.", tipo: "Bordón", url: "https://youtu.be/Ml5t6EDs-wg", orden: 2, activo: 1 },
+  { id: "bordon-4", titulo: "Bordón digital — Capítulo 4", descripcion: "Confirmar el título de esta edición.", tipo: "Bordón", url: "https://youtu.be/2hOKzy371X8", orden: 3, activo: 1 },
+  { id: "bordon-5", titulo: "Bordón digital — Capítulo 5", descripcion: "Confirmar el título de esta edición.", tipo: "Bordón", url: "https://youtu.be/gkm_ZsRQbyc", orden: 4, activo: 1 },
+  { id: "bordon-6", titulo: "Bordón digital — Capítulo 6", descripcion: "Confirmar el título de esta edición.", tipo: "Bordón", url: "https://youtu.be/gP07CuF3q-k", orden: 5, activo: 1 },
 ];

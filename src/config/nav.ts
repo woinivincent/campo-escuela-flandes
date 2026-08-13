@@ -13,6 +13,7 @@ export const mainNav: NavItem[] = [
   { label: "Reservas", href: "/reservas", highlight: true },
   { label: "Adiestramiento", href: "/adiestramiento" },
   { label: "Naturaleza", href: "/naturaleza" },
+  { label: "Biblioteca", href: "/biblioteca" },
   { label: "Librería", href: "/libreria" },
   { label: "Agenda", href: "/agenda" },
   { label: "Contacto", href: "/contacto" },
