@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { mainNav } from "@/config/nav";
+import { allNavLinks } from "@/config/nav";
 import { siteConfig } from "@/config/site";
 import { getSiteSettings } from "@/lib/siteConfigService";
 import Logo from "@/components/ui/Logo";
@@ -28,7 +28,7 @@ export default async function Footer() {
             Secciones
           </h4>
           <ul className="mt-4 space-y-2 text-sm">
-            {mainNav.slice(1).map((item) => (
+            {allNavLinks.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
