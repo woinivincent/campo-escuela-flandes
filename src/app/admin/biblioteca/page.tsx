@@ -7,6 +7,7 @@ import {
   deleteMaterialAction,
 } from "./actions";
 import { ArrowRightIcon } from "@/components/ui/icons";
+import { MAX_DOC_MB } from "@/lib/docs";
 
 export const metadata = { title: "Biblioteca — Admin Flandes" };
 export const dynamic = "force-dynamic";
@@ -66,7 +67,7 @@ export default async function AdminBibliotecaPage({
           <h2 className="mb-5 font-display text-base font-bold uppercase tracking-wide text-white">
             {editando ? "Editar material" : "Nuevo material"}
           </h2>
-          <form action={saveMaterialAction} className="space-y-4">
+          <form action={saveMaterialAction} encType="multipart/form-data" className="space-y-4">
             {editando && <input type="hidden" name="id" value={editando.id} />}
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
@@ -106,6 +107,19 @@ export default async function AdminBibliotecaPage({
                 />
                 <p className="mt-1 text-xs text-white/30">
                   Para el Bordón, el enlace del video. Para los libros del campo se puede dejar vacío.
+                </p>
+              </div>
+              <div className="sm:col-span-2">
+                <label className="field-label">O subir un PDF</label>
+                <input
+                  name="archivo"
+                  type="file"
+                  accept="application/pdf"
+                  className="admin-input file:mr-3 file:rounded-lg file:border-0 file:bg-gold file:px-3 file:py-1.5 file:text-xs file:font-bold file:uppercase file:text-forest-dark"
+                />
+                <p className="mt-1 text-xs text-white/30">
+                  Si adjuntás un PDF se guarda en el sitio y reemplaza al enlace de arriba.
+                  Máximo {MAX_DOC_MB} MB: por encima de eso conviene subirlo a Drive y pegar el enlace.
                 </p>
               </div>
               <div className="sm:col-span-2">
@@ -192,6 +206,7 @@ export default async function AdminBibliotecaPage({
                             </Link>
                             <form action={deleteMaterialAction}>
                               <input type="hidden" name="id" value={m.id} />
+                              <input type="hidden" name="url" value={m.url} />
                               <button
                                 type="submit"
                                 className="rounded-lg border border-flandes-red/20 px-3 py-1 text-xs text-flandes-red/70 hover:border-flandes-red/40 hover:text-flandes-red"

@@ -10,7 +10,10 @@ const nextConfig: NextConfig = {
        * versionada en el repo taparía la que se sube desde el panel y el cambio
        * no se vería nunca.
        */
-      beforeFiles: [{ source: "/images/:path*", destination: "/api/img/:path*" }],
+      beforeFiles: [
+        { source: "/images/:path*", destination: "/api/img/:path*" },
+        { source: "/docs/:path*", destination: "/api/doc/:path*" },
+      ],
       afterFiles: [],
       fallback: [],
     };
