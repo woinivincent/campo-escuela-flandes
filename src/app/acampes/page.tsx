@@ -3,6 +3,7 @@ import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageFrame from "@/components/ui/ImageFrame";
 import { getSiteSettings } from "@/lib/siteConfigService";
+import MapaSubcampos from "@/components/acampes/MapaSubcampos";
 import {
   DropletIcon,
   ZapIcon,
@@ -24,10 +25,13 @@ export const metadata = {
 export default async function AcampesPage() {
   const { subcampos } = await getSiteSettings();
 
+  // x / y: posición del marcador sobre el plano, en % del ancho y del alto.
+  // Leídas del plano del predio (el cartel del campo). Si se recorta o se
+  // reemplaza la imagen del plano, hay que volver a ajustarlas.
   const subcamposDetalle = [
     {
-      id: "1", nombre: subcampos[0].nombre,
-      descripcion: "Describir acá este subcampo: el terreno, la sombra y para qué tipo de actividad sirve mejor.",
+      id: "1", nombre: subcampos[0].nombre, x: 46, y: 28,
+      descripcion: "Sector agreste, en el extremo norte del predio junto al río. El plano señala álamos, araucarias y eucaliptos.",
       caracteristicas: [
         { label: "Capacidad", valor: "Hasta 80 personas", icon: UsersIcon },
         { label: "Acceso", valor: "Vehicular y peatonal", icon: CarIcon },
@@ -37,8 +41,8 @@ export default async function AcampesPage() {
       servicios: ["Agua corriente", "Baños a 50 m", "Fogón habilitado", "Estacionamiento"],
     },
     {
-      id: "2", nombre: subcampos[1].nombre,
-      descripcion: "Describir acá este subcampo: el terreno, la sombra y para qué tipo de actividad sirve mejor.",
+      id: "2", nombre: subcampos[1].nombre, x: 45, y: 55,
+      descripcion: "El subcampo más extenso, sobre el sector oeste que da al Río Luján. El plano señala robles y álamos.",
       caracteristicas: [
         { label: "Capacidad", valor: "Hasta 50 personas", icon: UsersIcon },
         { label: "Acceso", valor: "Solo peatonal", icon: MapIcon },
@@ -48,8 +52,8 @@ export default async function AcampesPage() {
       servicios: ["Agua corriente", "Baños a 100 m", "Fogón habilitado"],
     },
     {
-      id: "3", nombre: subcampos[2].nombre,
-      descripcion: "Describir acá este subcampo: el terreno, la sombra y para qué tipo de actividad sirve mejor.",
+      id: "3", nombre: subcampos[2].nombre, x: 74, y: 37,
+      descripcion: "Sobre el sector este del predio, del lado de la calle.",
       caracteristicas: [
         { label: "Capacidad", valor: "Hasta 60 personas", icon: UsersIcon },
         { label: "Acceso", valor: "Vehicular y peatonal", icon: CarIcon },
@@ -59,8 +63,8 @@ export default async function AcampesPage() {
       servicios: ["Agua corriente", "Baños propios", "Fogón habilitado", "Quincho cercano"],
     },
     {
-      id: "4", nombre: subcampos[3].nombre,
-      descripcion: "Describir acá este subcampo: el terreno, la sombra y para qué tipo de actividad sirve mejor.",
+      id: "4", nombre: subcampos[3].nombre, x: 77, y: 57,
+      descripcion: "En el sector sudeste. El plano señala robles y cipreses.",
       caracteristicas: [
         { label: "Capacidad", valor: "Hasta 40 personas", icon: UsersIcon },
         { label: "Acceso", valor: "Solo peatonal", icon: MapIcon },
@@ -237,27 +241,21 @@ export default async function AcampesPage() {
             align="center"
             eyebrow="Mapa"
             title="Cómo está distribuido el predio"
-            subtitle="Ubicación de cada subcampo y de las instalaciones comunes."
+            subtitle="Tocá cada número para ver la capacidad y los servicios del subcampo."
             className="mb-10"
           />
-          <ImageFrame
-            src="/images/mapa-predio.jpg"
-            label="Mapa aéreo del predio — agregar imagen en public/images/mapa-predio.jpg"
-            className="mx-auto aspect-[16/9] max-w-4xl w-full"
+          <MapaSubcampos
+            subcampos={subcamposDetalle.map((s) => ({
+              id: s.id,
+              nombre: s.nombre,
+              descripcion: s.descripcion,
+              capacidad:
+                s.caracteristicas.find((c) => c.label === "Capacidad")?.valor ?? "",
+              servicios: s.servicios,
+              x: s.x,
+              y: s.y,
+            }))}
           />
-          <div className="mt-6 flex flex-wrap justify-center gap-4">
-            {subcampos.map((s, i) => (
-              <span
-                key={s.id}
-                className="flex items-center gap-2 text-sm text-forest/70"
-              >
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-flandes-red font-display text-xs font-bold text-white">
-                  {i + 1}
-                </span>
-                {s.nombre}
-              </span>
-            ))}
-          </div>
         </div>
       </section>
 
