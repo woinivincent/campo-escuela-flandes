@@ -19,6 +19,8 @@ export async function saveConfigAction(formData: FormData) {
     "subcampo4",
     "cuota_mensual",
     "site_url",
+    "mapa_lat",
+    "mapa_lng",
   ]) {
     const val = formData.get(key);
     if (typeof val === "string") data[key] = val.trim();

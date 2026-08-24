@@ -4,6 +4,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import ImageFrame from "@/components/ui/ImageFrame";
 import { getSiteSettings } from "@/lib/siteConfigService";
 import MapaSubcampos from "@/components/acampes/MapaSubcampos";
+import MapaGoogle from "@/components/ui/MapaGoogle";
 import {
   DropletIcon,
   ZapIcon,
@@ -23,7 +24,7 @@ export const metadata = {
 };
 
 export default async function AcampesPage() {
-  const { subcampos } = await getSiteSettings();
+  const { subcampos, mapa } = await getSiteSettings();
 
     const subcamposDetalle = [
     {
@@ -120,88 +121,40 @@ export default async function AcampesPage() {
             </div>
           </div>
 
-          <ImageFrame
-            src="/images/predio-aereo.jpg"
-            label="Vista aérea del predio"
+          <MapaGoogle
+            lat={mapa.lat}
+            lng={mapa.lng}
+            vista="k"
+            zoom={16}
+            titulo="Vista satelital del Campo Escuela Flandes"
             className="aspect-[4/3] w-full"
           />
         </div>
       </section>
 
-      {/* ---- SUBCAMPOS ---- */}
-      <section className="bg-sand-dark/40 py-20">
+      {/* ---- MAPA DEL PREDIO ---- */}
+      <section className="bg-sand-dark/40 py-20" id="mapa">
         <div className="container-flandes">
           <SectionHeading
             align="center"
-            eyebrow="Subcampos"
-            title="Los cuatro subcampos"
-            subtitle="Cada uno tiene su capacidad y sus servicios. Se reservan por separado."
-            className="mb-12"
+            eyebrow="Mapa"
+            title="Cómo está distribuido el predio"
+            subtitle="Tocá una zona del plano para ver la foto, la capacidad y los servicios de ese subcampo."
+            className="mb-10"
           />
-
-          <div className="grid gap-8 lg:gap-10">
-            {subcamposDetalle.map((s, i) => {
-              const isEven = i % 2 === 0;
-              return (
-                <div
-                  key={s.id}
-                  className={`grid items-center gap-8 md:grid-cols-[1fr_1fr] ${
-                    isEven ? "" : "md:[&>*:first-child]:order-2"
-                  }`}
-                >
-                  <ImageFrame
-                    src={`/images/subcampo-${s.id}.jpg`}
-                    label={`Foto ${s.nombre}`}
-                    className="aspect-[4/3] w-full"
-                  />
-                  <div className="card">
-                    <span className="font-display text-xs font-bold uppercase tracking-widest text-gold-dark">
-                      Subcampo 0{i + 1}
-                    </span>
-                    <h3 className="mt-1 font-display text-2xl font-bold uppercase tracking-tight text-forest-dark">
-                      {s.nombre}
-                    </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-forest/75">
-                      {s.descripcion}
-                    </p>
-
-                    <div className="mt-5 grid grid-cols-2 gap-3">
-                      {s.caracteristicas.map((c) => (
-                        <div key={c.label} className="flex items-start gap-2.5">
-                          <span className="mt-0.5 text-forest">
-                            <c.icon width={16} height={16} />
-                          </span>
-                          <div>
-                            <p className="text-xs font-semibold text-forest-dark">
-                              {c.label}
-                            </p>
-                            <p className="text-xs text-forest/60">{c.valor}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="mt-5 border-t border-forest/10 pt-4">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-forest/55">
-                        Servicios incluidos
-                      </p>
-                      <ul className="mt-2 flex flex-wrap gap-2">
-                        {s.servicios.map((srv) => (
-                          <li
-                            key={srv}
-                            className="rounded-full bg-forest-pale px-3 py-1 text-xs font-medium text-forest-dark"
-                          >
-                            {srv}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
+          <MapaSubcampos
+            subcampos={subcamposDetalle.map((s) => ({
+              id: s.id,
+              nombre: s.nombre,
+              descripcion: s.descripcion,
+              // solo texto: los íconos no se pueden pasar a un componente interactivo
+              caracteristicas: s.caracteristicas.map((c) => ({
+                label: c.label,
+                valor: c.valor,
+              })),
+              servicios: s.servicios,
+            }))}
+          />
         </div>
       </section>
 
@@ -229,29 +182,6 @@ export default async function AcampesPage() {
             </li>
           ))}
         </ul>
-      </section>
-
-      {/* ---- MAPA DEL PREDIO ---- */}
-      <section className="bg-sand-dark/40 py-20">
-        <div className="container-flandes">
-          <SectionHeading
-            align="center"
-            eyebrow="Mapa"
-            title="Cómo está distribuido el predio"
-            subtitle="Tocá cada número para ver la capacidad y los servicios del subcampo."
-            className="mb-10"
-          />
-          <MapaSubcampos
-            subcampos={subcamposDetalle.map((s) => ({
-              id: s.id,
-              nombre: s.nombre,
-              descripcion: s.descripcion,
-              capacidad:
-                s.caracteristicas.find((c) => c.label === "Capacidad")?.valor ?? "",
-              servicios: s.servicios,
-            }))}
-          />
-        </div>
       </section>
 
       {/* ---- GALERÍA ---- */}

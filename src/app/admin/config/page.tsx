@@ -26,6 +26,8 @@ const PORTAL = [
 ];
 const SITIO = [
   { key: "site_url", label: "URL pública del sitio", type: "url", placeholder: "https://campoescuelaflandes.com.ar", hint: "Se usa para armar los códigos QR de las especies. Si cambia el dominio, hay que regenerar los QR." },
+  { key: "mapa_lat", label: "Latitud del predio", type: "text", placeholder: "-34.546312", hint: "Centro del mapa satelital que se muestra en Acampes y Contacto." },
+  { key: "mapa_lng", label: "Longitud del predio", type: "text", placeholder: "-59.146240", hint: "" },
 ];
 
 function Section({ title, campos, cfg }: { title: string; campos: typeof CONTACTO; cfg: Record<string, string> }) {

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
 import SectionHeading from "@/components/ui/SectionHeading";
-import ImageFrame from "@/components/ui/ImageFrame";
+import MapaGoogle from "@/components/ui/MapaGoogle";
 import ContactoForm from "@/components/contacto/ContactoForm";
 import { getSiteSettings } from "@/lib/siteConfigService";
 import {
@@ -23,6 +23,7 @@ export const metadata = {
 
 export default async function ContactoPage() {
   const contact = await getSiteSettings();
+  const mapa = contact.mapa;
   const social = contact.social;
 
   const canales = [
@@ -127,9 +128,12 @@ export default async function ContactoPage() {
                 title="Cómo llegar"
                 className="mb-6"
               />
-              <ImageFrame
-                src="/images/mapa-ubicacion.jpg"
-                label="Mapa de ubicación — agregar imagen en public/images/mapa-ubicacion.jpg"
+              <MapaGoogle
+                lat={mapa.lat}
+                lng={mapa.lng}
+                vista="h"
+                zoom={16}
+                titulo="Cómo llegar al Campo Escuela Flandes"
                 className="aspect-[4/3] w-full"
               />
               <address className="mt-5 not-italic space-y-3">

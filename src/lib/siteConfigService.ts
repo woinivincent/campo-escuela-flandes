@@ -12,6 +12,8 @@ export interface SiteSettings {
   cuota: string;
   /** URL pública del sitio, sin barra final. Usada para armar los QR. */
   siteUrl: string;
+  /** Coordenadas del predio para el mapa satelital. */
+  mapa: { lat: string; lng: string };
   whatsappLink(msg?: string): string;
   mailtoLink(subject?: string): string;
 }
@@ -50,6 +52,10 @@ export const getSiteSettings = cache(async (): Promise<SiteSettings> => {
     })),
     cuota: cfg.cuota_mensual ?? "",
     siteUrl: (cfg.site_url ?? "").replace(/\/+$/, ""),
+    mapa: {
+      lat: pick("mapa_lat", "-34.546312"),
+      lng: pick("mapa_lng", "-59.146240"),
+    },
 
     whatsappLink(msg?: string) {
       const base = `https://wa.me/${whatsapp}`;

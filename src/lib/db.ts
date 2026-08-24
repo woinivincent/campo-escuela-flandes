@@ -548,6 +548,9 @@ const SEED_CONFIG: Record<string, string> = {
   subcampo4: "San Francisco de Asís",
   cuota_mensual: "",
   site_url: "https://campoescuelaflandes.netlify.app",
+  // Coordenadas del predio, para el mapa satelital embebido.
+  mapa_lat: "-34.546312",
+  mapa_lng: "-59.146240",
 };
 
 const SEED_HITOS: Hito[] = [
