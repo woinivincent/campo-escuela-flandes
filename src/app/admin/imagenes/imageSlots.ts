@@ -1,4 +1,6 @@
 export const IMAGE_SLOTS = [
+  // Identidad
+  { id: "logo-flandes", label: "Logo del campo", group: "Portadas", desc: "Sello que aparece en el encabezado y el pie" },
   // Portadas
   { id: "hero-campo",              label: "Hero principal",         group: "Portadas",  desc: "Homepage hero + fondo CTA en Acampes" },
   { id: "acampes-portada",         label: "Portada Acampes",        group: "Portadas",  desc: "Página /acampes" },
