@@ -126,7 +126,7 @@ export default async function BibliotecaPage() {
         <SectionHeading
           eyebrow="En el campo"
           title="Libros para consultar"
-          subtitle="Material disponible para leer o pedir prestado durante tu estadía."
+          subtitle="Material disponible para leer o consultar durante tu estadía en el campo."
           className="mb-10"
         />
 
@@ -135,10 +135,25 @@ export default async function BibliotecaPage() {
             Todavía no hay libros cargados en el catálogo.
           </p>
         ) : (
-          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
             {fisico.map((m) => (
-              <li key={m.id}>
-                <MaterialCard material={m} />
+              <li key={m.id} className="group">
+                <div className="overflow-hidden rounded-xl border border-forest/10 bg-forest-pale shadow-card transition group-hover:-translate-y-1 group-hover:shadow-card-hover">
+                  <ImageFrame
+                    src={`/images/${m.id}.jpg`}
+                    label={m.titulo}
+                    rounded="rounded-none"
+                    className="aspect-[3/4] w-full"
+                  />
+                </div>
+                <h3 className="mt-2.5 font-display text-[0.8rem] font-bold uppercase leading-tight tracking-tight text-forest-dark">
+                  {m.titulo}
+                </h3>
+                {m.descripcion && (
+                  <p className="mt-0.5 text-xs leading-snug text-forest/55">
+                    {m.descripcion}
+                  </p>
+                )}
               </li>
             ))}
           </ul>
