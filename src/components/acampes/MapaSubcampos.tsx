@@ -13,77 +13,189 @@ export interface PuntoSubcampo {
   descripcion: string;
   capacidad: string;
   servicios: string[];
-  /** Posición sobre el mapa, en porcentaje del ancho y del alto. */
-  x: number;
-  y: number;
 }
 
 interface Props {
   subcampos: PuntoSubcampo[];
-  /** Imagen del plano. Si todavía no se subió, se muestra el respaldo. */
-  src?: string;
 }
 
-export default function MapaSubcampos({ subcampos, src = "/images/mapa-predio.jpg" }: Props) {
+/**
+ * Geometría de cada subcampo, trazada a partir del plano del predio.
+ * Es una ilustración: respeta las posiciones relativas y los límites reales,
+ * sin pretender ser un relevamiento a escala.
+ */
+const FORMAS: Record<
+  string,
+  { poly: string; etiqueta: [number, number]; arboles: string }
+> = {
+  "1": {
+    poly: "185,55 645,50 660,292 190,300",
+    etiqueta: [420, 165],
+    arboles: "Álamos · Araucarias · Eucaliptos",
+  },
+  "2": {
+    poly: "190,300 520,296 528,700 432,890 172,868",
+    etiqueta: [335, 545],
+    arboles: "Robles y Álamos",
+  },
+  "3": {
+    poly: "520,296 705,296 718,543 528,548",
+    etiqueta: [615, 405],
+    arboles: "",
+  },
+  "4": {
+    poly: "528,548 718,543 742,862 432,890 528,700",
+    etiqueta: [600, 710],
+    arboles: "Robles · Cipreses",
+  },
+};
+
+/** Manchas de arboleda, para dar textura sin cargar la ilustración. */
+const ARBOLES: [number, number, number][] = [
+  [250, 120, 16], [320, 200, 12], [480, 110, 14], [560, 210, 11], [390, 250, 13],
+  [230, 380, 15], [300, 470, 12], [420, 400, 14], [250, 620, 13], [360, 700, 15],
+  [440, 560, 11], [300, 790, 12], [210, 720, 10],
+  [580, 350, 13], [660, 460, 11], [600, 480, 9],
+  [580, 620, 14], [660, 700, 12], [700, 800, 13], [520, 800, 11], [620, 840, 10],
+];
+
+export default function MapaSubcampos({ subcampos }: Props) {
   const [seleccionado, setSeleccionado] = useState<string | null>(null);
   const activo = subcampos.find((s) => s.id === seleccionado) ?? null;
 
-  return (
-    <div className="grid gap-6 lg:grid-cols-[1.6fr_1fr] lg:items-start">
-      {/* ---- Mapa ---- */}
-      <div
-        className="relative w-full overflow-hidden rounded-2xl border border-forest/10 bg-forest-pale shadow-card"
-        onKeyDown={(e) => {
-          if (e.key === "Escape") setSeleccionado(null);
-        }}
-      >
-        {/*
-          La imagen define el alto de la caja, así las coordenadas en
-          porcentaje caen siempre sobre el mismo punto del plano, sea
-          apaisado o vertical. Con recorte (bg-cover) se desplazarían.
-        */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={src}
-          alt="Plano del predio con la ubicación de los subcampos"
-          className="block w-full"
-          onError={(e) => {
-            (e.currentTarget as HTMLImageElement).style.visibility = "hidden";
-          }}
-        />
-        {/* Respaldo cuando todavía no hay plano cargado */}
-        <div className="pointer-events-none absolute inset-0 -z-10 flex min-h-[18rem] items-center justify-center bg-gradient-to-br from-forest to-forest-dark">
-          <span className="rounded-full bg-black/25 px-4 py-2 text-center text-xs uppercase tracking-wide text-sand/85">
-            Subí el plano del predio desde el panel
-          </span>
-        </div>
+  const alternar = (id: string) =>
+    setSeleccionado((actual) => (actual === id ? null : id));
 
-        {/* Marcadores */}
-        {subcampos.map((s, i) => {
-          const esActivo = s.id === seleccionado;
-          return (
-            <button
-              key={s.id}
-              type="button"
-              onClick={() => setSeleccionado(esActivo ? null : s.id)}
-              aria-pressed={esActivo}
-              aria-label={`Subcampo ${i + 1}: ${s.nombre}`}
-              title={s.nombre}
-              className="absolute -translate-x-1/2 -translate-y-1/2 transition-transform hover:scale-110 focus:outline-none focus-visible:scale-110"
-              style={{ left: `${s.x}%`, top: `${s.y}%` }}
-            >
-              <span
-                className={`flex items-center justify-center rounded-full font-display font-bold shadow-lg ring-4 transition-all ${
-                  esActivo
-                    ? "h-11 w-11 bg-gold text-forest-dark ring-gold/40"
-                    : "h-9 w-9 bg-flandes-red text-white ring-white/70"
-                }`}
+  return (
+    <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr] lg:items-start">
+      {/* ---- Ilustración ---- */}
+      <div className="overflow-hidden rounded-2xl border border-forest/10 bg-[#eef3ea] shadow-card">
+        <svg
+          viewBox="0 0 800 1000"
+          className="block h-auto w-full"
+          role="img"
+          aria-label="Plano del Campo Escuela Flandes con sus cuatro subcampos"
+          onKeyDown={(e) => {
+            if (e.key === "Escape") setSeleccionado(null);
+          }}
+        >
+          {/* Río Luján */}
+          <path
+            d="M 105 -20 C 60 160 128 300 78 450 C 38 590 118 720 68 880 C 40 970 78 1020 78 1020"
+            fill="none"
+            stroke="#8fb8c9"
+            strokeWidth="58"
+            strokeLinecap="round"
+          />
+          <path
+            d="M 105 -20 C 60 160 128 300 78 450 C 38 590 118 720 68 880 C 40 970 78 1020 78 1020"
+            fill="none"
+            stroke="#a9cbd8"
+            strokeWidth="34"
+            strokeLinecap="round"
+          />
+          <text
+            x="52" y="470"
+            transform="rotate(-90 52 470)"
+            textAnchor="middle"
+            className="fill-[#4c6f7d] text-[15px] font-semibold"
+          >
+            Río Luján
+          </text>
+
+          {/* Calles */}
+          <text x="415" y="28" textAnchor="middle" className="fill-forest/45 text-[13px]">
+            Acceso a Algodonera Flandria
+          </text>
+          <text
+            x="772" y="470"
+            transform="rotate(90 772 470)"
+            textAnchor="middle"
+            className="fill-forest/45 text-[13px]"
+          >
+            Calle San Martín
+          </text>
+
+          {/* Subcampos */}
+          {subcampos.map((s, i) => {
+            const forma = FORMAS[s.id];
+            if (!forma) return null;
+            const esActivo = s.id === seleccionado;
+            const [lx, ly] = forma.etiqueta;
+            return (
+              <g
+                key={s.id}
+                role="button"
+                tabIndex={0}
+                aria-pressed={esActivo}
+                aria-label={`Subcampo ${s.nombre}`}
+                onClick={() => alternar(s.id)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    alternar(s.id);
+                  }
+                }}
+                className="cursor-pointer outline-none"
               >
-                {i + 1}
-              </span>
-            </button>
-          );
-        })}
+                <polygon
+                  points={forma.poly}
+                  className={`transition-all ${
+                    esActivo
+                      ? "fill-gold/70 stroke-gold-dark"
+                      : "fill-forest-light/35 stroke-forest/40 hover:fill-forest-light/60"
+                  }`}
+                  strokeWidth={esActivo ? 4 : 2}
+                />
+                {/* Número */}
+                <circle
+                  cx={lx} cy={ly - 34} r="19"
+                  className={esActivo ? "fill-forest-dark" : "fill-flandes-red"}
+                />
+                <text
+                  x={lx} y={ly - 27}
+                  textAnchor="middle"
+                  className="fill-white text-[19px] font-bold"
+                >
+                  {i + 1}
+                </text>
+                {/* Nombre */}
+                <text
+                  x={lx} y={ly + 4}
+                  textAnchor="middle"
+                  className="fill-forest-dark text-[17px] font-bold"
+                >
+                  {s.nombre}
+                </text>
+                {forma.arboles && (
+                  <text
+                    x={lx} y={ly + 24}
+                    textAnchor="middle"
+                    className="fill-forest/55 text-[12px]"
+                  >
+                    {forma.arboles}
+                  </text>
+                )}
+              </g>
+            );
+          })}
+
+          {/* Arboleda decorativa, por encima del relleno pero sin bloquear el clic */}
+          <g className="pointer-events-none" opacity="0.28">
+            {ARBOLES.map(([cx, cy, r], i) => (
+              <circle key={i} cx={cx} cy={cy} r={r} className="fill-forest" />
+            ))}
+          </g>
+
+          {/* Entrada */}
+          <g className="pointer-events-none">
+            <circle cx="205" cy="905" r="11" className="fill-flandes-red" />
+            <circle cx="205" cy="905" r="5" className="fill-white" />
+            <text x="228" y="911" className="fill-forest-dark text-[14px] font-semibold">
+              Entrada
+            </text>
+          </g>
+        </svg>
       </div>
 
       {/* ---- Ficha ---- */}
@@ -138,10 +250,10 @@ export default function MapaSubcampos({ subcampos, src = "/images/mapa-predio.jp
         ) : (
           <div className="card border-dashed text-center">
             <p className="font-display text-base font-bold uppercase tracking-tight text-forest-dark">
-              Tocá un número en el mapa
+              Tocá un subcampo en el plano
             </p>
             <p className="mt-1.5 text-sm text-forest/65">
-              Vas a ver la capacidad y los servicios de cada subcampo.
+              Vas a ver la capacidad y los servicios de cada uno.
             </p>
             <ul className="mt-5 space-y-2 text-left">
               {subcampos.map((s, i) => (

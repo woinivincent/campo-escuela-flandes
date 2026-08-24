@@ -11,31 +11,38 @@ export const dynamic = "force-dynamic";
  */
 const CACHE_MUTABLE = "public, max-age=0, must-revalidate";
 
+/**
+ * Orden de resolución de cada imagen:
+ *   1. Netlify Blobs — lo que se subió desde el panel, siempre tiene prioridad.
+ *   2. public/images  — subidas locales en desarrollo.
+ *   3. public/seed-images — fotos de archivo versionadas en el repo, como
+ *      respaldo. Se redirige en vez de leerlas del disco, porque en producción
+ *      las sirve el CDN y la función no tiene acceso al filesystem.
+ */
 export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ path: string[] }> },
 ) {
   const { path: segments } = await params;
   const filename = segments.join("/");
-  const slot = filename.replace(/\.[^.]+$/, ""); // strip extension
+  const slot = filename.replace(/\.[^.]+$/, ""); // sin extensión
 
+  // 1. Lo cargado desde el panel
   const store = await getBlobStore("site-images");
   if (store) {
     try {
       const data = await store.get(slot, { type: "arrayBuffer" });
-      if (!data) return new NextResponse(null, { status: 404 });
-      return new NextResponse(data, {
-        headers: {
-          "Content-Type": "image/jpeg",
-          "Cache-Control": CACHE_MUTABLE,
-        },
-      });
+      if (data) {
+        return new NextResponse(data, {
+          headers: { "Content-Type": "image/jpeg", "Cache-Control": CACHE_MUTABLE },
+        });
+      }
     } catch {
-      return new NextResponse(null, { status: 404 });
+      // Blobs no respondió: se sigue con los respaldos
     }
   }
 
-  // Desarrollo local: leer desde public/images/
+  // 2. Subidas locales de desarrollo
   const { readFile } = await import("fs/promises");
   const { join } = await import("path");
   try {
@@ -44,6 +51,9 @@ export async function GET(
       headers: { "Content-Type": "image/jpeg", "Cache-Control": CACHE_MUTABLE },
     });
   } catch {
-    return new NextResponse(null, { status: 404 });
+    // sin subida local
   }
+
+  // 3. Foto de archivo del repo (la sirve el CDN)
+  return NextResponse.redirect(new URL(`/seed-images/${filename}`, _req.url), 307);
 }

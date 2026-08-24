@@ -25,12 +25,9 @@ export const metadata = {
 export default async function AcampesPage() {
   const { subcampos } = await getSiteSettings();
 
-  // x / y: posición del marcador sobre el plano, en % del ancho y del alto.
-  // Leídas del plano del predio (el cartel del campo). Si se recorta o se
-  // reemplaza la imagen del plano, hay que volver a ajustarlas.
-  const subcamposDetalle = [
+    const subcamposDetalle = [
     {
-      id: "1", nombre: subcampos[0].nombre, x: 46, y: 28,
+      id: "1", nombre: subcampos[0].nombre,
       descripcion: "Sector agreste, en el extremo norte del predio junto al río. El plano señala álamos, araucarias y eucaliptos.",
       caracteristicas: [
         { label: "Capacidad", valor: "Hasta 80 personas", icon: UsersIcon },
@@ -41,7 +38,7 @@ export default async function AcampesPage() {
       servicios: ["Agua corriente", "Baños a 50 m", "Fogón habilitado", "Estacionamiento"],
     },
     {
-      id: "2", nombre: subcampos[1].nombre, x: 45, y: 55,
+      id: "2", nombre: subcampos[1].nombre,
       descripcion: "El subcampo más extenso, sobre el sector oeste que da al Río Luján. El plano señala robles y álamos.",
       caracteristicas: [
         { label: "Capacidad", valor: "Hasta 50 personas", icon: UsersIcon },
@@ -52,7 +49,7 @@ export default async function AcampesPage() {
       servicios: ["Agua corriente", "Baños a 100 m", "Fogón habilitado"],
     },
     {
-      id: "3", nombre: subcampos[2].nombre, x: 74, y: 37,
+      id: "3", nombre: subcampos[2].nombre,
       descripcion: "Sobre el sector este del predio, del lado de la calle.",
       caracteristicas: [
         { label: "Capacidad", valor: "Hasta 60 personas", icon: UsersIcon },
@@ -63,7 +60,7 @@ export default async function AcampesPage() {
       servicios: ["Agua corriente", "Baños propios", "Fogón habilitado", "Quincho cercano"],
     },
     {
-      id: "4", nombre: subcampos[3].nombre, x: 77, y: 57,
+      id: "4", nombre: subcampos[3].nombre,
       descripcion: "En el sector sudeste. El plano señala robles y cipreses.",
       caracteristicas: [
         { label: "Capacidad", valor: "Hasta 40 personas", icon: UsersIcon },
@@ -252,8 +249,6 @@ export default async function AcampesPage() {
               capacidad:
                 s.caracteristicas.find((c) => c.label === "Capacidad")?.valor ?? "",
               servicios: s.servicios,
-              x: s.x,
-              y: s.y,
             }))}
           />
         </div>
