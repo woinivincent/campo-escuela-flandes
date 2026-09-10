@@ -24,16 +24,21 @@ export const IMAGE_SLOTS = [
   { id: "subcampo-2",              label: "Subcampo 2",             group: "Subcampos", desc: "Foto del subcampo 2" },
   { id: "subcampo-3",              label: "Subcampo 3",             group: "Subcampos", desc: "Foto del subcampo 3" },
   { id: "subcampo-4",              label: "Subcampo 4",             group: "Subcampos", desc: "Foto del subcampo 4" },
-  // Flora
+  // Flora. Las que ya tienen foto la traen de Wikimedia Commons: subir una del
+  // campo acá la reemplaza, y entonces hay que sacar su crédito de
+  // src/config/creditosFotos.ts.
+  { id: "especie-araucaria",       label: "Araucaria",              group: "Flora",     desc: "Araucaria angustifolia" },
+  { id: "especie-roble",           label: "Roble europeo",          group: "Flora",     desc: "Quercus robur" },
   { id: "especie-espinillo",       label: "Espinillo",              group: "Flora",     desc: "Vachellia caven" },
   { id: "especie-ceibo",           label: "Ceibo",                  group: "Flora",     desc: "Erythrina crista-galli" },
   { id: "especie-sauce",           label: "Sauce criollo",          group: "Flora",     desc: "Salix humboldtiana" },
-  { id: "especie-tala",            label: "Tala",                   group: "Flora",     desc: "Celtis ehrenbergiana" },
+  { id: "especie-tala",            label: "Tala",                   group: "Flora",     desc: "Celtis tala" },
   // Fauna
   { id: "especie-carpincho",       label: "Carpincho",              group: "Fauna",     desc: "Hydrochoerus hydrochaeris" },
+  { id: "especie-coipo",           label: "Coipo / Nutria",         group: "Fauna",     desc: "Myocastor coypus" },
+  { id: "especie-lobito-de-rio",   label: "Lobito de río",          group: "Fauna",     desc: "Lontra longicaudis" },
   { id: "especie-hornero",         label: "Hornero",                group: "Fauna",     desc: "Furnarius rufus" },
   { id: "especie-martin-pescador", label: "Martín pescador",        group: "Fauna",     desc: "Megaceryle torquata" },
-  { id: "especie-coipo",           label: "Coipo / Nutria",         group: "Fauna",     desc: "Myocastor coypus" },
   // Libros — tapas de la biblioteca del campo
   { id: "libro-manual-lobatos", label: "Manual de Lobatos", group: "Libros", desc: "Tapa del libro" },
   { id: "libro-educacion-escultismo", label: "Educación y Escultismo", group: "Libros", desc: "Tapa del libro" },

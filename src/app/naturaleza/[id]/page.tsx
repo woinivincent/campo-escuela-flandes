@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ImageFrame from "@/components/ui/ImageFrame";
+import { CREDITOS_ESPECIES } from "@/config/creditosFotos";
 import { getEspecie, getEspecies } from "@/lib/db";
 import { getSiteSettings } from "@/lib/siteConfigService";
 import {
@@ -59,11 +60,27 @@ export default async function EspeciePage({
       <section className="container-flandes py-8 sm:py-14">
         <div className="mx-auto max-w-3xl">
           <div className="grid gap-8 sm:grid-cols-[1fr_1.2fr] sm:items-start">
-            <ImageFrame
-              src={`/images/especie-${especie.id}.jpg`}
-              label={`Foto de ${especie.nombreComun}`}
-              className="aspect-square w-full"
-            />
+            {/* La foto y su crédito van juntos en la misma celda de la grilla. */}
+            <div>
+              <ImageFrame
+                src={`/images/especie-${especie.id}.jpg`}
+                label={`Foto de ${especie.nombreComun}`}
+                className="aspect-square w-full"
+              />
+              {CREDITOS_ESPECIES[especie.id] && (
+                <p className="mt-2 text-[0.7rem] leading-relaxed text-forest/45">
+                  Foto: {CREDITOS_ESPECIES[especie.id].autor} ·{" "}
+                  <a
+                    href={CREDITOS_ESPECIES[especie.id].pagina}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-forest/70"
+                  >
+                    {CREDITOS_ESPECIES[especie.id].licencia}
+                  </a>
+                </p>
+              )}
+            </div>
 
             <div>
               <span

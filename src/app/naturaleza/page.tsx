@@ -3,6 +3,7 @@ import PageHero from "@/components/ui/PageHero";
 import { getTextos } from "@/lib/textosService";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageFrame from "@/components/ui/ImageFrame";
+import { CREDITOS_PORTADAS } from "@/config/creditosFotos";
 import { getSiteSettings } from "@/lib/siteConfigService";
 import { getEspecies, type Especie } from "@/lib/db";
 import {
@@ -199,6 +200,21 @@ export default async function NaturalezaPage() {
           </div>
         </div>
       </section>
+
+      {/* La portada es la única foto de esta página que no es del campo. */}
+      {CREDITOS_PORTADAS["naturaleza-portada"] && (
+        <p className="container-flandes pb-8 text-[0.7rem] text-forest/40">
+          Foto de portada: {CREDITOS_PORTADAS["naturaleza-portada"].autor} ·{" "}
+          <a
+            href={CREDITOS_PORTADAS["naturaleza-portada"].pagina}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-forest/70"
+          >
+            {CREDITOS_PORTADAS["naturaleza-portada"].licencia}
+          </a>
+        </p>
+      )}
     </>
   );
 }

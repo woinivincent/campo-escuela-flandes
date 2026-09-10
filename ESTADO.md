@@ -153,6 +153,15 @@ Destacados:
 Algodonera Flandria), los cuatro objetivos institucionales, límites del predio,
 Área Forestal Protegida, 16 fotos y las 30 tapas de la biblioteca.
 
+**Fotos:** todas las portadas de sección y las 11 fichas de especies tienen
+imagen. Las portadas salen de fotos del propio campo que ya estaban en el
+repositorio. Las de especies y la portada de Naturaleza vienen de Wikimedia
+Commons, **con licencias que exigen atribución**: los créditos viven en
+`src/config/creditosFotos.ts` y se muestran al pie de cada foto. Si se borra el
+crédito se incumple la licencia. Cuando el campo aporte su propia foto de una
+especie, se sube desde *Admin → Imágenes* —que le gana al repositorio— y se
+saca esa entrada del archivo de créditos.
+
 **Especies:** 11 fichas con descripción y curiosidad, escritas para un chico que
 escanea el QR parado frente a la especie. 6 de flora (araucaria, roble, ceibo,
 sauce criollo, tala, espinillo) y 5 de fauna (carpincho, coipo, lobito de río,
@@ -190,11 +199,10 @@ redacción es propia.
 
 ### Contenido que falta
 
-- **Portadas**: solo está la de Acampes. Faltan las otras 9 y la del inicio.
-- **Fotos de subcampos** (4) y de **flora**: las carpetas del Drive están vacías.
-  Las 11 fichas de especies ya tienen texto, pero ninguna tiene foto todavía.
-- **Fauna**: hay 23 fotos, pero con nombres tipo `076ff466-d309…`. Hay que
-  identificar qué especie es cada una.
+- **Fotos de subcampos** (4): las carpetas del Drive están vacías.
+- **Fauna**: hay 23 fotos en el Drive, con nombres tipo `076ff466-d309…`. Hay
+  que identificar qué especie es cada una. Servirían para reemplazar las de
+  Commons por fotos del propio campo.
 - **Títulos del Bordón**: los seis videos figuran como "Capítulo N". Las
   miniaturas muestran un hornero y una liebre, así que son sobre fauna del campo.
 - Textos de Acampes y Reservas: normas del acampe, costos y descripciones.
