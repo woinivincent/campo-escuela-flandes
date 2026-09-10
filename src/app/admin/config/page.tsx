@@ -24,6 +24,15 @@ const SUBCAMPOS = [
 const PORTAL = [
   { key: "cuota_mensual", label: "Cuota mensual socios (ARS)", type: "text", placeholder: "5000", hint: "Monto que aparece en la página de Socios. Dejar vacío para ocultar el precio." },
 ];
+const AREAS = [
+  { key: "whatsapp_formaciones", label: "WhatsApp de Formaciones", type: "tel", placeholder: "5491144332211", hint: "Cursos y charlas de Adiestramiento." },
+  { key: "whatsapp_biblioteca",  label: "WhatsApp de Biblioteca",  type: "tel", placeholder: "5491144332211", hint: "Consultas por material de la biblioteca." },
+  { key: "whatsapp_socios",      label: "WhatsApp de Socios",      type: "tel", placeholder: "5491144332211", hint: "Consultas para asociarse al campo." },
+];
+const RESPONSABLE = [
+  { key: "responsable_socios_nombre",   label: "Nombre del responsable", type: "text", placeholder: "Nombre y apellido",  hint: "Sin nombre no se muestra nada en la página de Socios." },
+  { key: "responsable_socios_contacto", label: "Cómo contactarlo",       type: "text", placeholder: "Teléfono o email",   hint: "" },
+];
 const SITIO = [
   { key: "site_url", label: "URL pública del sitio", type: "url", placeholder: "https://campoescuelaflandes.com.ar", hint: "Se usa para armar los códigos QR de las especies. Si cambia el dominio, hay que regenerar los QR." },
   { key: "mapa_lat", label: "Latitud del predio", type: "text", placeholder: "-34.546312", hint: "Centro del mapa satelital que se muestra en Acampes y Contacto." },
@@ -47,6 +56,38 @@ function Section({ title, campos, cfg }: { title: string; campos: typeof CONTACT
   );
 }
 
+/** Los dos campos del responsable más el interruptor de visibilidad. */
+function ResponsableSocios({ cfg }: { cfg: Record<string, string> }) {
+  return (
+    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+      <h2 className="mb-5 font-display text-sm font-bold uppercase tracking-wide text-gold/70">Responsable de socios</h2>
+      <div className="grid gap-5 sm:grid-cols-2">
+        {RESPONSABLE.map((c) => (
+          <div key={c.key}>
+            <label className="field-label">{c.label}</label>
+            <input name={c.key} type={c.type} defaultValue={cfg[c.key] ?? ""} placeholder={c.placeholder} className="admin-input" />
+            {c.hint && <p className="mt-1 text-xs text-white/30">{c.hint}</p>}
+          </div>
+        ))}
+      </div>
+      <label className="mt-5 flex items-start gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3">
+        <input
+          type="checkbox"
+          name="responsable_socios_publico"
+          defaultChecked={cfg.responsable_socios_publico === "1"}
+          className="mt-0.5 h-4 w-4 accent-gold"
+        />
+        <span className="text-sm text-white/70">
+          Mostrarlo en la página de Socios
+          <span className="mt-0.5 block text-xs text-white/30">
+            Si queda destildado, el nombre y el contacto se guardan pero no se publican.
+          </span>
+        </span>
+      </label>
+    </div>
+  );
+}
+
 export default async function AdminConfigPage() {
   await requireAuth();
   const cfg = await getAllConfigValues();
@@ -63,10 +104,12 @@ export default async function AdminConfigPage() {
         <Section title="Redes sociales" campos={REDES} cfg={cfg} />
         <Section title="Nombres de subcampos" campos={SUBCAMPOS} cfg={cfg} />
         <Section title="Portal de socios" campos={PORTAL} cfg={cfg} />
+        <Section title="WhatsApp por área" campos={AREAS} cfg={cfg} />
+        <ResponsableSocios cfg={cfg} />
         <Section title="Sitio y códigos QR" campos={SITIO} cfg={cfg} />
 
         <div className="flex items-center justify-between gap-4 border-t border-white/10 pt-4">
-          <p className="text-xs text-white/30">Los cambios se aplican en todo el sitio de inmediato.</p>
+          <p className="text-xs text-white/30">Los cambios se aplican en todo el sitio de inmediato. Un WhatsApp de área vacío usa el número general.</p>
           <button type="submit" className="rounded-xl bg-gold px-6 py-3 font-display text-sm font-bold uppercase tracking-wide text-forest-dark transition hover:bg-gold-dark active:scale-95">
             Guardar cambios
           </button>

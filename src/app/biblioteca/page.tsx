@@ -183,7 +183,8 @@ export default async function BibliotecaPage() {
             </p>
           </div>
           <a
-            href={cfg.whatsappLink(
+            href={cfg.whatsappLinkArea(
+              "biblioteca",
               "Hola! Quiero consultar por material de la biblioteca del Campo Escuela Flandes."
             )}
             target="_blank"

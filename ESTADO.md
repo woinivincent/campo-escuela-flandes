@@ -114,6 +114,12 @@ Destacados:
 - **Portal de socios**: acceso con contraseña, separado del panel.
 - **Diagnóstico** (`/admin/diagnostico`): dice si el almacenamiento responde y
   muestra el error exacto si falla. Es el primer lugar donde mirar si algo no guarda.
+- **WhatsApp por área y responsable de socios** (*Admin → Config*): Formaciones,
+  Biblioteca y Socios pueden tener su propio número; el que quede vacío usa el
+  general, así que el sitio se comporta igual que antes hasta que carguen algo.
+  El responsable de socios tiene nombre, contacto y un interruptor para
+  publicarlo: sin nombre, o sin tildar, no aparece nada en la página de Socios.
+  **Faltan los números y los datos del responsable**, que el campo no pasó todavía.
 - **Textos editables** (`/admin/textos`): los títulos y textos principales de las
   11 páginas públicas, 5 campos cada una. Cada página se guarda por separado.
   Un campo vacío muestra el texto original, que aparece en gris como referencia.
@@ -191,9 +197,7 @@ conviene chequear cada uno contra una segunda fuente antes de cargarlo.
 
 | Ítem | Nota |
 |---|---|
-| WhatsApp por área | Números propios para formaciones, biblioteca y responsable de socios |
 | Importar padrón de socios | Desde planilla Excel |
-| Responsable de socios | Nombre y contacto; definir si se muestra público |
 | Logo | Está el original recortado del cartel (400×536). El del Facebook es de 200×200, así que no sirve. Si aparece el archivo en mejor calidad, reemplazar `public/seed-images/logo-flandes.png` |
 
 ---

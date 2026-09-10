@@ -101,7 +101,7 @@ export default async function AdiestramientoPage() {
                 </ul>
 
                 <a
-                  href={cfg.whatsappLink(waMsg)}
+                  href={cfg.whatsappLinkArea("formaciones", waMsg)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-whatsapp mt-5"
@@ -178,7 +178,8 @@ export default async function AdiestramientoPage() {
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <a
-                href={cfg.whatsappLink(
+                href={cfg.whatsappLinkArea(
+                  "formaciones",
                   "Hola! Quiero proponer un curso o charla en el Campo Escuela Flandes."
                 )}
                 target="_blank"

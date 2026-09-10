@@ -87,7 +87,8 @@ export default async function SociosPage() {
               ))}
             </ul>
             <a
-              href={cfg.whatsappLink(
+              href={cfg.whatsappLinkArea(
+                "socios",
                 "Hola! Quiero información para hacerme socio del Campo Escuela Flandes."
               )}
               target="_blank"
@@ -191,7 +192,8 @@ export default async function SociosPage() {
 
         <div className="mt-10 flex flex-wrap justify-center gap-3">
           <a
-            href={cfg.whatsappLink(
+            href={cfg.whatsappLinkArea(
+              "socios",
               "Hola! Quiero información para asociarme al Campo Escuela Flandes."
             )}
             target="_blank"
@@ -206,6 +208,24 @@ export default async function SociosPage() {
             <ArrowRightIcon width={18} height={18} />
           </Link>
         </div>
+
+        {/* Referente de socios. Solo aparece si el panel cargó un nombre y lo
+            marcó como público; si no, esta sección no existe. */}
+        {cfg.responsableSocios.publico && cfg.responsableSocios.nombre && (
+          <div className="mx-auto mt-10 max-w-md rounded-2xl border border-forest/10 bg-white px-6 py-5 text-center">
+            <p className="text-xs font-semibold uppercase tracking-wide text-forest/50">
+              Responsable de socios
+            </p>
+            <p className="mt-1 font-display text-lg font-bold text-forest-dark">
+              {cfg.responsableSocios.nombre}
+            </p>
+            {cfg.responsableSocios.contacto && (
+              <p className="mt-1 text-sm text-forest/70">
+                {cfg.responsableSocios.contacto}
+              </p>
+            )}
+          </div>
+        )}
       </section>
 
       {/* ---- CTA FINAL ---- */}

@@ -562,6 +562,14 @@ const SEED_CONFIG: Record<string, string> = {
   subcampo3: "San Jorge",
   subcampo4: "San Francisco de Asís",
   cuota_mensual: "",
+  // Números por área. Vacío = se usa el número general de arriba.
+  whatsapp_formaciones: "",
+  whatsapp_biblioteca: "",
+  whatsapp_socios: "",
+  // Responsable de socios. Sin nombre no se muestra nada en el sitio.
+  responsable_socios_nombre: "",
+  responsable_socios_contacto: "",
+  responsable_socios_publico: "",
   site_url: "https://campoescuelaflandes.netlify.app",
   // Coordenadas del predio, para el mapa satelital embebido.
   mapa_lat: "-34.546312",

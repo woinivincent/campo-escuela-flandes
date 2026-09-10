@@ -2,6 +2,9 @@ import { cache } from "react";
 import { getAllConfigValues } from "@/lib/db";
 import { siteConfig } from "@/config/site";
 
+/** Áreas que pueden tener su propio número de WhatsApp. */
+export type AreaWhatsApp = "formaciones" | "biblioteca" | "socios";
+
 export interface SiteSettings {
   whatsapp: string;
   whatsappDisplay: string;
@@ -16,6 +19,13 @@ export interface SiteSettings {
   mapa: { lat: string; lng: string };
   whatsappLink(msg?: string): string;
   mailtoLink(subject?: string): string;
+
+  /** Número de cada área ya resuelto: el propio, o el general si no tiene. */
+  whatsappAreas: Record<AreaWhatsApp, string>;
+  whatsappLinkArea(area: AreaWhatsApp, msg?: string): string;
+
+  /** Referente de socios. Sin nombre, o sin marcar público, no se muestra. */
+  responsableSocios: { nombre: string; contacto: string; publico: boolean };
 }
 
 /**
@@ -35,6 +45,18 @@ export const getSiteSettings = cache(async (): Promise<SiteSettings> => {
 
   const whatsapp = pick("whatsapp", siteConfig.contact.whatsapp);
   const email = pick("email", siteConfig.contact.email);
+
+  // Un área sin número propio cae en el general: el sitio se comporta igual
+  // que antes hasta que alguien cargue el número del área.
+  const numeroArea = (key: string) => {
+    const v = cfg[key];
+    return v && v.trim() !== "" ? v.trim() : whatsapp;
+  };
+  const whatsappAreas: Record<AreaWhatsApp, string> = {
+    formaciones: numeroArea("whatsapp_formaciones"),
+    biblioteca: numeroArea("whatsapp_biblioteca"),
+    socios: numeroArea("whatsapp_socios"),
+  };
 
   return {
     whatsapp,
@@ -57,8 +79,20 @@ export const getSiteSettings = cache(async (): Promise<SiteSettings> => {
       lng: pick("mapa_lng", "-59.146240"),
     },
 
+    whatsappAreas,
+
+    responsableSocios: {
+      nombre: (cfg.responsable_socios_nombre ?? "").trim(),
+      contacto: (cfg.responsable_socios_contacto ?? "").trim(),
+      publico: (cfg.responsable_socios_publico ?? "") === "1",
+    },
+
     whatsappLink(msg?: string) {
       const base = `https://wa.me/${whatsapp}`;
+      return msg ? `${base}?text=${encodeURIComponent(msg)}` : base;
+    },
+    whatsappLinkArea(area: AreaWhatsApp, msg?: string) {
+      const base = `https://wa.me/${whatsappAreas[area]}`;
       return msg ? `${base}?text=${encodeURIComponent(msg)}` : base;
     },
     mailtoLink(subject?: string) {
