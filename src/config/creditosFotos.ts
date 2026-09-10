@@ -82,6 +82,74 @@ export const CREDITOS_ESPECIES: Record<string, CreditoFoto> = {
     pagina:
       "https://commons.wikimedia.org/wiki/File:MARTIM-PESCADOR-GRANDE_(Megaceryle_torquata).jpg",
   },
+
+  // Las doce del Bordón. La del ciprés calvo no tiene autor declarado en
+  // Commons y es de dominio público, así que va sin nombre.
+  "cipres-calvo": {
+    autor: "",
+    licencia: "Dominio público",
+    pagina:
+      "https://commons.wikimedia.org/wiki/File:Taxodium_distichum_NRCSMS01010.jpg",
+  },
+  "cipres-arizona": {
+    autor: "sharloch",
+    licencia: "CC BY-SA 2.0",
+    pagina: "https://commons.wikimedia.org/wiki/File:Cupressus_glabra_Sedona5.jpg",
+  },
+  casuarina: {
+    autor: "Bidgee",
+    licencia: "CC BY-SA 2.5 AU",
+    pagina:
+      "https://commons.wikimedia.org/wiki/File:Casuarina_cunninghamiana_growing_next_to_the_Wollundry_Lagoon_(3).jpg",
+  },
+  "pino-elliotti": {
+    autor: "Mason Brock",
+    licencia: "Dominio público",
+    pagina: "https://commons.wikimedia.org/wiki/File:Pinus_elliottii(1).jpg",
+  },
+  "arbol-del-cielo": {
+    autor: "Marina Torres",
+    licencia: "Dominio público",
+    pagina: "https://commons.wikimedia.org/wiki/File:Ailanthus_altissima_Arg.jpg",
+  },
+  "cipres-piramidal": {
+    autor: "Wojsyl",
+    licencia: "CC BY-SA 3.0",
+    pagina: "https://commons.wikimedia.org/wiki/File:Greece_Symi.jpg",
+  },
+  liebre: {
+    autor: "MOdmate",
+    licencia: "Dominio público",
+    pagina: "https://commons.wikimedia.org/wiki/File:Feldhase_Schiermonnikoog.JPG",
+  },
+  "zorzal-colorado": {
+    autor: "Dario Sanches",
+    licencia: "CC BY-SA 2.0",
+    pagina:
+      "https://commons.wikimedia.org/wiki/File:Flickr_-_Dario_Sanches_-_SABI%C3%81-LARANJEIRA_(Turdus_rufiventris)_(7).jpg",
+  },
+  "carpintero-real": {
+    autor: "Dario Sanches",
+    licencia: "CC BY-SA 2.0",
+    pagina:
+      "https://commons.wikimedia.org/wiki/File:Colaptes_melanochloros_-Bataguassu%2C_Mato_Grosso_do_Sul%2C_Brazil-8.jpg",
+  },
+  ratona: {
+    autor: "Dendroica cerulea",
+    licencia: "CC BY 2.0",
+    pagina: "https://commons.wikimedia.org/wiki/File:Troglodytes_aedon%2C_Rutgers_1.jpg",
+  },
+  "lechuza-campanario": {
+    autor: "Stevie B",
+    licencia: "CC BY 2.0",
+    pagina: "https://commons.wikimedia.org/wiki/File:Tyto_alba_close_up.jpg",
+  },
+  torcacita: {
+    autor: "Francesco Veronesi",
+    licencia: "CC BY-SA 2.0",
+    pagina:
+      "https://commons.wikimedia.org/wiki/File:Picui_Ground-Dove_-_Pantanal_MG_8681.jpg",
+  },
 };
 
 /**

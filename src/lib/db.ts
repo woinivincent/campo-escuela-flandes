@@ -758,6 +758,155 @@ const SEED_ESPECIES: Especie[] = [
     qrDisponible: false,
     orden: 10,
   },
+
+  // ── Las doce del Bordón ───────────────────────────────────────────────────
+  // Cada capítulo de "Conociendo el Campo Escuela Flandes" presenta un árbol y
+  // un animal del predio. Es el respaldo más directo que hay: los filmó el área
+  // de Adiestramiento del campo, en el campo.
+  {
+    id: "cipres-calvo",
+    nombreComun: "Ciprés calvo",
+    nombreCientifico: "Taxodium distichum",
+    categoria: "Flora",
+    descripcion:
+      "Una conífera que se queda pelada en invierno, cosa rara entre los cipreses: de ahí lo de calvo. Las hojas son finitas y planas, y antes de caerse se ponen color óxido. Aguanta el suelo empapado como pocos.",
+    curiosidad:
+      "Cuando le toca terreno anegado, le brotan alrededor del tronco unos bultos de madera que salen del suelo como rodillas. Le sirven para respirar cuando las raíces quedan bajo el agua. Es el árbol del capítulo 1 del Bordón.",
+    qrDisponible: false,
+    orden: 11,
+  },
+  {
+    id: "cipres-arizona",
+    nombreComun: "Ciprés Arizona",
+    nombreCientifico: "Cupressus arizonica",
+    categoria: "Flora",
+    descripcion:
+      "Copa densa y cónica, de un verde grisáceo que tira a celeste: es lo que lo separa a simple vista de los otros cipreses del campo. Las hojas son escamas diminutas pegadas a la ramita, y los conos, bolitas leñosas del tamaño de una uva.",
+    curiosidad:
+      "Viene de las zonas secas del sudoeste de Estados Unidos y del norte de México, así que acá vive con más agua de la que necesita. Es el árbol del capítulo 2 del Bordón.",
+    qrDisponible: false,
+    orden: 12,
+  },
+  {
+    id: "casuarina",
+    nombreComun: "Casuarina",
+    nombreCientifico: "Casuarina cunninghamiana",
+    categoria: "Flora",
+    descripcion:
+      "De lejos parece un pino, pero no lo es. Lo que parecen agujas son ramitas verdes finísimas, y si las mirás de cerca tienen anillos, como un dedo. Cuando sopla viento hace un silbido muy suyo.",
+    curiosidad:
+      "Es australiana, y sus hojas de verdad son unas escamas mínimas en cada anillo de la ramita: lo verde que ves no son hojas, son ramas. Es el árbol del capítulo 3 del Bordón.",
+    qrDisponible: false,
+    orden: 13,
+  },
+  {
+    id: "pino-elliotti",
+    nombreComun: "Pino Elliotti",
+    nombreCientifico: "Pinus elliottii",
+    categoria: "Flora",
+    descripcion:
+      "Pino alto y derecho, con la corteza gruesa partida en placas. Las agujas salen de a dos o tres por manojo y son largas, de más de quince centímetros. Las piñas son grandes y pinchudas.",
+    curiosidad:
+      "Es del sudeste de Estados Unidos y se planta mucho por su resina, que se junta haciéndole un corte al tronco. Es el árbol del capítulo 4 del Bordón.",
+    qrDisponible: false,
+    orden: 14,
+  },
+  {
+    id: "arbol-del-cielo",
+    nombreComun: "Árbol del cielo",
+    nombreCientifico: "Ailanthus altissima",
+    categoria: "Flora",
+    descripcion:
+      "Crece rapidísimo y aparece por todos lados. La hoja es compuesta y muy larga, con muchos folíolos enfrentados de a pares. Si rompés una, larga un olor fuerte y feo.",
+    curiosidad:
+      "Es de China y acá se porta como invasora: si la cortás, rebrota desde la raíz con más fuerza. En el censo de árboles del campo estaba entre las más numerosas. Es el árbol del capítulo 5 del Bordón.",
+    qrDisponible: false,
+    orden: 15,
+  },
+  {
+    id: "cipres-piramidal",
+    nombreComun: "Ciprés piramidal",
+    nombreCientifico: "Cupressus sempervirens",
+    categoria: "Flora",
+    descripcion:
+      "El ciprés angosto y altísimo que parece una columna verde clavada en el pasto. Casi no tiene ramas hacia afuera: le crecen todas pegadas al tronco, apuntando para arriba.",
+    curiosidad:
+      "Es del Mediterráneo y puede vivir varios siglos. Su nombre científico, sempervirens, quiere decir \"siempre verde\". Es el árbol del capítulo 6 del Bordón.",
+    qrDisponible: false,
+    orden: 16,
+  },
+  {
+    id: "liebre",
+    nombreComun: "Liebre europea",
+    nombreCientifico: "Lepus europaeus",
+    categoria: "Fauna",
+    descripcion:
+      "Más grande que un conejo, con las orejas largas de punta negra y las patas de atrás enormes. No hace cueva: se queda agachada y quieta en el pasto, y recién cuando estás encima sale disparada.",
+    curiosidad:
+      "Corre a más de sesenta kilómetros por hora y cambia de dirección de golpe para despistar al que la persigue. Es el animal del capítulo 1 del Bordón.",
+    qrDisponible: false,
+    orden: 17,
+  },
+  {
+    id: "zorzal-colorado",
+    nombreComun: "Zorzal colorado",
+    nombreCientifico: "Turdus rufiventris",
+    categoria: "Fauna",
+    descripcion:
+      "Del tamaño de una mano, marrón arriba y con la panza color ladrillo. Anda por el pasto a los saltitos, frenando en seco cada tanto para escuchar antes de tirar del pico una lombriz.",
+    curiosidad:
+      "Es de los primeros en cantar antes de que salga el sol y de los últimos en callarse cuando oscurece. Es el animal del capítulo 2 del Bordón.",
+    qrDisponible: false,
+    orden: 18,
+  },
+  {
+    id: "carpintero-real",
+    nombreComun: "Carpintero real",
+    nombreCientifico: "Colaptes melanochloros",
+    categoria: "Fauna",
+    descripcion:
+      "Se escucha antes de verse: golpea el tronco con el pico, rápido y seco. Tiene el lomo rayado en amarillo y negro, la panza con manchitas, y el macho un bigote rojo.",
+    curiosidad:
+      "Su lengua es larguísima y pegajosa, y le da la vuelta al cráneo por dentro cuando la guarda. Con ella saca las hormigas del fondo de una galería. Es el animal del capítulo 3 del Bordón.",
+    qrDisponible: false,
+    orden: 19,
+  },
+  {
+    id: "ratona",
+    nombreComun: "Ratona común",
+    nombreCientifico: "Troglodytes aedon",
+    categoria: "Fauna",
+    descripcion:
+      "Una de las aves más chicas del campo: doce centímetros de pájaro marrón que no se queda quieto nunca. Lleva la cola parada para arriba y se mete entre los troncos y los huecos.",
+    curiosidad:
+      "Acá se le dice ratucha justamente por eso: es chiquita, marrón y se mueve como un ratón. Anida en cualquier agujero, incluso en un tarro o un buzón. Es el animal del capítulo 4 del Bordón.",
+    qrDisponible: false,
+    orden: 20,
+  },
+  {
+    id: "lechuza-campanario",
+    nombreComun: "Lechuza de campanario",
+    nombreCientifico: "Tyto alba",
+    categoria: "Fauna",
+    descripcion:
+      "La de cara blanca en forma de corazón. Sale de noche y no canta: chista y chilla. De día duerme metida en un hueco alto, en un árbol o en un techo.",
+    curiosidad:
+      "Vuela sin hacer ningún ruido, porque el borde de sus plumas es aterciopelado y no corta el aire. Su cara con forma de plato le junta el sonido hacia los oídos, y le alcanza para cazar a oscuras. Es el animal del capítulo 5 del Bordón.",
+    qrDisponible: false,
+    orden: 21,
+  },
+  {
+    id: "torcacita",
+    nombreComun: "Torcacita común",
+    nombreCientifico: "Columbina picui",
+    categoria: "Fauna",
+    descripcion:
+      "La palomita más chica que vas a ver en el campo, gris clarita y del largo de un lápiz. Anda por el suelo en pareja o de a varias, picoteando semillas.",
+    curiosidad:
+      "Al levantar vuelo muestra una franja blanca en el ala y las alas le hacen un silbido corto. Es el animal del capítulo 6 del Bordón.",
+    qrDisponible: false,
+    orden: 22,
+  },
 ];
 
 // Sin socios de ejemplo: el padrón se carga desde el panel. Había acá un socio

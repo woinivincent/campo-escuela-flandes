@@ -162,11 +162,11 @@ crédito se incumple la licencia. Cuando el campo aporte su propia foto de una
 especie, se sube desde *Admin → Imágenes* —que le gana al repositorio— y se
 saca esa entrada del archivo de créditos.
 
-**Especies:** 11 fichas con descripción y curiosidad, escritas para un chico que
+**Especies:** 23 fichas con descripción y curiosidad, escritas para un chico que
 escanea el QR parado frente a la especie. 6 de flora (araucaria, roble, ceibo,
-sauce criollo, tala, espinillo) y 5 de fauna (carpincho, coipo, lobito de río,
-hornero, martín pescador). Entraron solo las que tienen respaldo documental; las
-dudosas están listadas más abajo. Los datos salen de las fuentes de la UNLu, la
+12 de flora y 11 de fauna. Entraron solo las que tienen respaldo documental —el
+plano del predio, el censo forestal, el relevamiento del Río Luján y los seis
+capítulos del Bordón—; las dudosas siguen listadas más abajo. Los datos salen de las fuentes de la UNLu, la
 redacción es propia.
 
 ---
@@ -211,11 +211,11 @@ redacción es propia.
 - **Descripciones de los cuatro subcampos** en Reservas.
 - **Beneficios de socios**: quedan dos genéricos y el detalle de qué incluye la cuota.
 
-### Doce especies más, documentadas por el propio campo
+### De dónde salieron las 12 especies del Bordón
 
 Los seis capítulos del Bordón presentan **un árbol y un animal por capítulo**, y
-son del predio: los filmó el área de Adiestramiento del campo. Es el mejor
-respaldo que hay para ampliar el catálogo de Naturaleza:
+son del predio: los filmó el área de Adiestramiento del campo. **Ya están
+cargadas las doce**, con foto y ficha:
 
 | Capítulo | Árbol | Animal |
 |---|---|---|
@@ -226,8 +226,12 @@ respaldo que hay para ampliar el catálogo de Naturaleza:
 | 5 | Árbol del cielo | Lechuza de campanario |
 | 6 | Ciprés piramidal | Torcacita |
 
-Esto además resuelve una de las dudas de abajo: el **árbol del cielo** está
-confirmado en el predio.
+Esto resolvió una de las dudas de abajo: el **árbol del cielo** está confirmado
+en el predio.
+
+"Ratucha" no era un roedor: la descripción del capítulo 4 dice "una de las aves
+más pequeña y movediza que habita el campo". Es la **ratona común**
+(*Troglodytes aedon*), que en Buenos Aires se llama así.
 
 ### Especies: a confirmar con el campo
 

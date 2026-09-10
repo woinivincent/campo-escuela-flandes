@@ -69,7 +69,10 @@ export default async function EspeciePage({
               />
               {CREDITOS_ESPECIES[especie.id] && (
                 <p className="mt-2 text-[0.7rem] leading-relaxed text-forest/45">
-                  Foto: {CREDITOS_ESPECIES[especie.id].autor} ·{" "}
+                  Foto:{" "}
+                  {CREDITOS_ESPECIES[especie.id].autor
+                    ? CREDITOS_ESPECIES[especie.id].autor + " · "
+                    : ""}
                   <a
                     href={CREDITOS_ESPECIES[especie.id].pagina}
                     target="_blank"

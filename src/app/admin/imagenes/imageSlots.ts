@@ -33,12 +33,26 @@ export const IMAGE_SLOTS = [
   { id: "especie-ceibo",           label: "Ceibo",                  group: "Flora",     desc: "Erythrina crista-galli" },
   { id: "especie-sauce",           label: "Sauce criollo",          group: "Flora",     desc: "Salix humboldtiana" },
   { id: "especie-tala",            label: "Tala",                   group: "Flora",     desc: "Celtis tala" },
+  // Flora del Bordón: un árbol por capítulo.
+  { id: "especie-cipres-calvo",    label: "Ciprés calvo",           group: "Flora",     desc: "Taxodium distichum" },
+  { id: "especie-cipres-arizona",  label: "Ciprés Arizona",         group: "Flora",     desc: "Cupressus arizonica" },
+  { id: "especie-casuarina",       label: "Casuarina",              group: "Flora",     desc: "Casuarina cunninghamiana" },
+  { id: "especie-pino-elliotti",   label: "Pino Elliotti",          group: "Flora",     desc: "Pinus elliottii" },
+  { id: "especie-arbol-del-cielo", label: "Árbol del cielo",        group: "Flora",     desc: "Ailanthus altissima" },
+  { id: "especie-cipres-piramidal",label: "Ciprés piramidal",       group: "Flora",     desc: "Cupressus sempervirens" },
   // Fauna
   { id: "especie-carpincho",       label: "Carpincho",              group: "Fauna",     desc: "Hydrochoerus hydrochaeris" },
   { id: "especie-coipo",           label: "Coipo / Nutria",         group: "Fauna",     desc: "Myocastor coypus" },
   { id: "especie-lobito-de-rio",   label: "Lobito de río",          group: "Fauna",     desc: "Lontra longicaudis" },
   { id: "especie-hornero",         label: "Hornero",                group: "Fauna",     desc: "Furnarius rufus" },
   { id: "especie-martin-pescador", label: "Martín pescador",        group: "Fauna",     desc: "Megaceryle torquata" },
+  // Fauna del Bordón: un animal por capítulo.
+  { id: "especie-liebre",          label: "Liebre europea",         group: "Fauna",     desc: "Lepus europaeus" },
+  { id: "especie-zorzal-colorado", label: "Zorzal colorado",        group: "Fauna",     desc: "Turdus rufiventris" },
+  { id: "especie-carpintero-real", label: "Carpintero real",        group: "Fauna",     desc: "Colaptes melanochloros" },
+  { id: "especie-ratona",          label: "Ratona común (ratucha)", group: "Fauna",     desc: "Troglodytes aedon" },
+  { id: "especie-lechuza-campanario", label: "Lechuza de campanario", group: "Fauna",  desc: "Tyto alba" },
+  { id: "especie-torcacita",       label: "Torcacita común",        group: "Fauna",     desc: "Columbina picui" },
   // Libros — tapas de la biblioteca del campo
   { id: "libro-manual-lobatos", label: "Manual de Lobatos", group: "Libros", desc: "Tapa del libro" },
   { id: "libro-educacion-escultismo", label: "Educación y Escultismo", group: "Libros", desc: "Tapa del libro" },
