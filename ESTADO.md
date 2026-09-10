@@ -232,8 +232,8 @@ cargadas las doce**, con foto y ficha:
 | 5 | Árbol del cielo | Lechuza de campanario |
 | 6 | Ciprés piramidal | Torcacita |
 
-Esto resolvió una de las dudas de abajo: el **árbol del cielo** está confirmado
-en el predio.
+Esto resolvió dos de las dudas de abajo: el **árbol del cielo** y la **liebre**
+quedaron confirmados en el predio, y por eso están cargados.
 
 "Ratucha" no era un roedor: la descripción del capítulo 4 dice "una de las aves
 más pequeña y movediza que habita el campo". Es la **ratona común**
@@ -247,11 +247,10 @@ fauna del Río Luján. Estas quedaron afuera o con dudas:
 
 | Especie | Qué falta resolver |
 |---|---|
-| Álamo plateado, ligustro, árbol del cielo | El censo los encontró en el campo, pero no están en la enciclopedia del Jardín Botánico. Hay que buscar los datos en otra fuente. |
+| Álamo plateado, ligustro | El censo los encontró en el campo, pero no están en la enciclopedia del Jardín Botánico. Hay que buscar los datos en otra fuente. |
 | Eucalipto | El plano lo nombra sin decir la especie. Hay cuatro en la enciclopedia; hace falta ver un ejemplar para saber cuál es. |
 | Laurel | El censo dice "laurel" a secas. Puede ser el laurel criollo (*Nectandra angustifolia*, nativo de ribera) o el de cocina (*Laurus nobilis*, exótico de parque). Son árboles distintos. |
 | Espinillo, martín pescador | Ya estaban cargados y se les escribió la ficha, pero no aparecen en ninguna fuente del predio. Si el campo dice que no están, se borran desde *Admin → Naturaleza*. |
-| Liebre europea | Se ve en la miniatura de un capítulo del Bordón, así que alguien la filmó en el campo. Falta confirmar que sea del predio. |
 
 **Ojo con los nombres científicos.** El atlas del SIAI publica "Chimango —
 *Parabuteo unicinctus*", que es el nombre del gavilán mixto; el chimango es
