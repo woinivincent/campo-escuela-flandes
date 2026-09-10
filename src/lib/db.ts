@@ -6,6 +6,8 @@ import {
   writeConfig,
   readRecord,
   writeRecord,
+  contarGuardadas,
+  leerConfigCruda,
 } from "@/lib/store";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -311,6 +313,36 @@ export async function createSocio(data: {
       },
     ],
     result: id,
+  }));
+}
+
+/**
+ * Alta de varios socios en una sola escritura.
+ *
+ * No es createSocio en un bucle por dos razones: cada vuelta leería y
+ * escribiría la colección entera, y el id sale de Date.now(), así que dos
+ * altas dentro de la misma milésima compartirían id.
+ */
+export async function createSociosBulk(
+  socios: { nombre: string; email: string; password_hash: string; salt: string }[]
+): Promise<number> {
+  if (socios.length === 0) return 0;
+  const base = Date.now();
+  const fecha = hoy();
+  return mutateCollection<Socio, number>("socios", SEED_SOCIOS, (rows) => ({
+    rows: [
+      ...rows,
+      ...socios.map((s, i) => ({
+        id: `socio-${base}-${i}`,
+        nombre: s.nombre,
+        email: s.email.toLowerCase(),
+        password_hash: s.password_hash,
+        salt: s.salt,
+        activo: 1 as const,
+        created_at: fecha,
+      })),
+    ],
+    result: socios.length,
   }));
 }
 
@@ -785,3 +817,84 @@ const SEED_BIBLIOTECA: MaterialBiblioteca[] = [
   { id: "libro-espiritualidad-scout", titulo: "Espiritualidad Scout", descripcion: "M. E. Mozichuk", tipo: "Físico", url: "", orden: 38, activo: 1 },
   { id: "libro-santa-catalina", titulo: "Santa Catalina de Siena", descripcion: "Intérprete del Amor de Dios", tipo: "Físico", url: "", orden: 39, activo: 1 },
 ];
+
+// ─── Sincronización entre el código y lo guardado ────────────────────────────
+//
+// readCollection le da prioridad a lo guardado: una vez que la colección existe
+// en el store, cambiar el seed del código no se ve nunca más. Es útil —es lo
+// que hace que el panel mande— pero hace que un contenido nuevo escrito en el
+// código pase desapercibido en producción. Estas funciones sirven para ver
+// cuándo está pasando y para volcar el código encima a propósito.
+
+/** Las colecciones que tienen datos de ejemplo en el código. */
+const SEEDS: Record<string, readonly unknown[]> = {
+  eventos: SEED_EVENTOS,
+  libros: SEED_LIBROS,
+  cursos: SEED_CURSOS,
+  hitos: SEED_HITOS,
+  especies: SEED_ESPECIES,
+  socios: SEED_SOCIOS,
+  recursos_socios: SEED_RECURSOS,
+  biblioteca: SEED_BIBLIOTECA,
+};
+
+export type NombreColeccion = keyof typeof SEEDS;
+
+export interface EstadoColeccion {
+  nombre: string;
+  /** Filas guardadas en el store, o null si todavía no se guardó nunca. */
+  guardadas: number | null;
+  /** Filas que trae el código. */
+  enElCodigo: number;
+}
+
+export function nombresDeColecciones(): string[] {
+  return Object.keys(SEEDS);
+}
+
+/** Para cada colección, si manda lo guardado o el código. */
+export async function estadoDeColecciones(): Promise<EstadoColeccion[]> {
+  return Promise.all(
+    Object.entries(SEEDS).map(async ([nombre, seed]) => ({
+      nombre,
+      guardadas: await contarGuardadas(nombre),
+      enElCodigo: seed.length,
+    }))
+  );
+}
+
+/**
+ * Pisa una colección con lo que trae el código.
+ * Es destructivo: lo que haya cargado el panel en esa colección se pierde.
+ */
+export async function restaurarColeccionDelCodigo(nombre: string): Promise<number> {
+  const seed = SEEDS[nombre];
+  if (!seed) throw new Error(`No existe la colección "${nombre}".`);
+  await writeCollection(nombre, [...seed]);
+  return seed.length;
+}
+
+export interface ClaveDesincronizada {
+  clave: string;
+  guardado: string;
+  enElCodigo: string;
+}
+
+/**
+ * Claves de configuración cuyo valor guardado difiere del que trae el código.
+ * No se tocan solas: cambiarlas es decisión de quien administra, porque acá
+ * viven cosas como el número de WhatsApp real del campo.
+ */
+export async function configDesincronizada(): Promise<ClaveDesincronizada[]> {
+  const guardada = (await leerConfigCruda()) ?? {};
+  return Object.entries(SEED_CONFIG)
+    .filter(([clave, valorCodigo]) => {
+      const g = guardada[clave];
+      return g !== undefined && g !== valorCodigo;
+    })
+    .map(([clave, valorCodigo]) => ({
+      clave,
+      guardado: guardada[clave],
+      enElCodigo: valorCodigo,
+    }));
+}

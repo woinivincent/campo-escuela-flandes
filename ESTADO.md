@@ -37,7 +37,7 @@ avisarle al campo.
 
 ---
 
-## Arquitectura: cinco cosas que no son obvias
+## Arquitectura: seis cosas que no son obvias
 
 ### 1. Nunca usar `process.env.NETLIFY` para detectar el entorno
 
@@ -58,14 +58,34 @@ Orden de resolución de una imagen:
 2. `public/images` — subidas locales en desarrollo
 3. `public/seed-images` — fotos versionadas en el repo, como respaldo
 
-### 3. Los valores por defecto de configuración están escritos dos veces
+### 3. Lo guardado le gana al código, para siempre
+
+Una vez que una colección se guardó desde el panel, `readCollection` devuelve
+**eso** y el seed del código no se ve nunca más. Es lo que hace que el panel
+mande, pero tiene una consecuencia que ya mordió: se pueden escribir fichas
+nuevas en el código, verlas perfectas en local, pushear, y que producción siga
+mostrando lo viejo.
+
+Pasó con las especies: en Blobs había un catálogo de maqueta con textos
+*Lorem ipsum*, así que las 11 fichas reales del código eran invisibles en el
+sitio publicado.
+
+**Dónde mirarlo:** `/admin/diagnostico` → *El código contra lo guardado*. Dice,
+colección por colección, si manda lo guardado o el código, y tiene un botón
+**Volcar el código** que pisa lo guardado con lo del repositorio. Es destructivo:
+borra lo que se haya cargado desde el panel en esa colección.
+
+La configuración se muestra ahí también, pero **no se toca sola**: son valores
+reales del campo (el WhatsApp, por ejemplo) y hay que corregirlos a mano.
+
+### 4. Los valores por defecto de configuración están escritos dos veces
 
 Están en `src/config/site.ts` **y** en `SEED_CONFIG` (`src/lib/db.ts`), y gana el
 segundo: `readConfig` mergea los defaults del seed, y después el `pick()` de
 `siteConfigService` ve un valor no vacío y nunca llega al de `site.ts`. Si
 cambiás un default y el sitio no se inmuta, es esto: hay que tocar los dos.
 
-### 4. Los textos de las páginas: el código manda como respaldo
+### 5. Los textos de las páginas: el código manda como respaldo
 
 Los textos por defecto viven en `src/config/textos.ts`, no en el JSX. El panel
 guarda **solo lo que alguien editó**, así que cambiar un texto en el código se ve
@@ -75,7 +95,7 @@ sitio sigue mostrando los textos del código en vez de quedar en blanco.
 Para sumar un campo editable: agregarlo al catálogo y usarlo en la página con
 `const t = await getTextos("<página>")` y `t("<clave>")`. El panel lo toma solo.
 
-### 5. Las imágenes no se cachean como fijas
+### 6. Las imágenes no se cachean como fijas
 
 Se sirven con `max-age=0, must-revalidate`. Estuvieron con `immutable` un año y
 eso hacía que reemplazar o quitar una foto no se viera nunca.
@@ -120,6 +140,11 @@ Destacados:
   El responsable de socios tiene nombre, contacto y un interruptor para
   publicarlo: sin nombre, o sin tildar, no aparece nada en la página de Socios.
   **Faltan los números y los datos del responsable**, que el campo no pasó todavía.
+- **Importar padrón** (*Admin → Socios → Importar padrón*): sube un CSV, adivina
+  qué columna es el nombre y cuál el email, muestra una vista previa con el
+  motivo de cada fila que queda afuera, y da de alta el resto en una sola
+  escritura. A cada socio le genera una clave inicial que se muestra **una sola
+  vez**, en una tabla que se puede copiar. Desde Excel: *Guardar como → CSV UTF-8*.
 - **Textos editables** (`/admin/textos`): los títulos y textos principales de las
   11 páginas públicas, 5 campos cada una. Cada página se guarda por separado.
   Un campo vacío muestra el texto original, que aparece en gris como referencia.
@@ -197,7 +222,6 @@ conviene chequear cada uno contra una segunda fuente antes de cargarlo.
 
 | Ítem | Nota |
 |---|---|
-| Importar padrón de socios | Desde planilla Excel |
 | Logo | Está el original recortado del cartel (400×536). El del Facebook es de 200×200, así que no sirve. Si aparece el archivo en mejor calidad, reemplazar `public/seed-images/logo-flandes.png` |
 
 ---

@@ -6,6 +6,7 @@ import {
   saveRecursoAction, toggleRecursoAction, deleteRecursoAction,
 } from "./actions";
 import { ArrowRightIcon } from "@/components/ui/icons";
+import ImportarPadron from "./ImportarPadron";
 
 export const metadata = { title: "Socios — Admin Flandes" };
 
@@ -33,9 +34,12 @@ export default async function AdminSociosPage({
             <h1 className="font-display text-2xl font-bold uppercase tracking-tight text-white">Socios</h1>
             <p className="mt-0.5 text-sm text-white/40">{socios.length} socios registrados · acceso al portal</p>
           </div>
-          <Link href="/socios/portal" target="_blank" className="flex items-center gap-1 text-xs text-white/40 hover:text-white/70">
-            Ver portal <ArrowRightIcon width={12} height={12} />
-          </Link>
+          <div className="flex items-center gap-4">
+            <ImportarPadron emailsExistentes={socios.map((s) => s.email)} />
+            <Link href="/socios/portal" target="_blank" className="flex items-center gap-1 text-xs text-white/40 hover:text-white/70">
+              Ver portal <ArrowRightIcon width={12} height={12} />
+            </Link>
+          </div>
         </div>
 
         {/* Agregar nuevo socio */}

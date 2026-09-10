@@ -76,6 +76,32 @@ export async function readCollection<T>(key: string, seed: T[]): Promise<T[]> {
   }
 }
 
+/**
+ * Cuántas filas hay realmente guardadas, o null si la colección todavía no
+ * existe en el store.
+ *
+ * readCollection no distingue esos dos casos: devuelve el seed cuando no hay
+ * nada. Para el diagnóstico hace falta saber cuál de los dos es, porque una
+ * colección ya guardada le gana al código para siempre.
+ */
+export async function contarGuardadas(key: string): Promise<number | null> {
+  try {
+    const stored = await readRaw<unknown[]>(key);
+    return Array.isArray(stored) ? stored.length : null;
+  } catch {
+    return null;
+  }
+}
+
+/** El mapa de configuración tal como está guardado, sin completar con defaults. */
+export async function leerConfigCruda(): Promise<Record<string, string> | null> {
+  try {
+    return await readRaw<Record<string, string>>("config");
+  } catch {
+    return null;
+  }
+}
+
 /** Sobrescribe una colección completa. */
 export async function writeCollection<T>(key: string, rows: T[]): Promise<void> {
   await writeRaw(key, rows);

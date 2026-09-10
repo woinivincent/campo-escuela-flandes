@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { estadoDeColecciones, configDesincronizada } from "@/lib/db";
+import { restaurarColeccionAction } from "./actions";
 import { requireAuth } from "@/lib/auth";
 import { verificarBlobs } from "@/lib/blobs";
 import {
@@ -14,6 +16,10 @@ export default async function DiagnosticoPage() {
 
   const datos = await verificarBlobs("site-data");
   const imagenes = await verificarBlobs("site-images");
+
+  const colecciones = await estadoDeColecciones();
+  const configFuera = await configDesincronizada();
+  const tapadas = colecciones.filter((c) => c.guardadas !== null);
 
   const conteos = await Promise.all([
     getEventos().then((r) => ["Eventos", r.length] as const),
@@ -108,6 +114,111 @@ export default async function DiagnosticoPage() {
         <p className="mt-2 text-xs text-white/30">
           Mientras no guardes nada, estos números corresponden a los datos de ejemplo.
         </p>
+      </div>
+
+      {/* ── El código contra lo guardado ─────────────────────────────────── */}
+      <div>
+        <h2 className="mb-3 font-display text-sm font-bold uppercase tracking-wide text-gold/70">
+          El código contra lo guardado
+        </h2>
+        <p className="mb-4 max-w-2xl text-xs leading-relaxed text-white/40">
+          Una vez que una colección se guarda desde el panel, es esa la que manda:
+          el contenido que venga en el código deja de verse. Es lo que hace que el
+          panel tenga la última palabra, pero también hace que un contenido nuevo
+          escrito en el repositorio pase desapercibido. Acá se ve cuál manda en
+          cada caso.
+        </p>
+
+        <div className="overflow-hidden rounded-2xl border border-white/10">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="bg-white/[0.03] text-xs uppercase tracking-wide text-white/40">
+                <th className="px-4 py-2.5 text-left font-semibold">Colección</th>
+                <th className="px-4 py-2.5 text-right font-semibold">Guardadas</th>
+                <th className="px-4 py-2.5 text-right font-semibold">En el código</th>
+                <th className="px-4 py-2.5 text-left font-semibold">Manda</th>
+                <th className="px-4 py-2.5" />
+              </tr>
+            </thead>
+            <tbody>
+              {colecciones.map((c) => (
+                <tr key={c.nombre} className="border-b border-white/5 last:border-0">
+                  <td className="px-4 py-2.5 text-white/70">{c.nombre}</td>
+                  <td className="px-4 py-2.5 text-right text-white">
+                    {c.guardadas === null ? "—" : c.guardadas}
+                  </td>
+                  <td className="px-4 py-2.5 text-right text-white/50">{c.enElCodigo}</td>
+                  <td className="px-4 py-2.5">
+                    {c.guardadas === null ? (
+                      <span className="text-white/40">el código</span>
+                    ) : (
+                      <span className="text-gold">lo guardado</span>
+                    )}
+                  </td>
+                  <td className="px-4 py-2.5 text-right">
+                    {c.guardadas !== null && (
+                      <form action={restaurarColeccionAction}>
+                        <input type="hidden" name="coleccion" value={c.nombre} />
+                        <button
+                          type="submit"
+                          className="rounded-lg border border-white/15 px-3 py-1.5 text-xs text-white/60 transition hover:border-flandes-red/50 hover:text-flandes-red-light"
+                        >
+                          Volcar el código
+                        </button>
+                      </form>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {tapadas.length > 0 && (
+          <p className="mt-3 rounded-xl border border-flandes-red/25 bg-flandes-red/10 px-4 py-3 text-xs leading-relaxed text-white/70">
+            <strong className="text-flandes-red-light">Ojo:</strong> &quot;Volcar el
+            código&quot; reemplaza toda la colección por la del repositorio y{" "}
+            <strong>borra lo que se haya cargado desde el panel</strong>. Usalo solo
+            cuando lo guardado quedó viejo y lo bueno está en el código.
+          </p>
+        )}
+
+        {configFuera.length > 0 && (
+          <div className="mt-6">
+            <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-white/50">
+              Configuración: {configFuera.length} valores guardados difieren del código
+            </h3>
+            <div className="overflow-hidden rounded-2xl border border-white/10">
+              <table className="w-full text-sm">
+                <tbody>
+                  {configFuera.map((c) => (
+                    <tr key={c.clave} className="border-b border-white/5 last:border-0">
+                      <td className="px-4 py-2.5 align-top text-white/70">{c.clave}</td>
+                      <td className="px-4 py-2.5 align-top">
+                        <span className="block text-xs text-white/30">guardado</span>
+                        <span className="break-all text-gold">{c.guardado || "(vacío)"}</span>
+                      </td>
+                      <td className="px-4 py-2.5 align-top">
+                        <span className="block text-xs text-white/30">en el código</span>
+                        <span className="break-all text-white/60">
+                          {c.enElCodigo || "(vacío)"}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-2 text-xs text-white/30">
+              Estos no se tocan solos: acá viven datos reales del campo, como el
+              número de WhatsApp. Si alguno quedó viejo, se corrige en{" "}
+              <Link href="/admin/config" className="text-white/50 underline hover:text-gold">
+                Config
+              </Link>
+              .
+            </p>
+          </div>
+        )}
       </div>
 
       <Link href="/admin" className="inline-block text-xs text-white/40 hover:text-white/70">
