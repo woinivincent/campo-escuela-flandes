@@ -3,6 +3,7 @@ import TopoPattern from "@/components/ui/TopoPattern";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageFrame from "@/components/ui/ImageFrame";
 import { getSiteSettings } from "@/lib/siteConfigService";
+import { getTextos } from "@/lib/textosService";
 import { getEventosPublicos } from "@/lib/db";
 import {
   TentIcon,
@@ -16,6 +17,7 @@ import {
 } from "@/components/ui/icons";
 
 export default async function HomePage() {
+  const t = await getTextos("inicio");
   const { subcampos } = await getSiteSettings();
   const eventosDB = (await getEventosPublicos()).slice(0, 3);
   return (
@@ -37,16 +39,15 @@ export default async function HomePage() {
         {/* Contenido centrado */}
         <div className="container-flandes relative pt-20 text-center">
           <h1 className="font-display text-[2.6rem] font-bold uppercase leading-[0.95] tracking-[0.02em] text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)] sm:text-6xl lg:text-7xl">
-            Campo Escuela Flandes
+            {t("hero_titulo")}
           </h1>
           <div className="mt-6 flex justify-center">
             <span className="bg-white px-3 py-2 font-display text-sm font-semibold uppercase tracking-[0.28em] text-forest-dark sm:text-base">
-              Campo de Ejercicios Scout
+              {t("hero_kicker")}
             </span>
           </div>
           <p className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
-            Entidad de servicio y bien público sin fines de lucro, fundada en 1958.
-            Acampes, formación y vida al aire libre sobre el Río Luján.
+            {t("hero_bajada")}
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             <Link href="/reservas" className="btn-primary">
@@ -94,8 +95,8 @@ export default async function HomePage() {
           <div>
             <SectionHeading
               eyebrow="El campo"
-              title="Un espacio pensado para el escultismo"
-              subtitle="Fundado en 1958 sobre un predio cedido por Algodonera Flandria a los Scouts, el campo se sostiene como entidad de bien público sin fines de lucro y se conserva y mejora de forma ininterrumpida desde entonces."
+              title={t("intro_titulo")}
+              subtitle={t("intro_texto")}
             />
             <ul className="mt-7 grid gap-3 sm:grid-cols-2">
               {bienvenidaPuntos.map((p, i) => (

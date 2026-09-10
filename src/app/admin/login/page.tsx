@@ -47,7 +47,9 @@ export default async function LoginPage({
 
           {error && (
             <p className="rounded-xl border border-flandes-red/30 bg-flandes-red/10 px-4 py-2.5 text-sm text-flandes-red-light">
-              Contraseña incorrecta. Intentá de nuevo.
+              {error === "sin-clave"
+                ? "El sitio no tiene contraseña configurada. Hay que cargar ADMIN_PASSWORD en Netlify y volver a desplegar."
+                : "Contraseña incorrecta. Intentá de nuevo."}
             </p>
           )}
 

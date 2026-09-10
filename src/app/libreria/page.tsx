@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
+import { getTextos } from "@/lib/textosService";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageFrame from "@/components/ui/ImageFrame";
 import { getSiteSettings } from "@/lib/siteConfigService";
@@ -26,6 +27,7 @@ const categoriaColor: Record<CategoriaLibro, string> = {
 };
 
 export default async function LibreriaPage() {
+  const t = await getTextos("libreria");
   const cfg = await getSiteSettings();
   const libros = await getLibros();
   const categorias = Array.from(new Set(libros.map((l) => l.categoria)));
@@ -33,9 +35,9 @@ export default async function LibreriaPage() {
   return (
     <>
       <PageHero
-        eyebrow="Librería"
-        title="Librería del campo"
-        subtitle="Material scout, guías de naturaleza y libros de formación."
+        eyebrow={t("hero_eyebrow")}
+        title={t("hero_titulo")}
+        subtitle={t("hero_bajada")}
         src="/images/libreria-portada.jpg"
       />
 
@@ -60,8 +62,8 @@ export default async function LibreriaPage() {
         <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
           <SectionHeading
             eyebrow="Catálogo"
-            title="Libros disponibles"
-            subtitle="El catálogo se actualiza desde el panel del campo."
+            title={t("intro_titulo")}
+            subtitle={t("intro_texto")}
           />
           {/* Categorías (decorativas — sin filtrado JS por ahora) */}
           <div className="flex flex-wrap gap-2">

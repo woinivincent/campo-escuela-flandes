@@ -12,21 +12,24 @@ Documento de traspaso. Última actualización: agosto 2026.
 
 ---
 
-## ⚠️ Pendiente urgente: el panel está abierto
+## ⚠️ Pendiente urgente: cargar la contraseña en Netlify
 
-`ADMIN_PASSWORD` **no está configurada en Netlify**, así que vale la contraseña
-por defecto que está en el código — y el repositorio es público. Cualquiera que
-la lea puede entrar a editar o borrar el contenido del sitio.
+El código ya no tiene clave por defecto. Sin `ADMIN_PASSWORD` el panel no deja
+entrar a nadie —antes caía en una clave que estaba a la vista en el repositorio,
+que es público— y la pantalla de acceso avisa que falta configurarla.
 
-**Cómo cerrarlo:** en Netlify → *Site configuration → Environment variables* →
+El costo es que, mientras la variable no esté cargada, **tampoco puede entrar el
+campo**.
+
+**Qué hacer:** en Netlify → *Site configuration → Environment variables* →
 agregar `ADMIN_PASSWORD` con una contraseña nueva → *Deploys → Trigger deploy*.
 
-Después de eso conviene quitar del código el valor por defecto de
-`src/lib/auth.ts`, para que sin la variable no deje entrar en vez de caer en una
-clave conocida.
+En desarrollo: copiar `.env.example` a `.env.local` y poner cualquier clave.
 
-**Relacionado:** el socio de prueba `demo@campoflandes.org.ar` tiene su clave en
-el repositorio. Borrarlo desde *Admin → Socios* antes de difundir el sitio.
+**Relacionado:** el socio de prueba `demo@campoflandes.org.ar` ya no está en el
+código. **Igual hay que mirar *Admin → Socios* en el sitio publicado:** si alguna
+vez se guardó el padrón, la fila quedó escrita en Blobs y sigue ahí. Si la lista
+aparece vacía, no hay nada que borrar.
 
 **Fuera del sitio:** en `asociacioncivilcampoclubscouts.blogspot.com` hay
 publicada un acta con nombres, DNI y firmas de la comisión directiva. Conviene
@@ -34,7 +37,7 @@ avisarle al campo.
 
 ---
 
-## Arquitectura: tres cosas que no son obvias
+## Arquitectura: cuatro cosas que no son obvias
 
 ### 1. Nunca usar `process.env.NETLIFY` para detectar el entorno
 
@@ -55,7 +58,17 @@ Orden de resolución de una imagen:
 2. `public/images` — subidas locales en desarrollo
 3. `public/seed-images` — fotos versionadas en el repo, como respaldo
 
-### 3. Las imágenes no se cachean como fijas
+### 3. Los textos de las páginas: el código manda como respaldo
+
+Los textos por defecto viven en `src/config/textos.ts`, no en el JSX. El panel
+guarda **solo lo que alguien editó**, así que cambiar un texto en el código se ve
+enseguida en todos los campos que nadie tocó, y si el almacenamiento se cae el
+sitio sigue mostrando los textos del código en vez de quedar en blanco.
+
+Para sumar un campo editable: agregarlo al catálogo y usarlo en la página con
+`const t = await getTextos("<página>")` y `t("<clave>")`. El panel lo toma solo.
+
+### 4. Las imágenes no se cachean como fijas
 
 Se sirven con `max-age=0, must-revalidate`. Estuvieron con `immutable` un año y
 eso hacía que reemplazar o quitar una foto no se viera nunca.
@@ -94,6 +107,9 @@ Destacados:
 - **Portal de socios**: acceso con contraseña, separado del panel.
 - **Diagnóstico** (`/admin/diagnostico`): dice si el almacenamiento responde y
   muestra el error exacto si falla. Es el primer lugar donde mirar si algo no guarda.
+- **Textos editables** (`/admin/textos`): los títulos y textos principales de las
+  11 páginas públicas, 5 campos cada una. Cada página se guarda por separado.
+  Un campo vacío muestra el texto original, que aparece en gris como referencia.
 
 **Contenido real cargado:** historia (fundación en 1958, predio cedido por
 Algodonera Flandria), los cuatro objetivos institucionales, límites del predio,
@@ -124,7 +140,6 @@ Algodonera Flandria), los cuatro objetivos institucionales, límites del predio,
 
 | Ítem | Nota |
 |---|---|
-| Textos editables desde el panel | El más grande. Alcance acordado: títulos y textos principales, ~5 campos por página |
 | WhatsApp por área | Números propios para formaciones, biblioteca y responsable de socios |
 | Importar padrón de socios | Desde planilla Excel |
 | Responsable de socios | Nombre y contacto; definir si se muestra público |

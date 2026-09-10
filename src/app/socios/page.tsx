@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
+import { getTextos } from "@/lib/textosService";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { getSiteSettings } from "@/lib/siteConfigService";
 import {
@@ -21,14 +22,15 @@ export const metadata = {
 };
 
 export default async function SociosPage() {
+  const t = await getTextos("socios");
   const cfg = await getSiteSettings();
   const cuota = cfg.cuota;
   return (
     <>
       <PageHero
-        eyebrow="Socios"
-        title="Hacete socio"
-        subtitle="Sostené el campo y accedé al material exclusivo del portal de socios."
+        eyebrow={t("hero_eyebrow")}
+        title={t("hero_titulo")}
+        subtitle={t("hero_bajada")}
         src="/images/socios-portada.jpg"
       />
 
@@ -38,8 +40,8 @@ export default async function SociosPage() {
           <div>
             <SectionHeading
               eyebrow="Ser socio"
-              title="Qué significa ser socio del campo"
-              subtitle="Acá va la explicación de qué implica asociarse: en qué se usa la cuota, qué sostiene y por qué es importante para el campo."
+              title={t("intro_titulo")}
+              subtitle={t("intro_texto")}
             />
             <ul className="mt-7 space-y-3">
               {beneficios.map((b, i) => (

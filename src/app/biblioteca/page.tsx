@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
+import { getTextos } from "@/lib/textosService";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageFrame from "@/components/ui/ImageFrame";
 import { getSiteSettings } from "@/lib/siteConfigService";
@@ -26,6 +27,7 @@ function youtubeId(url: string): string | null {
 }
 
 export default async function BibliotecaPage() {
+  const t = await getTextos("biblioteca");
   const cfg = await getSiteSettings();
   const materiales = await getMateriales(true);
 
@@ -36,9 +38,9 @@ export default async function BibliotecaPage() {
   return (
     <>
       <PageHero
-        eyebrow="Biblioteca"
-        title="Biblioteca del campo"
-        subtitle="El Bordón digital, material para descargar y libros para consultar en el predio."
+        eyebrow={t("hero_eyebrow")}
+        title={t("hero_titulo")}
+        subtitle={t("hero_bajada")}
         src="/images/biblioteca-portada.jpg"
       />
 
@@ -46,8 +48,8 @@ export default async function BibliotecaPage() {
       <section className="container-flandes py-20">
         <SectionHeading
           eyebrow="Bordón digital"
-          title="Las ediciones del Bordón"
-          subtitle="El boletín del campo, en video. Se abren en el canal de YouTube."
+          title={t("intro_titulo")}
+          subtitle={t("intro_texto")}
           className="mb-10"
         />
 

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
+import { getTextos } from "@/lib/textosService";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageFrame from "@/components/ui/ImageFrame";
 import { getSiteSettings } from "@/lib/siteConfigService";
@@ -24,6 +25,7 @@ export const metadata = {
 };
 
 export default async function AcampesPage() {
+  const t = await getTextos("acampes");
   const { subcampos, mapa } = await getSiteSettings();
 
     const subcamposDetalle = [
@@ -76,9 +78,9 @@ export default async function AcampesPage() {
   return (
     <>
       <PageHero
-        eyebrow="Acampes"
-        title="El predio"
-        subtitle="Cuatro subcampos sobre el Río Luján, con servicios e instalaciones para tu grupo."
+        eyebrow={t("hero_eyebrow")}
+        title={t("hero_titulo")}
+        subtitle={t("hero_bajada")}
         src="/images/acampes-portada.jpg"
       />
 
@@ -88,14 +90,11 @@ export default async function AcampesPage() {
           <div>
             <SectionHeading
               eyebrow="El campo"
-              title="Un predio preparado para acampar"
+              title={t("intro_titulo")}
             />
             <div className="mt-5 space-y-4 text-[0.95rem] leading-relaxed text-forest/85">
               <p>
-                El predio limita al Norte con el camino privado de acceso a
-                Algodonera Flandria, cruzado de Oeste a Este por el Río Luján y
-                bordeado por un bosque ribereño mixto natural. Al Este y al Sur
-                limita con la calle San Martín, y al Oeste con la calle Flandes.
+                {t("intro_texto")}
               </p>
               <p>
                 Fue forestado en diferentes etapas, lo que permite hoy diferenciar

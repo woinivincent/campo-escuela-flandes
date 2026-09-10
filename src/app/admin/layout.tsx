@@ -36,6 +36,14 @@ function ClockIcon({ width = 14, height = 14 }: { width?: number; height?: numbe
   );
 }
 
+function TextIcon({ width = 14, height = 14 }: { width?: number; height?: number }) {
+  return (
+    <svg width={width} height={height} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 6h16M4 12h16M4 18h10" />
+    </svg>
+  );
+}
+
 const navItems = [
   { href: "/admin/agenda",        label: "Agenda",        Icon: CalendarIcon },
   { href: "/admin/biblioteca",    label: "Biblioteca",    Icon: BookIcon },
@@ -45,6 +53,7 @@ const navItems = [
   { href: "/admin/naturaleza",    label: "Naturaleza",    Icon: LeafIcon },
   { href: "/admin/socios",        label: "Socios",        Icon: UsersIcon },
   { href: "/admin/imagenes",      label: "Imágenes",      Icon: ImageIcon },
+  { href: "/admin/textos",        label: "Textos",        Icon: TextIcon },
   { href: "/admin/config",        label: "Config",        Icon: GearIcon },
 ];
 

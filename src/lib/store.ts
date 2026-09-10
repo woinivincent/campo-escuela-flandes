@@ -98,17 +98,39 @@ export async function mutateCollection<T, R>(
   return result;
 }
 
+/**
+ * Lee un mapa de clave/valor, completando con los valores por defecto.
+ * Si el almacenamiento falla se devuelven los defaults: el sitio sigue en pie
+ * mostrando los textos del código en vez de romperse.
+ */
+export async function readRecord(
+  key: string,
+  defaults: Record<string, string>
+): Promise<Record<string, string>> {
+  try {
+    const stored = await readRaw<Record<string, string>>(key);
+    return { ...defaults, ...(stored ?? {}) };
+  } catch (e) {
+    console.error(`[store] No se pudo leer "${key}", usando valores por defecto:`, String(e));
+    return { ...defaults };
+  }
+}
+
+/** Guarda (mergeando) claves en un mapa de clave/valor. */
+export async function writeRecord(
+  key: string,
+  defaults: Record<string, string>,
+  patch: Record<string, string>
+): Promise<void> {
+  const current = await readRecord(key, defaults);
+  await writeRaw(key, { ...current, ...patch });
+}
+
 /** Lee el mapa de configuración, completando con los valores por defecto. */
 export async function readConfig(
   defaults: Record<string, string>
 ): Promise<Record<string, string>> {
-  try {
-    const stored = await readRaw<Record<string, string>>("config");
-    return { ...defaults, ...(stored ?? {}) };
-  } catch (e) {
-    console.error("[store] No se pudo leer la configuración:", String(e));
-    return { ...defaults };
-  }
+  return readRecord("config", defaults);
 }
 
 /** Guarda (mergeando) claves de configuración. */
@@ -116,6 +138,5 @@ export async function writeConfig(
   defaults: Record<string, string>,
   patch: Record<string, string>
 ): Promise<void> {
-  const current = await readConfig(defaults);
-  await writeRaw("config", { ...current, ...patch });
+  await writeRecord("config", defaults, patch);
 }

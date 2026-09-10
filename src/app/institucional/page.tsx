@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
+import { getTextos } from "@/lib/textosService";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageFrame from "@/components/ui/ImageFrame";
 import { siteConfig } from "@/config/site";
@@ -20,6 +21,7 @@ export const metadata = {
 };
 
 export default async function InstitucionalPage() {
+  const t = await getTextos("institucional");
   const hitos = await getHitos();
   const { social } = await getSiteSettings();
   const redes = [
@@ -30,9 +32,9 @@ export default async function InstitucionalPage() {
   return (
     <>
       <PageHero
-        eyebrow="Institucional"
-        title="Nuestra historia"
-        subtitle="Una entidad de servicio y bien público sin fines de lucro, fundada en 1958."
+        eyebrow={t("hero_eyebrow")}
+        title={t("hero_titulo")}
+        subtitle={t("hero_bajada")}
         src="/images/institucional-portada.jpg"
       />
 
@@ -42,14 +44,11 @@ export default async function InstitucionalPage() {
           <div>
             <SectionHeading
               eyebrow="Institucional"
-              title="Cómo nació el campo"
+              title={t("intro_titulo")}
             />
             <div className="mt-5 space-y-4 leading-relaxed text-forest/85">
               <p>
-                El Campo Escuela Flandes es una entidad de servicio y bien público
-                sin fines de lucro, fundada en 1958. El predio que ocupa fue cedido
-                por Algodonera Flandria a los Scouts para que pudieran realizar allí
-                sus actividades.
+                {t("intro_texto")}
               </p>
               <p>
                 Desde entonces, ininterrumpidamente se han conservado y mejorado

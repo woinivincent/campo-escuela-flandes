@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
+import { getTextos } from "@/lib/textosService";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { getSiteSettings } from "@/lib/siteConfigService";
 import { getEventosPublicos, type TipoEvento, type Evento } from "@/lib/db";
@@ -56,15 +57,16 @@ const MESES_SHORT: Record<string, string> = {
 };
 
 export default async function AgendaPage() {
+  const t = await getTextos("agenda");
   const cfg = await getSiteSettings();
   const grupos = groupByMonth(await getEventosPublicos());
 
   return (
     <>
       <PageHero
-        eyebrow="Agenda"
-        title="Agenda del campo"
-        subtitle="Acampes, cursos, charlas y actividades de los próximos meses."
+        eyebrow={t("hero_eyebrow")}
+        title={t("hero_titulo")}
+        subtitle={t("hero_bajada")}
         src="/images/agenda-portada.jpg"
       />
 
@@ -195,8 +197,8 @@ export default async function AgendaPage() {
           <div>
             <SectionHeading
               eyebrow="Propuestas"
-              title="¿Querés organizar una actividad?"
-              subtitle="Si tu grupo quiere proponer un curso, una charla o un encuentro en el campo, escribinos."
+              title={t("intro_titulo")}
+              subtitle={t("intro_texto")}
             />
           </div>
           <div className="flex flex-col gap-3 sm:flex-row md:justify-end">

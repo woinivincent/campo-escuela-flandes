@@ -2,7 +2,18 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 const COOKIE_NAME = "flandes_admin";
-export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? "flandes2024";
+/**
+ * Sin ADMIN_PASSWORD configurada no entra nadie. Antes había acá una clave por
+ * defecto y el repositorio es público: cualquiera podía leerla.
+ */
+export function isAdminPasswordConfigured(): boolean {
+  return Boolean(process.env.ADMIN_PASSWORD);
+}
+
+export function isAdminPasswordValid(password: string): boolean {
+  const esperada = process.env.ADMIN_PASSWORD;
+  return Boolean(esperada) && password === esperada;
+}
 
 export async function isAuthenticated(): Promise<boolean> {
   const store = await cookies();

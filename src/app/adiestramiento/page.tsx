@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
+import { getTextos } from "@/lib/textosService";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { getCursosPublicos } from "@/lib/db";
 import { getSiteSettings } from "@/lib/siteConfigService";
@@ -32,15 +33,16 @@ function toFechaDisplay(fecha: string): string {
 }
 
 export default async function AdiestramientoPage() {
+  const t = await getTextos("adiestramiento");
   const cursos = await getCursosPublicos();
   const cfg = await getSiteSettings();
   const social = cfg.social;
   return (
     <>
       <PageHero
-        eyebrow="Adiestramiento"
-        title="Adiestramiento"
-        subtitle="Cursos, charlas y videos de formación para dirigentes y scouts."
+        eyebrow={t("hero_eyebrow")}
+        title={t("hero_titulo")}
+        subtitle={t("hero_bajada")}
         src="/images/adiestramiento-portada.jpg"
       />
 
@@ -48,8 +50,8 @@ export default async function AdiestramientoPage() {
       <section className="container-flandes py-20">
         <SectionHeading
           eyebrow="Formación"
-          title="Próximos cursos"
-          subtitle="Inscribite por WhatsApp desde cada curso."
+          title={t("intro_titulo")}
+          subtitle={t("intro_texto")}
           className="mb-10"
         />
 

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
+import { getTextos } from "@/lib/textosService";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageFrame from "@/components/ui/ImageFrame";
 import { getSiteSettings } from "@/lib/siteConfigService";
@@ -20,6 +21,7 @@ export const metadata = {
 };
 
 export default async function NaturalezaPage() {
+  const t = await getTextos("naturaleza");
   const cfg = await getSiteSettings();
   const todasEspecies = await getEspecies();
   const flora = todasEspecies.filter((e) => e.categoria === "Flora");
@@ -28,9 +30,9 @@ export default async function NaturalezaPage() {
   return (
     <>
       <PageHero
-        eyebrow="Naturaleza"
-        title="Flora y fauna del campo"
-        subtitle="Área Forestal Protegida sobre el Río Luján, con especies señalizadas para reconocerlas."
+        eyebrow={t("hero_eyebrow")}
+        title={t("hero_titulo")}
+        subtitle={t("hero_bajada")}
         src="/images/naturaleza-portada.jpg"
       />
 
@@ -40,8 +42,8 @@ export default async function NaturalezaPage() {
           <div>
             <SectionHeading
               eyebrow="El entorno"
-              title="Un pulmón verde sobre el Río Luján"
-              subtitle="El predio está bordeado por un bosque ribereño mixto natural y fue forestado en distintas etapas, lo que permite diferenciar varios ambientes. Por la tranquilidad del lugar y la abundante vegetación se observa allí una gran cantidad de animales, entre los que predominan las aves."
+              title={t("intro_titulo")}
+              subtitle={t("intro_texto")}
             />
             <ul className="mt-7 grid gap-3 sm:grid-cols-2">
               {destacados.map((d, i) => (

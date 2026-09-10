@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
+import { getTextos } from "@/lib/textosService";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageFrame from "@/components/ui/ImageFrame";
 import ReservaForm from "@/components/reservas/ReservaForm";
@@ -22,6 +23,7 @@ export const metadata = {
 };
 
 export default async function ReservasPage() {
+  const t = await getTextos("reservas");
   const contact = await getSiteSettings();
   const sc = contact.subcampos;
   const subcamposDetalle = [
@@ -33,9 +35,9 @@ export default async function ReservasPage() {
   return (
     <>
       <PageHero
-        eyebrow="Reservas"
-        title="Reservá tu acampe"
-        subtitle="Elegí subcampo y fechas, completá el formulario y coordinamos por WhatsApp."
+        eyebrow={t("hero_eyebrow")}
+        title={t("hero_titulo")}
+        subtitle={t("hero_bajada")}
         src="/images/reservas-portada.jpg"
       />
 
@@ -43,8 +45,8 @@ export default async function ReservasPage() {
       <section className="container-flandes py-20">
         <SectionHeading
           eyebrow="Normas"
-          title="Normas del acampe"
-          subtitle="Lo que todo grupo tiene que saber antes de llegar al campo."
+          title={t("intro_titulo")}
+          subtitle={t("intro_texto")}
           className="mb-10"
         />
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

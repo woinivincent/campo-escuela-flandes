@@ -1,10 +1,11 @@
-import { hashPassword } from "@/lib/crypto-utils";
 import {
   readCollection,
   writeCollection,
   mutateCollection,
   readConfig,
   writeConfig,
+  readRecord,
+  writeRecord,
 } from "@/lib/store";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -191,6 +192,20 @@ export async function getConfigValue(key: string): Promise<string | undefined> {
 
 export async function setConfigValues(data: Record<string, string>): Promise<void> {
   await writeConfig(SEED_CONFIG, data);
+}
+
+// ─── Textos de las páginas ───────────────────────────────────────────────────
+//
+// Solo se guarda lo que alguien editó. Los textos por defecto viven en
+// src/config/textos.ts, así que cambiarlos en el código se ve enseguida en
+// todos los campos que nadie tocó.
+
+export async function getAllTextos(): Promise<Record<string, string>> {
+  return readRecord("textos", {});
+}
+
+export async function setTextos(data: Record<string, string>): Promise<void> {
+  await writeRecord("textos", {}, data);
 }
 
 // ─── Hitos ───────────────────────────────────────────────────────────────────
@@ -571,18 +586,11 @@ const SEED_ESPECIES: Especie[] = [
   { id: "coipo",          nombreComun: "Coipo / Nutria",   nombreCientifico: "Myocastor coypus",       categoria: "Fauna", descripcion: "Describir acá la especie: cómo reconocerla, dónde encontrarla en el predio y en qué época.", curiosidad: "Agregar acá un dato curioso que llame la atención de los chicos.", qrDisponible: false, orden: 7 },
 ];
 
-const SEED_SALT = "flandes-seed-salt-demo-001";
-const SEED_SOCIOS: Socio[] = [
-  {
-    id: "socio-seed-1",
-    nombre: "Socio Demo",
-    email: "demo@campoflandes.org.ar",
-    password_hash: hashPassword("socio2024", SEED_SALT),
-    salt: SEED_SALT,
-    activo: 1,
-    created_at: "2026-01-01",
-  },
-];
+// Sin socios de ejemplo: el padrón se carga desde el panel. Había acá un socio
+// de prueba con la clave escrita en el código, y el repositorio es público.
+// Además, si el almacenamiento falla, readCollection cae en este seed: un seed
+// con credenciales habría abierto el portal justo durante una caída.
+const SEED_SOCIOS: Socio[] = [];
 
 const SEED_RECURSOS: RecursoSocio[] = [
   { id: "rec-seed-1", titulo: "Manual del dirigente",      descripcion: "Cargar acá el enlace al documento.", tipo: "link", url: "", categoria: "Formación", icono: "book",     orden: 0, activo: 1 },

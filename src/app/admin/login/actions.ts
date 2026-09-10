@@ -1,12 +1,21 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { ADMIN_PASSWORD, setAdminSession, clearAdminSession } from "@/lib/auth";
+import {
+  isAdminPasswordConfigured,
+  isAdminPasswordValid,
+  setAdminSession,
+  clearAdminSession,
+} from "@/lib/auth";
 
 export async function loginAction(formData: FormData) {
   const password = formData.get("password") as string;
 
-  if (password === ADMIN_PASSWORD) {
+  if (!isAdminPasswordConfigured()) {
+    redirect("/admin/login?error=sin-clave");
+  }
+
+  if (isAdminPasswordValid(password)) {
     await setAdminSession();
     redirect("/admin");
   }

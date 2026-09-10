@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
+import { getTextos } from "@/lib/textosService";
 import SectionHeading from "@/components/ui/SectionHeading";
 import MapaGoogle from "@/components/ui/MapaGoogle";
 import ContactoForm from "@/components/contacto/ContactoForm";
@@ -22,6 +23,7 @@ export const metadata = {
 };
 
 export default async function ContactoPage() {
+  const t = await getTextos("contacto");
   const contact = await getSiteSettings();
   const mapa = contact.mapa;
   const social = contact.social;
@@ -70,9 +72,9 @@ export default async function ContactoPage() {
   return (
     <>
       <PageHero
-        eyebrow="Contacto"
-        title="Contacto"
-        subtitle="Escribinos por WhatsApp, por correo o con el formulario."
+        eyebrow={t("hero_eyebrow")}
+        title={t("hero_titulo")}
+        subtitle={t("hero_bajada")}
         src="/images/contacto-portada.jpg"
       />
 
@@ -113,8 +115,8 @@ export default async function ContactoPage() {
           <div>
             <SectionHeading
               eyebrow="Consultas"
-              title="Escribinos"
-              subtitle="Completá el formulario y te respondemos por WhatsApp."
+              title={t("intro_titulo")}
+              subtitle={t("intro_texto")}
               className="mb-8"
             />
             <ContactoForm waNumber={contact.whatsapp} />
