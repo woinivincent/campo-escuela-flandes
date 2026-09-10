@@ -37,7 +37,7 @@ avisarle al campo.
 
 ---
 
-## Arquitectura: cuatro cosas que no son obvias
+## Arquitectura: cinco cosas que no son obvias
 
 ### 1. Nunca usar `process.env.NETLIFY` para detectar el entorno
 
@@ -58,7 +58,14 @@ Orden de resolución de una imagen:
 2. `public/images` — subidas locales en desarrollo
 3. `public/seed-images` — fotos versionadas en el repo, como respaldo
 
-### 3. Los textos de las páginas: el código manda como respaldo
+### 3. Los valores por defecto de configuración están escritos dos veces
+
+Están en `src/config/site.ts` **y** en `SEED_CONFIG` (`src/lib/db.ts`), y gana el
+segundo: `readConfig` mergea los defaults del seed, y después el `pick()` de
+`siteConfigService` ve un valor no vacío y nunca llega al de `site.ts`. Si
+cambiás un default y el sitio no se inmuta, es esto: hay que tocar los dos.
+
+### 4. Los textos de las páginas: el código manda como respaldo
 
 Los textos por defecto viven en `src/config/textos.ts`, no en el JSX. El panel
 guarda **solo lo que alguien editó**, así que cambiar un texto en el código se ve
@@ -68,7 +75,7 @@ sitio sigue mostrando los textos del código en vez de quedar en blanco.
 Para sumar un campo editable: agregarlo al catálogo y usarlo en la página con
 `const t = await getTextos("<página>")` y `t("<clave>")`. El panel lo toma solo.
 
-### 4. Las imágenes no se cachean como fijas
+### 5. Las imágenes no se cachean como fijas
 
 Se sirven con `max-age=0, must-revalidate`. Estuvieron con `immutable` un año y
 eso hacía que reemplazar o quitar una foto no se viera nunca.
@@ -115,6 +122,13 @@ Destacados:
 Algodonera Flandria), los cuatro objetivos institucionales, límites del predio,
 Área Forestal Protegida, 16 fotos y las 30 tapas de la biblioteca.
 
+**Especies:** 11 fichas con descripción y curiosidad, escritas para un chico que
+escanea el QR parado frente a la especie. 6 de flora (araucaria, roble, ceibo,
+sauce criollo, tala, espinillo) y 5 de fauna (carpincho, coipo, lobito de río,
+hornero, martín pescador). Entraron solo las que tienen respaldo documental; las
+dudosas están listadas más abajo. Los datos salen de las fuentes de la UNLu, la
+redacción es propia.
+
 ---
 
 ## Qué falta
@@ -123,6 +137,23 @@ Algodonera Flandria), los cuatro objetivos institucionales, límites del predio,
 
 - **El dominio definitivo.** Condiciona la impresión de los carteles con QR: si
   cambia después, hay que reimprimirlos.
+
+  ⚠️ **Hoy el campo no tiene ninguna dirección web que funcione.** Se
+  verificaron las dos candidatas:
+
+  - `campoescuelaflandes.netlify.app` (el default de `site_url` en el código):
+    Netlify responde 404, no hay ningún sitio reclamado en ese subdominio.
+  - `www.campoescuelaflandes.com` (el que el campo imprime en la foto de
+    portada de su Facebook, y que figura como `website` en `src/config/site.ts`):
+    **el dominio no está registrado.** NXDOMAIN confirmado contra los resolvers
+    de Cloudflare y de Google.
+
+  O sea que la portada del Facebook manda a la gente a un dominio que no existe,
+  y que ese nombre lo puede registrar cualquiera. Conviene avisarle al campo y
+  decidir si lo registran.
+
+  Para los QR: cargar la URL real en *Admin → Config*, regenerar y escanear uno
+  antes de mandar nada a imprenta.
 - Capacidades reales de cada subcampo (hoy son valores de ejemplo).
 - Hectáreas del predio y valor de la cuota de socios.
 
@@ -130,11 +161,31 @@ Algodonera Flandria), los cuatro objetivos institucionales, límites del predio,
 
 - **Portadas**: solo está la de Acampes. Faltan las otras 9 y la del inicio.
 - **Fotos de subcampos** (4) y de **flora**: las carpetas del Drive están vacías.
+  Las 11 fichas de especies ya tienen texto, pero ninguna tiene foto todavía.
 - **Fauna**: hay 23 fotos, pero con nombres tipo `076ff466-d309…`. Hay que
   identificar qué especie es cada una.
 - **Títulos del Bordón**: los seis videos figuran como "Capítulo N". Las
   miniaturas muestran un hornero y una liebre, así que son sobre fauna del campo.
 - Textos de Acampes y Reservas: normas del acampe, costos y descripciones.
+
+### Especies: a confirmar con el campo
+
+El catálogo de Naturaleza se cargó con las especies que tienen respaldo: el
+plano del predio, el censo forestal de Tuis en el campo y el relevamiento de
+fauna del Río Luján. Estas quedaron afuera o con dudas:
+
+| Especie | Qué falta resolver |
+|---|---|
+| Álamo plateado, ligustro, árbol del cielo | El censo los encontró en el campo, pero no están en la enciclopedia del Jardín Botánico. Hay que buscar los datos en otra fuente. |
+| Eucalipto | El plano lo nombra sin decir la especie. Hay cuatro en la enciclopedia; hace falta ver un ejemplar para saber cuál es. |
+| Laurel | El censo dice "laurel" a secas. Puede ser el laurel criollo (*Nectandra angustifolia*, nativo de ribera) o el de cocina (*Laurus nobilis*, exótico de parque). Son árboles distintos. |
+| Espinillo, martín pescador | Ya estaban cargados y se les escribió la ficha, pero no aparecen en ninguna fuente del predio. Si el campo dice que no están, se borran desde *Admin → Naturaleza*. |
+| Liebre europea | Se ve en la miniatura de un capítulo del Bordón, así que alguien la filmó en el campo. Falta confirmar que sea del predio. |
+
+**Ojo con los nombres científicos.** El atlas del SIAI publica "Chimango —
+*Parabuteo unicinctus*", que es el nombre del gavilán mixto; el chimango es
+*Milvago chimango*. Estos nombres van impresos en los carteles con QR, así que
+conviene chequear cada uno contra una segunda fuente antes de cargarlo.
 
 ### Funciones pedidas, sin empezar
 
@@ -143,7 +194,7 @@ Algodonera Flandria), los cuatro objetivos institucionales, límites del predio,
 | WhatsApp por área | Números propios para formaciones, biblioteca y responsable de socios |
 | Importar padrón de socios | Desde planilla Excel |
 | Responsable de socios | Nombre y contacto; definir si se muestra público |
-| Logo | Está el original recortado del cartel. Si aparece el archivo en mejor calidad, reemplazar `public/seed-images/logo-flandes.png` |
+| Logo | Está el original recortado del cartel (400×536). El del Facebook es de 200×200, así que no sirve. Si aparece el archivo en mejor calidad, reemplazar `public/seed-images/logo-flandes.png` |
 
 ---
 
@@ -158,6 +209,42 @@ El campo tiene una red de blogs, todos públicos:
 - `temasdeadiestramiento.blogspot.com` — 27 documentos de formación,
   **todos con el enlace roto**: los archivos se borraron del Drive
 - `asociacioncivilcampoclubscouts.blogspot.com` — ⚠️ ver la advertencia de arriba
+
+**Redes del campo** (verificadas y ya cargadas como valor por defecto):
+
+- Facebook: `facebook.com/Campo.Escuela.Flande`. Ojo: **es un perfil personal, no
+  una página.** Tiene 3 mil amigos, y los perfiles topean en 5 mil. Para una
+  institución convendría una página, que además da estadísticas y varios
+  administradores.
+- Instagram: `instagram.com/campoescuela`.
+- La ubicación real es Jáuregui, Buenos Aires (antes decía "Provincia de Buenos
+  Aires" a secas).
+
+Sus 8 álbumes son de eventos y servicios al campo entre 2008 y 2014: **no hay
+álbum de flora ni de fauna.**
+
+Se probaron las dos imágenes que parecían aprovechables y **ninguna sirvió**:
+
+- **La foto de portada** (aérea del predio en otoño) tiene el título del campo y
+  la dirección `www.campoescuelaflandes.com` **quemados en la imagen**. Puesta
+  como fondo del inicio, el título del sitio se superpone al de la foto y se lee
+  doble; además publicaría el dominio que no existe. Lo que hay que pedirle al
+  campo es **la aérea original, sin el texto encima**.
+- **La foto de perfil** es de 200×200. El logo que ya está en el repo es de
+  400×536, así que sería un downgrade. No se tocó.
+
+Entre los contactos figura **Danilo Tuissi**: casi seguro es el "Tuis" del censo
+forestal del campo que cita la UNLu. Es el camino para conseguir los datos del
+censo, que el atlas menciona pero no publica.
+
+**Fuentes de la UNLu** (se usaron para las fichas de especies):
+
+- `jardinbotanico.unlu.edu.ar/enciclopedia/index.php` — 248 fichas de plantas con
+  datos botánicos completos. Ojo: sin `index.php` la URL da 404.
+- `siai-lujan.unlu.edu.ar/atlas/fisico_natural/medio_natural/` — flora y fauna del
+  partido. La página de flora menciona el censo de Tuis hecho en el campo.
+- Guichón et al. 2007, *Ecología Austral* 17:81-90 — fauna ribereña del Río Luján.
+  Registró coipo, carpincho y lobito de río.
 
 **Carpeta de fotos en Drive** (compartida, organizada como los espacios del sitio):
 Portadas, Secciones, Subcampos, Flora, Fauna, Libros y Galería.

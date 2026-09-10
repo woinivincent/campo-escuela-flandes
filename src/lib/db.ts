@@ -553,10 +553,10 @@ const SEED_CONFIG: Record<string, string> = {
   whatsapp: "5491100000000",
   whatsappDisplay: "+54 9 11 0000-0000",
   email: "contacto@campoflandes.org.ar",
-  facebook: "https://facebook.com/",
-  instagram: "https://instagram.com/",
+  facebook: "https://www.facebook.com/Campo.Escuela.Flande",
+  instagram: "https://www.instagram.com/campoescuela",
   youtube: "https://youtube.com/",
-  location: "Provincia de Buenos Aires, Argentina",
+  location: "Jáuregui, Buenos Aires, Argentina",
   subcampo1: "Santa Clara de Asís",
   subcampo2: "Ntra. Sra. de Luján",
   subcampo3: "San Jorge",
@@ -575,15 +575,148 @@ const SEED_HITOS: Hito[] = [
   { id: "hito-4", anio: "Hoy", texto: "Completar acá la situación actual del campo y los proyectos en marcha.", orden: 3 },
 ];
 
+// Especies con respaldo documental de que están en el predio o en su ribera.
+// Fuentes: el plano del campo (nombra álamos, araucarias, eucaliptos y robles
+// por subcampo); el censo forestal de Tuis en el Campo Escuela Flandes, citado
+// por el atlas del SIAI-UNLu; la enciclopedia del Jardín Botánico de la UNLu
+// (jardinbotanico.unlu.edu.ar/enciclopedia), de donde salen los datos botánicos;
+// y Guichón et al. 2007 (Ecología Austral 17:81-90), que relevó la fauna
+// ribereña a lo largo de los 166 km del Río Luján.
+// Los textos son redacción propia: de las fuentes se toman los datos, no la prosa.
+// Están escritos para un chico que escanea el QR parado frente a la especie.
 const SEED_ESPECIES: Especie[] = [
-  { id: "espinillo",      nombreComun: "Espinillo",        nombreCientifico: "Vachellia caven",        categoria: "Flora", descripcion: "Describir acá la especie: cómo reconocerla, dónde encontrarla en el predio y en qué época.", curiosidad: "Agregar acá un dato curioso que llame la atención de los chicos.", qrDisponible: false, orden: 0 },
-  { id: "ceibo",          nombreComun: "Ceibo",            nombreCientifico: "Erythrina crista-galli", categoria: "Flora", descripcion: "Describir acá la especie: cómo reconocerla, dónde encontrarla en el predio y en qué época.", curiosidad: "Agregar acá un dato curioso que llame la atención de los chicos.", qrDisponible: false, orden: 1 },
-  { id: "sauce",          nombreComun: "Sauce criollo",    nombreCientifico: "Salix humboldtiana",     categoria: "Flora", descripcion: "Describir acá la especie: cómo reconocerla, dónde encontrarla en el predio y en qué época.", curiosidad: "Agregar acá un dato curioso que llame la atención de los chicos.", qrDisponible: false, orden: 2 },
-  { id: "tala",           nombreComun: "Tala",             nombreCientifico: "Celtis ehrenbergiana",   categoria: "Flora", descripcion: "Describir acá la especie: cómo reconocerla, dónde encontrarla en el predio y en qué época.", curiosidad: "Agregar acá un dato curioso que llame la atención de los chicos.", qrDisponible: false, orden: 3 },
-  { id: "carpincho",      nombreComun: "Carpincho",        nombreCientifico: "Hydrochoerus hydrochaeris", categoria: "Fauna", descripcion: "Describir acá la especie: cómo reconocerla, dónde encontrarla en el predio y en qué época.", curiosidad: "Agregar acá un dato curioso que llame la atención de los chicos.", qrDisponible: false, orden: 4 },
-  { id: "hornero",        nombreComun: "Hornero",          nombreCientifico: "Furnarius rufus",        categoria: "Fauna", descripcion: "Describir acá la especie: cómo reconocerla, dónde encontrarla en el predio y en qué época.", curiosidad: "Agregar acá un dato curioso que llame la atención de los chicos.", qrDisponible: false, orden: 5 },
-  { id: "martin-pescador",nombreComun: "Martín pescador",  nombreCientifico: "Megaceryle torquata",    categoria: "Fauna", descripcion: "Describir acá la especie: cómo reconocerla, dónde encontrarla en el predio y en qué época.", curiosidad: "Agregar acá un dato curioso que llame la atención de los chicos.", qrDisponible: false, orden: 6 },
-  { id: "coipo",          nombreComun: "Coipo / Nutria",   nombreCientifico: "Myocastor coypus",       categoria: "Fauna", descripcion: "Describir acá la especie: cómo reconocerla, dónde encontrarla en el predio y en qué época.", curiosidad: "Agregar acá un dato curioso que llame la atención de los chicos.", qrDisponible: false, orden: 7 },
+  {
+    id: "araucaria",
+    nombreComun: "Araucaria",
+    nombreCientifico: "Araucaria angustifolia",
+    categoria: "Flora",
+    descripcion:
+      "Se reconoce de lejos: tronco alto y derecho, pelado abajo, y una copa que de grande parece un paraguas. Las hojas son duras y punzantes, y se acomodan en espiral alrededor de la rama. Pasa los 30 metros de alto.",
+    curiosidad:
+      "No es de acá. Crece naturalmente en las selvas de Misiones, donde llueve casi tres veces más que en Luján: las del campo las plantó alguien. Sus piñones se comen, y fueron un alimento importante para los pueblos originarios de esa región.",
+    qrDisponible: false,
+    orden: 0,
+  },
+  {
+    id: "roble",
+    nombreComun: "Roble europeo",
+    nombreCientifico: "Quercus robur",
+    categoria: "Flora",
+    descripcion:
+      "De hoja caduca: en otoño queda pelado y en primavera vuelve a brotar entero. Su fruto es la bellota, que cae al suelo al final del verano. Es uno de los árboles más abundantes del campo.",
+    curiosidad:
+      "Vino de Europa. En el censo de árboles que se hizo acá en el campo, los robles jóvenes estaban entre los más numerosos: crecieron solos a partir de las bellotas caídas, incluso con la poca luz que llega debajo de los árboles grandes.",
+    qrDisponible: false,
+    orden: 1,
+  },
+  {
+    id: "ceibo",
+    nombreComun: "Ceibo",
+    nombreCientifico: "Erythrina crista-galli",
+    categoria: "Flora",
+    descripcion:
+      "Árbol de la orilla, de 4 a 12 metros. Sus flores rojas se agrupan en racimos largos y no se confunden con ninguna otra. Las hojas vienen de a tres, y el tallo tiene aguijones: se mira, no se agarra.",
+    curiosidad:
+      "Su flor es la flor nacional argentina. El nombre científico la describe entera: Erythrina viene del griego \"rojo\", y crista-galli quiere decir \"cresta de gallo\".",
+    qrDisponible: false,
+    orden: 2,
+  },
+  {
+    id: "sauce",
+    nombreComun: "Sauce criollo",
+    nombreCientifico: "Salix humboldtiana",
+    categoria: "Flora",
+    descripcion:
+      "Crece con los pies casi en el agua, sobre la barranca del río. Las hojas son finitas y largas, de hasta 15 centímetros, con el borde apenas serruchado. Llega a 18 metros y el tronco puede superar el metro de ancho.",
+    curiosidad:
+      "Lleva el apellido de Alexander von Humboldt, un naturalista alemán que recorrió América hace más de doscientos años. Sus flores son melíferas: si te parás cerca en primavera, vas a escuchar las abejas antes de verlas.",
+    qrDisponible: false,
+    orden: 3,
+  },
+  {
+    id: "tala",
+    nombreComun: "Tala",
+    nombreCientifico: "Celtis tala",
+    categoria: "Flora",
+    descripcion:
+      "Árbol chico y muy ramificado, de 3 a 12 metros, con espinas en las ramas. Las hojas son ovaladas, de verde brillante y con el borde dentado. Da frutos anaranjados del tamaño de una arveja, dulces.",
+    curiosidad:
+      "Su leña da tanto calor que la llaman \"leña fuerte\". En la provincia de Buenos Aires el tala forma bosques enteros, que por él se llaman talares.",
+    qrDisponible: false,
+    orden: 4,
+  },
+  {
+    id: "espinillo",
+    nombreComun: "Espinillo",
+    nombreCientifico: "Vachellia caven",
+    categoria: "Flora",
+    descripcion:
+      "Árbol chico y espinoso, de copa abierta y rala. En primavera se llena de flores amarillas y redondas como pompones, muy perfumadas. Las espinas son largas y salen de a dos.",
+    curiosidad:
+      "Con sus flores se llegó a preparar perfume. Es de los primeros en florecer cuando termina el invierno, así que suele ser la primera mancha amarilla del año.",
+    qrDisponible: false,
+    orden: 5,
+  },
+  {
+    id: "carpincho",
+    nombreComun: "Carpincho",
+    nombreCientifico: "Hydrochoerus hydrochaeris",
+    categoria: "Fauna",
+    descripcion:
+      "El roedor más grande del mundo. Vive cerca del agua, casi siempre en grupo, y come pasto. Nada muy bien: puede quedarse sumergido dejando afuera nada más que los ojos y la nariz.",
+    curiosidad:
+      "Tiene los ojos, las orejas y los agujeros de la nariz alineados en lo alto de la cabeza, justo para poder mirar, oír y respirar con todo el resto del cuerpo bajo el agua.",
+    qrDisponible: false,
+    orden: 6,
+  },
+  {
+    id: "coipo",
+    nombreComun: "Coipo o nutria",
+    nombreCientifico: "Myocastor coypus",
+    categoria: "Fauna",
+    descripcion:
+      "Roedor de río, bastante más chico que el carpincho, con la cola larga y pelada y los dientes de adelante anaranjados. Hace sus cuevas en la barranca de la orilla y se mueve sobre todo de noche.",
+    curiosidad:
+      "Las hembras tienen las tetas en el costado del lomo y no en la panza: así pueden amamantar a las crías mientras van nadando.",
+    qrDisponible: false,
+    orden: 7,
+  },
+  {
+    id: "lobito-de-rio",
+    nombreComun: "Lobito de río",
+    nombreCientifico: "Lontra longicaudis",
+    categoria: "Fauna",
+    descripcion:
+      "Un carnívoro que nada. Cuerpo largo y bajo, patas cortas con membranas entre los dedos y una cola gruesa que usa de timón. Come peces y cangrejos.",
+    curiosidad:
+      "Es el más difícil de ver de los tres mamíferos que un relevamiento encontró en la ribera del Río Luján. Si aparece, casi siempre es al amanecer o al atardecer, y lo más común es ver la huella y no al animal.",
+    qrDisponible: false,
+    orden: 8,
+  },
+  {
+    id: "hornero",
+    nombreComun: "Hornero",
+    nombreCientifico: "Furnarius rufus",
+    categoria: "Fauna",
+    descripcion:
+      "El pájaro más conocido del campo. Levanta con barro un nido en forma de horno, con la entrada al costado y una cámara adentro. Anda casi siempre caminando por el suelo, buscando bichos.",
+    curiosidad:
+      "Es el ave nacional argentina. Cada nido lo usa una sola temporada: después queda vacío y lo aprovechan otros pájaros para criar.",
+    qrDisponible: false,
+    orden: 9,
+  },
+  {
+    id: "martin-pescador",
+    nombreComun: "Martín pescador",
+    nombreCientifico: "Megaceryle torquata",
+    categoria: "Fauna",
+    descripcion:
+      "Se lo ve posado y quieto sobre una rama que da al agua, mirando para abajo. Cuando marca un pez se tira de golpe, de cabeza. Tiene la cabeza grande, el pico largo y recto, y el pecho colorado.",
+    curiosidad:
+      "Antes de zambullirse queda un momento suspendido en el aire batiendo las alas, como si estuviera clavado en el cielo, para calcular el tiro.",
+    qrDisponible: false,
+    orden: 10,
+  },
 ];
 
 // Sin socios de ejemplo: el padrón se carga desde el panel. Había acá un socio

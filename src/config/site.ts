@@ -16,12 +16,12 @@ export const siteConfig = {
     whatsapp: "5491100000000",
     whatsappDisplay: "+54 9 11 0000-0000",
     email: "contacto@campoflandes.org.ar",
-    location: "Provincia de Buenos Aires, Argentina",
+    location: "Jáuregui, Buenos Aires, Argentina",
   },
 
   social: {
-    facebook: "https://facebook.com/",
-    instagram: "https://instagram.com/",
+    facebook: "https://www.facebook.com/Campo.Escuela.Flande",
+    instagram: "https://www.instagram.com/campoescuela",
     youtube: "https://youtube.com/",
   },
 
