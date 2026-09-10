@@ -199,7 +199,13 @@ redacción es propia.
 
 ### Contenido que falta
 
-- **Fotos de subcampos** (4): las carpetas del Drive están vacías.
+- **Fotos de subcampos** (4) y de la bienvenida del inicio: están puestas, pero
+  son **provisorias**. Se revisó el blog del campo primero: de sus 453 imágenes,
+  casi todas son de obras y arreglos —baños, matafuegos, cañerías—, y las dos
+  únicas con arboleda servible tenían basura en primer plano o venían en 225
+  píxeles. Así que se reutilizaron fotos del propio campo que ya estaban en el
+  repositorio, con recortes distintos. En cuanto aparezcan las del Drive, se
+  suben desde *Admin → Imágenes* y tapan a estas.
 - **Fauna**: hay 23 fotos en el Drive, con nombres tipo `076ff466-d309…`. Hay
   que identificar qué especie es cada una. Servirían para reemplazar las de
   Commons por fotos del propio campo.
