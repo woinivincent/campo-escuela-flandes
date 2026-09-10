@@ -2,7 +2,11 @@ import Link from "next/link";
 import { requireAuth } from "@/lib/auth";
 import { getEspecies } from "@/lib/db";
 import { getSiteSettings } from "@/lib/siteConfigService";
-import { qrDataUrl, especieQrUrl, qrFileName } from "@/lib/qr";
+import {
+  qrDataUrl, especieQrUrl, qrFileName,
+  fichaQrSvg, fichaFileName, svgDataUrl,
+} from "@/lib/qr";
+import { siteConfig } from "@/config/site";
 import { ArrowRightIcon } from "@/components/ui/icons";
 
 export const metadata = { title: "Códigos QR — Admin Flandes" };
@@ -16,11 +20,14 @@ export default async function AdminQrPage() {
   const items = await Promise.all(
     especies.map(async (e) => {
       const url = especieQrUrl(siteUrl, e.id);
+      const ficha = await fichaQrSvg(e, url, siteConfig.shortName);
       return {
         especie: e,
         url,
         dataUrl: await qrDataUrl(url),
         fileName: qrFileName(e.nombreComun),
+        fichaUrl: svgDataUrl(ficha),
+        fichaFile: fichaFileName(e.nombreComun),
       };
     })
   );
@@ -103,7 +110,7 @@ export default async function AdminQrPage() {
             </p>
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {list.map(({ especie, url, dataUrl, fileName }) => (
+              {list.map(({ especie, url, dataUrl, fileName, fichaUrl, fichaFile }) => (
                 <div
                   key={especie.id}
                   className="flex flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-4"
@@ -124,13 +131,16 @@ export default async function AdminQrPage() {
                     {url}
                   </p>
 
+                  {/* La ficha va primero: es la que sirve para pegar en el
+                      predio. El QR suelto queda para quien lo necesite armado
+                      de otra manera. */}
                   <div className="mt-3 flex gap-2">
                     <a
-                      href={dataUrl}
-                      download={fileName}
+                      href={fichaUrl}
+                      download={fichaFile}
                       className="flex-1 rounded-lg border border-gold/30 px-3 py-1.5 text-center text-xs font-semibold text-gold transition hover:border-gold/60 hover:bg-gold/10"
                     >
-                      Descargar
+                      Descargar ficha
                     </a>
                     <Link
                       href={`/naturaleza/${especie.id}`}
@@ -140,6 +150,13 @@ export default async function AdminQrPage() {
                       Ver
                     </Link>
                   </div>
+                  <a
+                    href={dataUrl}
+                    download={fileName}
+                    className="mt-2 block text-center text-[0.65rem] text-white/30 underline transition hover:text-white/60"
+                  >
+                    Descargar solo el código
+                  </a>
                 </div>
               ))}
             </div>

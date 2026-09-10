@@ -122,12 +122,19 @@
     gap: 0 !important;
   }
 
-  /* Cada etiqueta se imprime entera, sin cortarse entre páginas */
+  /* Cada ficha se imprime entera, sin cortarse entre páginas. El punteado es
+     la guía de corte: la ficha ya trae su propio marco adentro del SVG. */
   .print-label {
     break-inside: avoid;
     page-break-inside: avoid;
-    border: 1px dashed #9ca3af !important;
+    outline: 1px dashed #9ca3af;
     background: #fff !important;
+  }
+
+  .print-label svg {
+    width: 100%;
+    height: 100%;
+    display: block;
   }
 
   @page {

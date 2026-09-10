@@ -3,7 +3,7 @@ import { requireAuth } from "@/lib/auth";
 import { getEspecies } from "@/lib/db";
 import { getSiteSettings } from "@/lib/siteConfigService";
 import { siteConfig } from "@/config/site";
-import { qrDataUrl, especieQrUrl } from "@/lib/qr";
+import { especieQrUrl, fichaQrSvg, FICHA } from "@/lib/qr";
 
 export const metadata = { title: "Planilla de QR — Admin Flandes" };
 
@@ -20,10 +20,12 @@ export default async function ImprimirQrPage({
     (e) => todas === "1" || e.qrDisponible
   );
 
+  // La misma ficha que se descarga desde el panel, para que lo impreso y lo
+  // descargado sean exactamente lo mismo.
   const items = await Promise.all(
     especies.map(async (e) => ({
       especie: e,
-      dataUrl: await qrDataUrl(especieQrUrl(siteUrl, e.id), 600),
+      svg: await fichaQrSvg(e, especieQrUrl(siteUrl, e.id), siteConfig.shortName),
     }))
   );
 
@@ -75,28 +77,16 @@ export default async function ImprimirQrPage({
           .
         </p>
       ) : (
-        <div className="print-sheet grid grid-cols-2 gap-4 sm:grid-cols-3">
-          {items.map(({ especie, dataUrl }) => (
+        <div className="print-sheet flex flex-wrap justify-center gap-2">
+          {items.map(({ especie, svg }) => (
             <div
               key={especie.id}
-              className="print-label flex flex-col items-center rounded-xl border border-black/15 bg-white p-4 text-center"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={dataUrl}
-                alt={`Código QR de ${especie.nombreComun}`}
-                className="w-full max-w-[150px]"
-              />
-              <p className="mt-3 font-display text-sm font-bold uppercase leading-tight tracking-tight text-black">
-                {especie.nombreComun}
-              </p>
-              <p className="text-[0.7rem] italic text-black/55">
-                {especie.nombreCientifico}
-              </p>
-              <p className="mt-2 border-t border-black/10 pt-2 text-[0.6rem] uppercase tracking-wider text-black/45">
-                {siteConfig.shortName}
-              </p>
-            </div>
+              className="print-label"
+              style={{ width: `${FICHA.ancho}mm`, height: `${FICHA.alto}mm` }}
+              // La ficha ya es un SVG completo y armado en el servidor: acá solo
+              // se inserta. El contenido no viene de afuera, sale del catálogo.
+              dangerouslySetInnerHTML={{ __html: svg }}
+            />
           ))}
         </div>
       )}
