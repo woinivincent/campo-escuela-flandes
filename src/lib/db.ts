@@ -584,7 +584,8 @@ const SEED_CURSOS: Curso[] = [
 const SEED_CONFIG: Record<string, string> = {
   whatsapp: "5491100000000",
   whatsappDisplay: "+54 9 11 0000-0000",
-  email: "contacto@campoflandes.org.ar",
+  // El mail real de reservas, publicado por el Consejo de Campo en el blog.
+  email: "reservascampoescuelaflandes@gmail.com",
   facebook: "https://www.facebook.com/Campo.Escuela.Flande",
   instagram: "https://www.instagram.com/campoescuela",
   youtube: "https://youtube.com/",
@@ -612,7 +613,7 @@ const SEED_HITOS: Hito[] = [
   { id: "hito-1", anio: "1958", texto: "Se funda el Campo Escuela Flandes. Algodonera Flandria cede el predio a los Scouts para que puedan realizar allí sus actividades.", orden: 0 },
   { id: "hito-2", anio: "Desde entonces", texto: "Se conservan y mejoran de forma ininterrumpida la estructura edilicia y los distintos ambientes naturales del predio.", orden: 1 },
   { id: "hito-3", anio: "2000", texto: "El predio es declarado Área Forestal Protegida junto con otros terrenos locales lindantes al río (Decreto Municipal 787/00).", orden: 2 },
-  { id: "hito-4", anio: "Hoy", texto: "Completar acá la situación actual del campo y los proyectos en marcha.", orden: 3 },
+  { id: "hito-4", anio: "Hoy", texto: "El campo sigue abierto a los grupos y su equipo de Adiestramiento dicta cursos para dirigentes. Se sostiene con el aporte de quienes acampan y con los servicios al campo, jornadas en las que scouts y guías vienen a trabajar en el mantenimiento del predio.", orden: 3 },
 ];
 
 // Especies con respaldo documental de que están en el predio o en su ribera.
@@ -774,16 +775,19 @@ const SEED_RECURSOS: RecursoSocio[] = [
   { id: "rec-seed-6", titulo: "Mapa del predio",           descripcion: "Cargar acá el enlace al documento.", tipo: "link", url: "", categoria: "General",   icono: "map",      orden: 5, activo: 1 },
 ];
 
-// El Bordón digital son los videos del canal del campo. Los identificadores
-// salen de los enlaces enviados; los títulos hay que confirmarlos (solo se
-// conocía el del capítulo 3).
+// La serie se llama "Conociendo el Campo Escuela Flandes" y la hizo el área de
+// Adiestramiento del campo en 2020. Cada capítulo cuenta un tramo de la historia
+// del predio y presenta un árbol y un animal que viven ahí.
+//
+// Títulos tomados del canal del campo en YouTube. Ojo: los capítulos 1 y 2
+// estaban invertidos respecto de los videos reales, y quedó corregido acá.
 const SEED_BIBLIOTECA: MaterialBiblioteca[] = [
-  { id: "bordon-1", titulo: "Bordón digital — Capítulo 1", descripcion: "Confirmar el título de esta edición.", tipo: "Bordón", url: "https://youtu.be/KSIpD4xacyw", orden: 0, activo: 1 },
-  { id: "bordon-2", titulo: "Bordón digital — Capítulo 2", descripcion: "Confirmar el título de esta edición.", tipo: "Bordón", url: "https://youtu.be/hRMVZiSJyQ4", orden: 1, activo: 1 },
-  { id: "bordon-3", titulo: "Bordón digital — Capítulo 3", descripcion: "Confirmar el título de esta edición.", tipo: "Bordón", url: "https://youtu.be/Ml5t6EDs-wg", orden: 2, activo: 1 },
-  { id: "bordon-4", titulo: "Bordón digital — Capítulo 4", descripcion: "Confirmar el título de esta edición.", tipo: "Bordón", url: "https://youtu.be/2hOKzy371X8", orden: 3, activo: 1 },
-  { id: "bordon-5", titulo: "Bordón digital — Capítulo 5", descripcion: "Confirmar el título de esta edición.", tipo: "Bordón", url: "https://youtu.be/gkm_ZsRQbyc", orden: 4, activo: 1 },
-  { id: "bordon-6", titulo: "Bordón digital — Capítulo 6", descripcion: "Confirmar el título de esta edición.", tipo: "Bordón", url: "https://youtu.be/gP07CuF3q-k", orden: 5, activo: 1 },
+  { id: "bordon-1", titulo: "Capítulo 1 — Los inicios del campo", descripcion: "El ciprés calvo y la liebre.", tipo: "Bordón", url: "https://youtu.be/hRMVZiSJyQ4", orden: 0, activo: 1 },
+  { id: "bordon-2", titulo: "Capítulo 2 — El Parque Algodonera Flandria", descripcion: "El ciprés Arizona y el zorzal colorado.", tipo: "Bordón", url: "https://youtu.be/KSIpD4xacyw", orden: 1, activo: 1 },
+  { id: "bordon-3", titulo: "Capítulo 3 — 1956, nace el Campo Escuela", descripcion: "La casuarina y el carpintero real.", tipo: "Bordón", url: "https://youtu.be/Ml5t6EDs-wg", orden: 2, activo: 1 },
+  { id: "bordon-4", titulo: "Capítulo 4 — Cómo era el campo", descripcion: "El pino Elliotti y la ratucha.", tipo: "Bordón", url: "https://youtu.be/2hOKzy371X8", orden: 3, activo: 1 },
+  { id: "bordon-5", titulo: "Capítulo 5 — El campo en los 70", descripcion: "El árbol del cielo y la lechuza de campanario.", tipo: "Bordón", url: "https://youtu.be/gkm_ZsRQbyc", orden: 4, activo: 1 },
+  { id: "bordon-6", titulo: "Capítulo 6 — La capilla del campo", descripcion: "El ciprés piramidal y la torcacita.", tipo: "Bordón", url: "https://youtu.be/gP07CuF3q-k", orden: 5, activo: 1 },
 
   // Biblioteca física del campo, relevada de las tapas.
   { id: "libro-manual-lobatos", titulo: "Manual de Lobatos", descripcion: "Lord Baden-Powell of Gilwell", tipo: "Físico", url: "", orden: 10, activo: 1 },

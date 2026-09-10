@@ -232,12 +232,15 @@ export default async function ReservasPage() {
   );
 }
 
+// Las cuatro primeras salen de las publicaciones del Consejo de Campo en el
+// blog. Las dos últimas siguen pendientes: el campo nunca las publicó, así que
+// no se inventan.
 const normas = [
-  { titulo: "Responsables a cargo", desc: "Completar acá la norma sobre dirigentes responsables por grupo.", icon: UsersIcon },
+  { titulo: "Un grupo por vez", desc: "El campo recibe un solo contingente a la vez: mientras están, el predio es de ustedes.", icon: UsersIcon },
+  { titulo: "Cómo se confirma", desc: "Las fechas se piden por mail y la reserva queda firme cuando el responsable envía la planilla de solicitud.", icon: CalendarIcon },
+  { titulo: "Seguro obligatorio", desc: "Cada contingente tiene que tener al día el Seguro de Responsabilidad Civil y el de Riesgos Personales.", icon: ShieldIcon },
+  { titulo: "Qué instalaciones se usan", desc: "Se prestan la cocina, los baños, la capilla y el bungalow de acampe. El salón blanco, el bungalow del Consejo de Campo y la cabaña no se prestan.", icon: MapIcon },
   { titulo: "Uso del fuego", desc: "Completar acá dónde se permite hacer fuego y con qué cuidados.", icon: FlameIcon },
-  { titulo: "Seguridad", desc: "Completar acá las normas de seguridad dentro del predio.", icon: ShieldIcon },
-  { titulo: "Cuidado del lugar", desc: "Completar acá las normas de limpieza y residuos.", icon: AlertIcon },
-  { titulo: "Horarios", desc: "Completar acá los horarios de ingreso, silencio y salida.", icon: CalendarIcon },
-  { titulo: "Circulación", desc: "Completar acá por dónde se puede circular y por dónde no.", icon: MapIcon },
+  { titulo: "Horarios", desc: "Completar acá los horarios de ingreso, silencio y salida.", icon: AlertIcon },
 ];
 

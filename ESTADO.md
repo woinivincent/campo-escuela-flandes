@@ -203,9 +203,31 @@ redacción es propia.
 - **Fauna**: hay 23 fotos en el Drive, con nombres tipo `076ff466-d309…`. Hay
   que identificar qué especie es cada una. Servirían para reemplazar las de
   Commons por fotos del propio campo.
-- **Títulos del Bordón**: los seis videos figuran como "Capítulo N". Las
-  miniaturas muestran un hornero y una liebre, así que son sobre fauna del campo.
-- Textos de Acampes y Reservas: normas del acampe, costos y descripciones.
+- **Normas del acampe**: quedan dos sin escribir, **uso del fuego** y
+  **horarios de ingreso, silencio y salida**. El campo nunca las publicó, así
+  que hay que preguntárselas. Las otras cuatro salieron del blog.
+- **Costos de estadía y cuota de socios**: el blog los publicó en 2011, 2014 y
+  2019, pero todos están desactualizados. Hay que pedir los vigentes.
+- **Descripciones de los cuatro subcampos** en Reservas.
+- **Beneficios de socios**: quedan dos genéricos y el detalle de qué incluye la cuota.
+
+### Doce especies más, documentadas por el propio campo
+
+Los seis capítulos del Bordón presentan **un árbol y un animal por capítulo**, y
+son del predio: los filmó el área de Adiestramiento del campo. Es el mejor
+respaldo que hay para ampliar el catálogo de Naturaleza:
+
+| Capítulo | Árbol | Animal |
+|---|---|---|
+| 1 | Ciprés calvo | Liebre |
+| 2 | Ciprés Arizona | Zorzal colorado |
+| 3 | Casuarina | Carpintero real |
+| 4 | Pino Elliotti | Ratucha |
+| 5 | Árbol del cielo | Lechuza de campanario |
+| 6 | Ciprés piramidal | Torcacita |
+
+Esto además resuelve una de las dudas de abajo: el **árbol del cielo** está
+confirmado en el predio.
 
 ### Especies: a confirmar con el campo
 
