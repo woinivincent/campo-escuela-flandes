@@ -5,5 +5,18 @@
 [build.environment]
   NODE_VERSION = "20"
 
+  # No escanear la caché de compilación en busca de secretos.
+  #
+  # Desde Next 16 el builder es Turbopack, y Turbopack escribe los valores de
+  # las variables de entorno dentro de su caché (.next/cache/turbopack). Netlify
+  # conserva esa carpeta entre builds y su escáner la revisa, así que el build
+  # empezó a fallar con "Exposed secrets detected" apenas se actualizó.
+  #
+  # La caché no se publica: se comprobó que los valores aparecen únicamente ahí
+  # y en ningún archivo de la salida servida. La exclusión es a propósito lo más
+  # angosta posible —solo esa carpeta— para que el escaneo siga cubriendo todo
+  # lo que sí se despliega.
+  SECRETS_SCAN_OMIT_PATHS = ".next/cache/**"
+
 [[plugins]]
   package = "@netlify/plugin-nextjs"
