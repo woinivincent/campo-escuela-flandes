@@ -1,7 +1,11 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { getSocioById, getSocioByEmail, type Socio } from "@/lib/db";
-import { verifyPassword } from "@/lib/crypto-utils";
+import {
+  getSocioById, getSocioByEmail, updateSocioPassword, type Socio,
+} from "@/lib/db";
+import {
+  verifyPassword, hashPassword, necesitaMigracion,
+} from "@/lib/crypto-utils";
 import { crearSesion, leerSesion, borrarSesion } from "@/lib/sesiones";
 
 const COOKIE_NAME = "flandes_socio";
@@ -34,7 +38,22 @@ export async function requireSocioAuth(): Promise<Socio> {
 export async function loginSocio(email: string, password: string): Promise<Socio | null> {
   const socio = await getSocioByEmail(email.trim().toLowerCase());
   if (!socio || !socio.activo) return null;
-  if (!verifyPassword(password, socio.salt, socio.password_hash)) return null;
+  if (!(await verifyPassword(password, socio.salt, socio.password_hash))) return null;
+
+  // Un hash del esquema viejo solo se puede convertir con la contraseña en
+  // texto plano, y este es el único momento en que se la tiene. Se regraba acá.
+  //
+  // Si la regrabación falla, el login sigue adelante igual: el socio ya se
+  // autenticó bien y dejarlo afuera por un problema de escritura sería peor.
+  // La próxima vez que entre, se vuelve a intentar.
+  if (necesitaMigracion(socio.password_hash)) {
+    try {
+      await updateSocioPassword(socio.id, await hashPassword(password), "");
+    } catch (e) {
+      console.error("[socios] no se pudo migrar el hash de", socio.email, e);
+    }
+  }
+
   return socio;
 }
 

@@ -28,7 +28,14 @@ export const MOTIVOS: Record<EstadoFila, string> = {
   "ya-existe": "Ya hay un socio con ese email",
 };
 
-/** Cuántas filas se aceptan de una vez. */
+/**
+ * Cuántas filas se aceptan de una vez.
+ *
+ * El límite lo pone el hasheo, no el parser. bcrypt tarda unos 300 ms por
+ * contraseña y bcryptjs es de un solo hilo, así que no se puede paralelizar:
+ * cien socios son treinta segundos de CPU. Las funciones de Netlify cortan a
+ * los diez, de modo que un padrón grande hay que subirlo en tandas.
+ */
 export const MAX_FILAS = 2000;
 
 export function normalizarEmail(v: string): string {

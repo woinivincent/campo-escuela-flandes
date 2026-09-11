@@ -7,7 +7,7 @@ import {
   createRecursoSocio, updateRecursoSocio, toggleRecursoActivo, deleteRecursoSocio,
   createSociosBulk, getSocios,
 } from "@/lib/db";
-import { hashPassword, generateSalt } from "@/lib/crypto-utils";
+import { hashPassword } from "@/lib/crypto-utils";
 import crypto from "crypto";
 import {
   revisarFilas, MAX_FILAS,
@@ -84,17 +84,20 @@ export async function importarPadronAction(
     .filter((r) => r.estado !== "ok")
     .map((r) => ({ nombre: r.fila.nombre, email: r.fila.email, estado: r.estado }));
 
-  const conClave = aCrear.map((r) => {
-    const clave = generarClave();
-    const salt = generateSalt();
-    return {
-      nombre: r.fila.nombre,
-      email: r.fila.email,
-      clave,
-      salt,
-      password_hash: hashPassword(clave, salt),
-    };
-  });
+  // bcrypt es lento a propósito, así que los hashes del padrón se calculan en
+  // paralelo: con cien socios, en serie serían varios segundos de espera.
+  const conClave = await Promise.all(
+    aCrear.map(async (r) => {
+      const clave = generarClave();
+      return {
+        nombre: r.fila.nombre,
+        email: r.fila.email,
+        clave,
+        salt: "",
+        password_hash: await hashPassword(clave),
+      };
+    })
+  );
 
   await createSociosBulk(
     conClave.map(({ nombre, email, password_hash, salt }) => ({
@@ -123,9 +126,10 @@ export async function createSocioAction(formData: FormData) {
   const password = (formData.get("password") as string);
   if (!nombre || !email || !password) return;
 
-  const salt = generateSalt();
-  const password_hash = hashPassword(password, salt);
-  await createSocio({ nombre, email, password_hash, salt });
+  // bcrypt guarda su propio salt adentro del hash: el campo queda vacío.
+  await createSocio({
+    nombre, email, password_hash: await hashPassword(password), salt: "",
+  });
   revalidatePath("/admin/socios");
 }
 
@@ -141,8 +145,7 @@ export async function resetSocioPasswordAction(formData: FormData) {
   const id = formData.get("id") as string;
   const password = (formData.get("password") as string);
   if (!id || !password) return;
-  const salt = generateSalt();
-  await updateSocioPassword(id, hashPassword(password, salt), salt);
+  await updateSocioPassword(id, await hashPassword(password), "");
   revalidatePath("/admin/socios");
 }
 
