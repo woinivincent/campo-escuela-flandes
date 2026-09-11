@@ -1,5 +1,8 @@
 [build]
-  command = "npm run build"
+  # Se borra la caché de Turbopack después de compilar: desde Next 16 guarda
+  # adentro los valores de las variables de entorno, y el escáner de secretos de
+  # Netlify la revisa. No se publica y no hace falta conservarla.
+  command = "npm run build && rm -rf .next/cache"
   publish = ".next"
 
 [build.environment]
