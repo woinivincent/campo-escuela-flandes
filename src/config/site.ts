@@ -26,7 +26,7 @@ export const siteConfig = {
   },
 
   // --- Web pública mostrada en piezas gráficas ---
-  website: "www.campoescuelaflandes.com",
+  website: "www.campoescuelaflandes.org",
 
   // --- Subcampos del predio ---
   subcampos: [

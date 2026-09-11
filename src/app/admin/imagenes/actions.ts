@@ -3,10 +3,12 @@
 import { revalidatePath } from "next/cache";
 import { getBlobStore } from "@/lib/blobs";
 import { IMAGE_SLOTS } from "./imageSlots";
+import { requireAuth } from "@/lib/auth";
 
 const VALID_IDS = new Set(IMAGE_SLOTS.map((s) => s.id));
 
 export async function uploadImageAction(formData: FormData) {
+  await requireAuth();
   const file = formData.get("image") as File;
   const slot = formData.get("slot") as string;
 
@@ -42,6 +44,7 @@ export async function uploadImageAction(formData: FormData) {
 }
 
 export async function deleteImageAction(formData: FormData) {
+  await requireAuth();
   const slot = formData.get("slot") as string;
   if (!VALID_IDS.has(slot as never)) throw new Error("Slot de imagen inválido");
 

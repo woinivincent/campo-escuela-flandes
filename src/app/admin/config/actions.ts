@@ -2,8 +2,10 @@
 
 import { revalidatePath } from "next/cache";
 import { setConfigValues } from "@/lib/db";
+import { requireAuth } from "@/lib/auth";
 
 export async function saveConfigAction(formData: FormData) {
+  await requireAuth();
   const data: Record<string, string> = {};
   for (const key of [
     "whatsapp",

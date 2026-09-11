@@ -3,8 +3,10 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createCurso, updateCurso, deleteCurso } from "@/lib/db";
+import { requireAuth } from "@/lib/auth";
 
 export async function saveCursoAction(formData: FormData) {
+  await requireAuth();
   const id = formData.get("id") as string | null;
   const data = {
     titulo: formData.get("titulo") as string,
@@ -29,6 +31,7 @@ export async function saveCursoAction(formData: FormData) {
 }
 
 export async function deleteCursoAction(formData: FormData) {
+  await requireAuth();
   const id = formData.get("id") as string;
   await deleteCurso(id);
   revalidatePath("/adiestramiento");

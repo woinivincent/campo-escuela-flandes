@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getBlobStore } from "@/lib/blobs";
+import { nombreDeArchivoSeguro } from "@/lib/rutaSegura";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -24,7 +25,8 @@ export async function GET(
   { params }: { params: Promise<{ path: string[] }> },
 ) {
   const { path: segments } = await params;
-  const filename = segments.join("/");
+  const filename = nombreDeArchivoSeguro(segments);
+  if (!filename) return new NextResponse("No encontrada", { status: 404 });
   const slot = filename.replace(/\.[^.]+$/, ""); // sin extensión
 
   // 1. Lo cargado desde el panel

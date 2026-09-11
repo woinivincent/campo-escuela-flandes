@@ -4,8 +4,10 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createLibro, updateLibro, deleteLibro } from "@/lib/db";
 import type { CategoriaLibro } from "@/lib/db";
+import { requireAuth } from "@/lib/auth";
 
 export async function saveLibroAction(formData: FormData) {
+  await requireAuth();
   const id = (formData.get("id") as string) || null;
   const data = {
     titulo: (formData.get("titulo") as string).trim(),
@@ -29,6 +31,7 @@ export async function saveLibroAction(formData: FormData) {
 }
 
 export async function deleteLibroAction(formData: FormData) {
+  await requireAuth();
   const id = formData.get("id") as string;
   if (id) await deleteLibro(id);
   revalidatePath("/libreria");

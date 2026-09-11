@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getBlobStore } from "@/lib/blobs";
+import { nombreDeArchivoSeguro, nombreParaCabecera } from "@/lib/rutaSegura";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -16,8 +17,10 @@ export async function GET(
   { params }: { params: Promise<{ path: string[] }> },
 ) {
   const { path: segments } = await params;
-  const filename = segments.join("/");
+  const filename = nombreDeArchivoSeguro(segments);
+  if (!filename) return new NextResponse("No encontrado", { status: 404 });
   const clave = filename.replace(/\.[^.]+$/, "");
+  const nombreCabecera = nombreParaCabecera(filename);
 
   const store = await getBlobStore("site-docs");
   if (store) {
@@ -27,7 +30,7 @@ export async function GET(
         return new NextResponse(data, {
           headers: {
             "Content-Type": "application/pdf",
-            "Content-Disposition": `inline; filename="${filename}"`,
+            "Content-Disposition": `inline; filename="${nombreCabecera}"`,
             "Cache-Control": CACHE_MUTABLE,
           },
         });
@@ -44,7 +47,7 @@ export async function GET(
     return new NextResponse(data, {
       headers: {
         "Content-Type": "application/pdf",
-        "Content-Disposition": `inline; filename="${filename}"`,
+        "Content-Disposition": `inline; filename="${nombreCabecera}"`,
         "Cache-Control": CACHE_MUTABLE,
       },
     });

@@ -178,22 +178,18 @@ redacción es propia.
 - **El dominio definitivo.** Condiciona la impresión de los carteles con QR: si
   cambia después, hay que reimprimirlos.
 
-  ⚠️ **Hoy el campo no tiene ninguna dirección web que funcione.** Se
-  verificaron las dos candidatas:
+  El sitio está publicado en **https://campoescuelaflandes.org** (y también
+  responde en `flandes.netlify.app`). Ese es el dominio bueno y ya quedó
+  cargado como valor por defecto de `site_url`.
 
-  - `campoescuelaflandes.netlify.app` (el default de `site_url` en el código):
-    Netlify responde 404, no hay ningún sitio reclamado en ese subdominio.
-  - `www.campoescuelaflandes.com` (el que el campo imprime en la foto de
-    portada de su Facebook, y que figura como `website` en `src/config/site.ts`):
-    **el dominio no está registrado.** NXDOMAIN confirmado contra los resolvers
-    de Cloudflare y de Google.
+  ⚠️ Pero **`campoescuelaflandes.com`, que el campo imprime en la foto de
+  portada de su Facebook, no está registrado** (NXDOMAIN, verificado contra
+  Cloudflare y Google). O sea que la portada manda a la gente a un dominio que
+  no existe, y ese nombre lo puede registrar cualquiera. Conviene corregir la
+  portada, o registrar el `.com` y redirigirlo al `.org`.
 
-  O sea que la portada del Facebook manda a la gente a un dominio que no existe,
-  y que ese nombre lo puede registrar cualquiera. Conviene avisarle al campo y
-  decidir si lo registran.
-
-  Para los QR: cargar la URL real en *Admin → Config*, regenerar y escanear uno
-  antes de mandar nada a imprenta.
+  Para los QR: confirmar que *Admin → Config* tenga el `.org` cargado,
+  regenerar y escanear uno antes de mandar nada a imprenta.
 - Capacidades reales de cada subcampo (hoy son valores de ejemplo).
 - Hectáreas del predio y valor de la cuota de socios.
 

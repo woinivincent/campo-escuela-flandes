@@ -603,7 +603,7 @@ const SEED_CONFIG: Record<string, string> = {
   responsable_socios_nombre: "",
   responsable_socios_contacto: "",
   responsable_socios_publico: "",
-  site_url: "https://campoescuelaflandes.netlify.app",
+  site_url: "https://campoescuelaflandes.org",
   // Coordenadas del predio, para el mapa satelital embebido.
   mapa_lat: "-34.546312",
   mapa_lng: "-59.146240",
