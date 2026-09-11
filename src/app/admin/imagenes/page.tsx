@@ -1,6 +1,7 @@
 import { getBlobStore } from "@/lib/blobs";
 import { IMAGE_SLOTS, GROUPS } from "./imageSlots";
 import ImageUploadCard from "./ImageUploadCard";
+import { requireAuth } from "@/lib/auth";
 
 export const metadata = { title: "Imágenes — Admin" };
 
@@ -30,6 +31,7 @@ async function getExistingSlots(): Promise<Set<string>> {
 }
 
 export default async function AdminImagenesPage() {
+  await requireAuth();
   const ts = Date.now();
   const existing = await getExistingSlots();
 

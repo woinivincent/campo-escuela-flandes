@@ -142,6 +142,19 @@ export async function readRecord(
   }
 }
 
+/**
+ * Reemplaza el mapa entero.
+ *
+ * writeRecord mergea y por eso nunca puede borrar una clave. Para las sesiones
+ * hace falta poder sacarlas: al cerrar sesión y al limpiar las vencidas.
+ */
+export async function reemplazarRecord(
+  key: string,
+  valor: Record<string, string>
+): Promise<void> {
+  await writeRaw(key, valor);
+}
+
 /** Guarda (mergeando) claves en un mapa de clave/valor. */
 export async function writeRecord(
   key: string,

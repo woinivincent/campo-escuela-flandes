@@ -37,7 +37,7 @@ avisarle al campo.
 
 ---
 
-## Arquitectura: seis cosas que no son obvias
+## Arquitectura: siete cosas que no son obvias
 
 ### 1. Nunca usar `process.env.NETLIFY` para detectar el entorno
 
@@ -78,14 +78,39 @@ borra lo que se haya cargado desde el panel en esa colección.
 La configuración se muestra ahí también, pero **no se toca sola**: son valores
 reales del campo (el WhatsApp, por ejemplo) y hay que corregirlos a mano.
 
-### 4. Los valores por defecto de configuración están escritos dos veces
+### 4. Las sesiones son un token guardado, no un dato en la cookie
+
+La cookie lleva un token aleatorio de 256 bits que no significa nada por sí
+mismo: solo vale si está en el mapa `sesiones` del almacén, que es lo único
+que sabe a quién corresponde y hasta cuándo.
+
+Antes no era así y el panel estaba abierto: la cookie era `flandes_admin=1`, un
+valor fijo. Cualquiera que escribiera esa cookie a mano entraba al panel
+completo sin conocer la contraseña. En el portal de socios era parecido pero
+con un paso más: la cookie llevaba el id del socio, y los ids se arman con la
+marca de tiempo del alta, así que se podían probar marcas cercanas.
+
+Se eligió un token guardado y no una cookie firmada para no depender de un
+secreto nuevo en el entorno: si esa variable faltara o cambiara entre
+despliegues, las sesiones se romperían en silencio.
+
+Dos consecuencias prácticas: cerrar sesión ahora invalida el token del lado del
+servidor, y si el almacenamiento no responde no valida ninguna sesión —que para
+autenticación es el lado correcto en el que fallar—.
+
+El middleware corre en el Edge y no llega al almacén, así que solo mira si hay
+cookie. La validación de verdad la hacen `requireAuth()` y `getSocioSession()`,
+que corren en Node. Por eso importa que **todas** las páginas y acciones del
+panel llamen a `requireAuth()`, no solo el middleware.
+
+### 5. Los valores por defecto de configuración están escritos dos veces
 
 Están en `src/config/site.ts` **y** en `SEED_CONFIG` (`src/lib/db.ts`), y gana el
 segundo: `readConfig` mergea los defaults del seed, y después el `pick()` de
 `siteConfigService` ve un valor no vacío y nunca llega al de `site.ts`. Si
 cambiás un default y el sitio no se inmuta, es esto: hay que tocar los dos.
 
-### 5. Los textos de las páginas: el código manda como respaldo
+### 6. Los textos de las páginas: el código manda como respaldo
 
 Los textos por defecto viven en `src/config/textos.ts`, no en el JSX. El panel
 guarda **solo lo que alguien editó**, así que cambiar un texto en el código se ve
@@ -95,7 +120,7 @@ sitio sigue mostrando los textos del código en vez de quedar en blanco.
 Para sumar un campo editable: agregarlo al catálogo y usarlo en la página con
 `const t = await getTextos("<página>")` y `t("<clave>")`. El panel lo toma solo.
 
-### 6. Las imágenes no se cachean como fijas
+### 7. Las imágenes no se cachean como fijas
 
 Se sirven con `max-age=0, must-revalidate`. Estuvieron con `immutable` un año y
 eso hacía que reemplazar o quitar una foto no se viera nunca.

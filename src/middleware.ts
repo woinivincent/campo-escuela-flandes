@@ -3,10 +3,15 @@ import { NextRequest, NextResponse } from "next/server";
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Protect admin routes
+  // Primer filtro, barato: ¿hay cookie de sesión?
+  //
+  // El middleware corre en el Edge y no llega al almacén de sesiones, así que
+  // no puede saber si el token es válido. Eso lo resuelve requireAuth() en cada
+  // página y en cada acción del panel, que corren en Node y sí lo consultan.
+  // Acá alcanza con evitarle el viaje a quien claramente no inició sesión.
   if (pathname.startsWith("/admin") && !pathname.startsWith("/admin/login")) {
     const cookie = request.cookies.get("flandes_admin");
-    if (!cookie || cookie.value !== "1") {
+    if (!cookie?.value) {
       const url = request.nextUrl.clone();
       url.pathname = "/admin/login";
       url.searchParams.set("from", pathname);
