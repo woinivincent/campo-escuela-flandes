@@ -6,9 +6,14 @@ Documento de traspaso. Última actualización: agosto 2026.
 
 ## Dónde está
 
+- **Sitio publicado:** https://campoescuelaflandes.org (también responde en
+  `flandes.netlify.app`)
 - **Repositorio:** github.com/woinivincent/campo-escuela-flandes (público)
 - **Hosting:** Netlify. El push a `main` dispara el despliegue.
 - **Almacenamiento:** Netlify Blobs. No hay base de datos.
+- **Framework:** Next 16. Se actualizó desde 15.5.19 porque toda la línea 15.x
+  arrastraba una advertencia crítica: RCE no autenticada en la Image
+  Optimization API con archivos AVIF, entre otras nueve.
 
 ---
 
@@ -127,7 +132,11 @@ eso hacía que reemplazar o quitar una foto no se viera nunca.
 
 ---
 
-## Entorno de desarrollo: dos trampas
+## Entorno de desarrollo: tres trampas
+
+**El archivo de rutas protegidas es `src/proxy.ts`, no `middleware.ts`.** Next 16
+renombró la convención; la vieja sigue andando pero avisa que está obsoleta. Es
+el primer lugar donde mirar si `/admin` o `/socios/portal` dejan de redirigir.
 
 **No correr `npm run build` con el servidor de desarrollo levantado.** El build
 de producción pisa los chunks de `.next` y el sitio local empieza a tirar
