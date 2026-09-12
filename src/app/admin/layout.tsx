@@ -6,7 +6,12 @@ import {
   LeafIcon, UsersIcon,
 } from "@/components/ui/icons";
 
-export const metadata = { title: { absolute: "Admin — Campo Escuela Flandes" } };
+export const metadata = {
+  title: { absolute: "Admin — Campo Escuela Flandes" },
+  // robots.txt ya lo excluye, pero eso solo pide no recorrerlo: si algo enlaza
+  // al panel, Google puede indexar la URL igual. noindex lo evita del todo.
+  robots: { index: false, follow: false },
+};
 
 function GearIcon({ width = 14, height = 14 }: { width?: number; height?: number }) {
   return (

@@ -179,6 +179,11 @@ Destacados:
   motivo de cada fila que queda afuera, y da de alta el resto en una sola
   escritura, de a tandas de ocho filas. A cada socio le genera una clave inicial que se muestra **una sola
   vez**, en una tabla que se puede copiar. Desde Excel: *Guardar como → CSV UTF-8*.
+- **SEO técnico**: `robots.txt`, `sitemap.xml` con las secciones y las 23 fichas,
+  URL canónica por página, etiquetas para redes y datos estructurados de la
+  organización que la vinculan con Facebook e Instagram. El panel lleva
+  `noindex`. La URL oficial vive en `URL_SITIO` (`src/config/site.ts`), fuera del
+  panel a propósito: estos archivos se generan sin acceso al almacén.
 - **Textos editables** (`/admin/textos`): los títulos y textos principales de las
   11 páginas públicas, 5 campos cada una. Cada página se guarda por separado.
   Un campo vacío muestra el texto original, que aparece en gris como referencia.
@@ -224,6 +229,18 @@ redacción es propia.
 
   Para los QR: confirmar que *Admin → Config* tenga el `.org` cargado,
   regenerar y escanear uno antes de mandar nada a imprenta.
+- **Qué hacer con `campoescuelaflandes.net`.** Existe otro sitio del campo, un
+  WordPress con última publicación en mayo de 2023, que es el que aparece en
+  Google. Mientras los dos convivan compiten entre sí por las mismas búsquedas,
+  y el `.net` gana porque tiene años de antigüedad y enlaces. Lo recomendable es
+  que el `.net` redirija con 301 al `.org`: transfiere la mayor parte de su
+  posicionamiento en vez de tirarlo. Eso lo tiene que hacer quien administre el
+  `.net`, desde su hosting.
+
+  Para que el `.org` gane lugar, además: darlo de alta en Google Search Console y
+  enviar el sitemap; cambiar el enlace "Sitio web" de la ficha de Google Maps; y
+  actualizar los enlaces de Facebook, Instagram y Linktree. Son los sitios que
+  Google ya asocia al campo, y hoy ninguno apunta al `.org`.
 - Capacidades reales de cada subcampo (hoy son valores de ejemplo).
 - Hectáreas del predio y valor de la cuota de socios.
 

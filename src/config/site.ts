@@ -3,6 +3,16 @@
  * Datos de contacto, redes y textos institucionales en un solo lugar.
  */
 
+/**
+ * Dirección pública del sitio, sin barra final.
+ *
+ * La usan el sitemap, robots.txt, las URLs canónicas y las etiquetas para redes.
+ * No sale de la configuración del panel a propósito: estos archivos se generan
+ * sin acceso al almacén, y un dominio mal cargado ahí le diría a Google que el
+ * sitio vive en otra parte.
+ */
+export const URL_SITIO = "https://campoescuelaflandes.org";
+
 export const siteConfig = {
   name: 'Campo Escuela "Flandes"',
   shortName: "Campo Flandes",
