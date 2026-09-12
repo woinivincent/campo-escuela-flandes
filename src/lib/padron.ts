@@ -38,6 +38,16 @@ export const MOTIVOS: Record<EstadoFila, string> = {
  */
 export const MAX_FILAS = 2000;
 
+/**
+ * Cuántas filas se mandan por vez.
+ *
+ * Medido: quince filas tardaban 8,5 segundos, demasiado cerca del límite de
+ * diez segundos de Netlify. Con ocho queda la mitad de margen, que es lo que
+ * hace falta porque producción puede ser más lenta que una máquina de
+ * desarrollo. El navegador manda las tandas una tras otra hasta terminar.
+ */
+export const TAMANO_TANDA = 8;
+
 export function normalizarEmail(v: string): string {
   return v.trim().toLowerCase();
 }

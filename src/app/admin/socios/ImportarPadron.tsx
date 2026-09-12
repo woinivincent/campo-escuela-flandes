@@ -1,13 +1,14 @@
 "use client";
 
-import { useActionState, useMemo, useState } from "react";
-import { importarPadronAction, type ResultadoImport } from "./actions";
+import { useMemo, useState } from "react";
+import { importarTandaAction, type ResultadoImport } from "./actions";
 import { parseCsv } from "@/lib/csv";
 import {
   revisarFilas,
   adivinarColumna,
   MOTIVOS,
   MAX_FILAS,
+  TAMANO_TANDA,
   type FilaPadron,
 } from "@/lib/padron";
 
@@ -22,10 +23,9 @@ export default function ImportarPadron({ emailsExistentes }: { emailsExistentes:
   const [colEmail, setColEmail] = useState(-1);
   const [errorLectura, setErrorLectura] = useState("");
 
-  const [resultado, enviar, enviando] = useActionState<ResultadoImport | null, FormData>(
-    importarPadronAction,
-    null
-  );
+  const [resultado, setResultado] = useState<ResultadoImport | null>(null);
+  const [enviando, setEnviando] = useState(false);
+  const [hechas, setHechas] = useState(0);
 
   const yaExisten = useMemo(
     () => new Set(emailsExistentes.map((e) => e.toLowerCase())),
@@ -44,6 +44,52 @@ export default function ImportarPadron({ emailsExistentes }: { emailsExistentes:
   const revisadas = useMemo(() => revisarFilas(filas, yaExisten), [filas, yaExisten]);
   const entran = revisadas.filter((r) => r.estado === "ok");
   const quedanAfuera = revisadas.filter((r) => r.estado !== "ok");
+
+  /**
+   * Manda el padrón de a tandas, una después de la otra.
+   *
+   * En serie y no en paralelo a propósito: cada tanda tiene que estar escrita
+   * antes de que empiece la siguiente, porque así el servidor detecta un email
+   * repetido entre dos tandas igual que si estuviera repetido dentro de una.
+   *
+   * Si una tanda falla, se corta ahí y se muestra lo que se alcanzó a importar.
+   * Los socios de las tandas anteriores ya quedaron dados de alta, y sus claves
+   * se muestran una sola vez: perderlas sería peor que cortar a medias.
+   */
+  async function importar() {
+    setEnviando(true);
+    setHechas(0);
+
+    const importados: ResultadoImport["importados"] = [];
+    const omitidos: ResultadoImport["omitidos"] = [];
+    let corte = "";
+
+    for (let i = 0; i < filas.length; i += TAMANO_TANDA) {
+      const tanda = filas.slice(i, i + TAMANO_TANDA);
+      try {
+        const r = await importarTandaAction(tanda);
+        if (!r.ok) {
+          corte = r.mensaje;
+          break;
+        }
+        importados.push(...r.importados);
+        omitidos.push(...r.omitidos);
+        setHechas(Math.min(i + TAMANO_TANDA, filas.length));
+      } catch {
+        corte = "Se cortó la conexión con el servidor.";
+        break;
+      }
+    }
+
+    const mensaje = corte
+      ? `Se importaron ${importados.length} socios y ahí se cortó: ${corte}`
+      : importados.length === 0
+        ? "No se importó ningún socio: revisá los motivos."
+        : `Se importaron ${importados.length} socios.`;
+
+    setResultado({ ok: !corte, mensaje, importados, omitidos });
+    setEnviando(false);
+  }
 
   async function alElegirArchivo(e: React.ChangeEvent<HTMLInputElement>) {
     const archivo = e.target.files?.[0];
@@ -169,7 +215,7 @@ export default function ImportarPadron({ emailsExistentes }: { emailsExistentes:
 
   // ── Formulario ────────────────────────────────────────────────────────────
   return (
-    <form action={enviar} className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
       <div className="flex items-start justify-between gap-4">
         <div>
           <h2 className="font-display text-sm font-bold uppercase tracking-wide text-gold/70">
@@ -293,14 +339,15 @@ export default function ImportarPadron({ emailsExistentes }: { emailsExistentes:
                 )}
               </div>
 
-              <input type="hidden" name="filas" value={JSON.stringify(filas)} />
-
               <div className="mt-6 flex items-center justify-between gap-4 border-t border-white/10 pt-4">
                 <p className="text-xs text-white/30">
-                  A cada socio se le genera una clave inicial, que vas a ver una sola vez.
+                  {enviando
+                    ? `Van ${hechas} de ${filas.length} filas. No cierres esta página.`
+                    : "A cada socio se le genera una clave inicial, que vas a ver una sola vez."}
                 </p>
                 <button
-                  type="submit"
+                  type="button"
+                  onClick={importar}
                   disabled={entran.length === 0 || enviando}
                   className="rounded-xl bg-gold px-6 py-3 font-display text-sm font-bold uppercase tracking-wide text-forest-dark transition hover:bg-gold-dark active:scale-95 disabled:cursor-not-allowed disabled:opacity-40"
                 >
@@ -311,6 +358,6 @@ export default function ImportarPadron({ emailsExistentes }: { emailsExistentes:
           )}
         </>
       )}
-    </form>
+    </div>
   );
 }

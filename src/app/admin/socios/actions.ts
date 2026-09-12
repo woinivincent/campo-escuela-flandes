@@ -10,7 +10,7 @@ import {
 import { hashPassword } from "@/lib/crypto-utils";
 import crypto from "crypto";
 import {
-  revisarFilas, MAX_FILAS,
+  revisarFilas, TAMANO_TANDA,
   type FilaPadron, type EstadoFila,
 } from "@/lib/padron";
 
@@ -39,42 +39,41 @@ export interface ResultadoImport {
 }
 
 /**
- * Da de alta el padrón que llega del panel.
+ * Da de alta una tanda del padrón.
+ *
+ * Se importa de a tandas y no todo junto porque bcrypt tarda unos 300 ms por
+ * contraseña y bcryptjs es de un solo hilo: cien socios de una vez son treinta
+ * segundos de CPU y las funciones de Netlify cortan a los diez. El navegador
+ * llama a esta acción varias veces seguidas hasta terminar la planilla.
+ *
+ * Cada tanda se escribe antes de que empiece la siguiente, así que los socios
+ * ya importados aparecen en getSocios() y un email repetido entre dos tandas se
+ * detecta igual que si estuviera repetido dentro de una.
  *
  * Las filas ya vienen revisadas por el navegador, pero acá se revisan de nuevo:
- * lo que llega en el formulario lo puede escribir cualquiera.
+ * lo que llega del formulario lo puede escribir cualquiera.
  */
-export async function importarPadronAction(
-  _previo: ResultadoImport | null,
-  formData: FormData
+export async function importarTandaAction(
+  filas: FilaPadron[]
 ): Promise<ResultadoImport> {
   await requireAuth();
   const vacio = { importados: [], omitidos: [] };
 
-  let crudas: FilaPadron[];
-  try {
-    const json = formData.get("filas");
-    if (typeof json !== "string") throw new Error("sin filas");
-    const parseado = JSON.parse(json);
-    if (!Array.isArray(parseado)) throw new Error("formato inesperado");
-    crudas = parseado.map((f) => ({
-      nombre: String(f?.nombre ?? ""),
-      email: String(f?.email ?? ""),
-    }));
-  } catch {
-    return { ok: false, mensaje: "No se pudo leer la planilla.", ...vacio };
+  if (!Array.isArray(filas) || filas.length === 0) {
+    return { ok: false, mensaje: "La tanda llegó vacía.", ...vacio };
   }
-
-  if (crudas.length === 0) {
-    return { ok: false, mensaje: "La planilla no tenía filas.", ...vacio };
-  }
-  if (crudas.length > MAX_FILAS) {
+  if (filas.length > TAMANO_TANDA) {
     return {
       ok: false,
-      mensaje: `La planilla tiene ${crudas.length} filas y el máximo es ${MAX_FILAS}.`,
+      mensaje: `Una tanda no puede tener más de ${TAMANO_TANDA} filas.`,
       ...vacio,
     };
   }
+
+  const crudas: FilaPadron[] = filas.map((f) => ({
+    nombre: String(f?.nombre ?? ""),
+    email: String(f?.email ?? ""),
+  }));
 
   const yaExisten = new Set((await getSocios()).map((s) => s.email.toLowerCase()));
   const revisadas = revisarFilas(crudas, yaExisten);
@@ -84,20 +83,17 @@ export async function importarPadronAction(
     .filter((r) => r.estado !== "ok")
     .map((r) => ({ nombre: r.fila.nombre, email: r.fila.email, estado: r.estado }));
 
-  // bcrypt es lento a propósito, así que los hashes del padrón se calculan en
-  // paralelo: con cien socios, en serie serían varios segundos de espera.
-  const conClave = await Promise.all(
-    aCrear.map(async (r) => {
-      const clave = generarClave();
-      return {
-        nombre: r.fila.nombre,
-        email: r.fila.email,
-        clave,
-        salt: "",
-        password_hash: await hashPassword(clave),
-      };
-    })
-  );
+  const conClave = [];
+  for (const r of aCrear) {
+    const clave = generarClave();
+    conClave.push({
+      nombre: r.fila.nombre,
+      email: r.fila.email,
+      clave,
+      salt: "",
+      password_hash: await hashPassword(clave),
+    });
+  }
 
   await createSociosBulk(
     conClave.map(({ nombre, email, password_hash, salt }) => ({
@@ -107,14 +103,10 @@ export async function importarPadronAction(
 
   revalidatePath("/admin/socios");
 
-  const importados = conClave.map(({ nombre, email, clave }) => ({ nombre, email, clave }));
   return {
     ok: true,
-    mensaje:
-      importados.length === 0
-        ? "No se importó ningún socio: revisá los motivos."
-        : `Se importaron ${importados.length} socios.`,
-    importados,
+    mensaje: `${conClave.length} de ${filas.length}`,
+    importados: conClave.map(({ nombre, email, clave }) => ({ nombre, email, clave })),
     omitidos,
   };
 }

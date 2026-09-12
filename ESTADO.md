@@ -177,7 +177,7 @@ Destacados:
 - **Importar padrón** (*Admin → Socios → Importar padrón*): sube un CSV, adivina
   qué columna es el nombre y cuál el email, muestra una vista previa con el
   motivo de cada fila que queda afuera, y da de alta el resto en una sola
-  escritura. A cada socio le genera una clave inicial que se muestra **una sola
+  escritura, de a tandas de ocho filas. A cada socio le genera una clave inicial que se muestra **una sola
   vez**, en una tabla que se puede copiar. Desde Excel: *Guardar como → CSV UTF-8*.
 - **Textos editables** (`/admin/textos`): los títulos y textos principales de las
   11 páginas públicas, 5 campos cada una. Cada página se guarda por separado.
