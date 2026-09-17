@@ -26,6 +26,9 @@ export interface SiteSettings {
 
   /** Referente de socios. Sin nombre, o sin marcar público, no se muestra. */
   responsableSocios: { nombre: string; contacto: string; publico: boolean };
+
+  /** Quién atiende las reservas. Sin nombre, o sin marcar público, no se muestra. */
+  referenteReservas: { nombre: string; publico: boolean };
 }
 
 /**
@@ -80,6 +83,11 @@ export const getSiteSettings = cache(async (): Promise<SiteSettings> => {
     },
 
     whatsappAreas,
+
+    referenteReservas: {
+      nombre: (cfg.referente_reservas_nombre ?? "").trim(),
+      publico: (cfg.referente_reservas_publico ?? "") === "1",
+    },
 
     responsableSocios: {
       nombre: (cfg.responsable_socios_nombre ?? "").trim(),

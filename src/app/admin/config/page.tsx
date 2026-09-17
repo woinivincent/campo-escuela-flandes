@@ -29,6 +29,9 @@ const AREAS = [
   { key: "whatsapp_biblioteca",  label: "WhatsApp de Biblioteca",  type: "tel", placeholder: "5491144332211", hint: "Consultas por material de la biblioteca." },
   { key: "whatsapp_socios",      label: "WhatsApp de Socios",      type: "tel", placeholder: "5491144332211", hint: "Consultas para asociarse al campo." },
 ];
+const REFERENTE = [
+  { key: "referente_reservas_nombre", label: "Nombre del referente", type: "text", placeholder: "Nombre y apellido", hint: "Quién atiende las reservas. Sin nombre no se muestra nada en la página de Reservas." },
+];
 const RESPONSABLE = [
   { key: "responsable_socios_nombre",   label: "Nombre del responsable", type: "text", placeholder: "Nombre y apellido",  hint: "Sin nombre no se muestra nada en la página de Socios." },
   { key: "responsable_socios_contacto", label: "Cómo contactarlo",       type: "text", placeholder: "Teléfono o email",   hint: "" },
@@ -52,6 +55,38 @@ function Section({ title, campos, cfg }: { title: string; campos: typeof CONTACT
           </div>
         ))}
       </div>
+    </div>
+  );
+}
+
+/** El referente de reservas, con su interruptor de visibilidad. */
+function ReferenteReservas({ cfg }: { cfg: Record<string, string> }) {
+  return (
+    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+      <h2 className="mb-5 font-display text-sm font-bold uppercase tracking-wide text-gold/70">Referente de reservas</h2>
+      <div className="grid gap-5 sm:grid-cols-2">
+        {REFERENTE.map((c) => (
+          <div key={c.key}>
+            <label className="field-label">{c.label}</label>
+            <input name={c.key} type={c.type} defaultValue={cfg[c.key] ?? ""} placeholder={c.placeholder} className="admin-input" />
+            {c.hint && <p className="mt-1 text-xs text-white/30">{c.hint}</p>}
+          </div>
+        ))}
+      </div>
+      <label className="mt-5 flex items-start gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3">
+        <input
+          type="checkbox"
+          name="referente_reservas_publico"
+          defaultChecked={cfg.referente_reservas_publico === "1"}
+          className="mt-0.5 h-4 w-4 accent-gold"
+        />
+        <span className="text-sm text-white/70">
+          Mostrarlo en la página de Reservas
+          <span className="mt-0.5 block text-xs text-white/30">
+            Si queda destildado, el nombre se guarda pero no se publica.
+          </span>
+        </span>
+      </label>
     </div>
   );
 }
@@ -105,6 +140,7 @@ export default async function AdminConfigPage() {
         <Section title="Nombres de subcampos" campos={SUBCAMPOS} cfg={cfg} />
         <Section title="Portal de socios" campos={PORTAL} cfg={cfg} />
         <Section title="WhatsApp por área" campos={AREAS} cfg={cfg} />
+        <ReferenteReservas cfg={cfg} />
         <ResponsableSocios cfg={cfg} />
         <Section title="Sitio y códigos QR" campos={SITIO} cfg={cfg} />
 

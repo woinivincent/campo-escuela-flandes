@@ -76,12 +76,28 @@ export default async function ReservasPage() {
             height={18}
             className="mt-0.5 shrink-0 text-gold-dark"
           />
+          {/* El monto todavía no lo pasó el campo; lo demás sale del PDF de
+              normas y ya es información útil para presupuestar. */}
           <p className="text-sm leading-relaxed text-forest-dark">
-            <strong>Costos y aranceles:</strong>{" "}
-            Indicar acá el valor por persona o por grupo, y si hay diferencia
-            entre socios y no socios.
+            <strong>Costos:</strong>{" "}
+            Se cobra por persona y por día de reserva, contando completos el día
+            de llegada y el de salida. La reserva se confirma con una seña del
+            50% y el saldo se abona el día de llegada. Consultanos el valor
+            vigente.
           </p>
         </div>
+
+        {/* Quién atiende. Solo aparece si el panel cargó un nombre y lo marcó
+            como público; si no, esta parte no existe. */}
+        {contact.referenteReservas.publico && contact.referenteReservas.nombre && (
+          <p className="mt-6 text-center text-sm text-forest/60">
+            Las reservas las atiende{" "}
+            <strong className="text-forest-dark">
+              {contact.referenteReservas.nombre}
+            </strong>
+            .
+          </p>
+        )}
       </section>
 
       {/* ---- SUBCAMPOS ---- */}

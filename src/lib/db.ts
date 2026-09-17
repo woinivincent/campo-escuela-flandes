@@ -599,6 +599,9 @@ const SEED_CONFIG: Record<string, string> = {
   whatsapp_formaciones: "",
   whatsapp_biblioteca: "",
   whatsapp_socios: "",
+  // Referente de reservas, dato que pasó la administración del campo.
+  referente_reservas_nombre: "I.M. Matías Nuñez",
+  referente_reservas_publico: "1",
   // Responsable de socios. Sin nombre no se muestra nada en el sitio.
   responsable_socios_nombre: "",
   responsable_socios_contacto: "",

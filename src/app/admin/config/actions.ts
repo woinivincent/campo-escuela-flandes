@@ -26,6 +26,7 @@ export async function saveConfigAction(formData: FormData) {
     "whatsapp_formaciones",
     "whatsapp_biblioteca",
     "whatsapp_socios",
+    "referente_reservas_nombre",
     "responsable_socios_nombre",
     "responsable_socios_contacto",
   ]) {
@@ -36,6 +37,9 @@ export async function saveConfigAction(formData: FormData) {
   // El checkbox no viaja cuando está destildado. Hay que escribirlo siempre:
   // setConfigValues mergea, así que si no, la clave nunca se podría apagar.
   data.responsable_socios_publico = formData.get("responsable_socios_publico")
+    ? "1"
+    : "";
+  data.referente_reservas_publico = formData.get("referente_reservas_publico")
     ? "1"
     : "";
 
