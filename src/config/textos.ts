@@ -162,7 +162,7 @@ export const PAGINAS_TEXTOS: PaginaTextos[] = [
       ...encabezado(
         "Reservas",
         "Reservá tu acampe",
-        "Elegí subcampo y fechas, completá el formulario y coordinamos por WhatsApp."
+        "Consultanos las fechas con al menos una semana de anticipación. La reserva se formaliza por mail, con la planilla completa y una seña del 50%."
       ),
       {
         clave: "intro_titulo",

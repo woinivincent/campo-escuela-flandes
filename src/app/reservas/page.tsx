@@ -19,7 +19,7 @@ import {
 export const metadata = {
   title: "Reservas",
   description:
-    "Preinscribí a tu grupo en el Campo Escuela Flandes. Seleccioná subcampo, fechas y enviá tu solicitud por WhatsApp.",
+    "Consultá disponibilidad en el Campo Escuela Flandes. La reserva se tramita por mail, con la planilla completa y una seña del 50%.",
 };
 
 export default async function ReservasPage() {
@@ -27,10 +27,13 @@ export default async function ReservasPage() {
   const contact = await getSiteSettings();
   const sc = contact.subcampos;
   const subcamposDetalle = [
-    { id: "1", nombre: sc[0].nombre, descripcion: "Describir acá el subcampo en una línea.", servicios: ["Agua corriente", "Baños cercanos", "Fogón habilitado"],         capacidad: "Hasta 80 personas" },
-    { id: "2", nombre: sc[1].nombre, descripcion: "Describir acá el subcampo en una línea.", servicios: ["Agua corriente", "Baños a 100 m", "Fogón habilitado"],          capacidad: "Hasta 50 personas" },
-    { id: "3", nombre: sc[2].nombre, descripcion: "Describir acá el subcampo en una línea.", servicios: ["Agua corriente", "Baños propios", "Techado disponible"],        capacidad: "Hasta 60 personas" },
-    { id: "4", nombre: sc[3].nombre, descripcion: "Describir acá el subcampo en una línea.", servicios: ["Agua corriente", "Baños cercanos", "Fogón habilitado"],        capacidad: "Hasta 40 personas" },
+    // Todo esto sale del PDF de normas del campo. Las capacidades que había
+    // acá eran inventadas: el predio no publica cupos por subcampo porque los
+    // asigna la administración según el contingente.
+    { id: "1", nombre: sc[0].nombre, descripcion: "El más rústico de los cuatro. No tiene cocina, quincho ni bungalow, y es el único sector del predio sin luz eléctrica ni agua potable propias. Tiene su mástil y el fogón adentro, cerca del mástil.", servicios: ["Mástil propio", "Fogón en el subcampo", "Baños del sector cocina"], capacidad: "Lo asigna la administración" },
+    { id: "2", nombre: sc[1].nombre, descripcion: "El más grande y el único con servicios: cocina, quincho abierto para unas 60 personas y bungalow. Tiene el mástil principal del campo, donde solo se iza la Bandera Nacional. El fogón queda afuera del subcampo, frente a la capilla.", servicios: ["Cocina y quincho", "Bungalow", "Mástil principal"], capacidad: "Lo asigna la administración" },
+    { id: "3", nombre: sc[2].nombre, descripcion: "Agreste, sin cocina, quincho ni bungalow. Se puede cocinar a leña y armar construcciones con troncos caídos. Tiene su mástil y el fogón adentro, cerca del mástil.", servicios: ["Mástil propio", "Fogón en el subcampo", "Baños detrás del tanque"], capacidad: "Lo asigna la administración" },
+    { id: "4", nombre: sc[3].nombre, descripcion: "Agreste, sin cocina ni quincho. Si el contingente viene con rama menor, puede usar uno de los bungalows. Tiene su mástil y el fogón adentro, cerca del mástil.", servicios: ["Mástil propio", "Bungalow con rama menor", "Baños detrás del tanque"], capacidad: "Lo asigna la administración" },
   ];
   return (
     <>
@@ -142,7 +145,7 @@ export default async function ReservasPage() {
             <SectionHeading
               eyebrow="Solicitud"
               title="Pedí tu fecha"
-              subtitle="Completá el formulario y te respondemos por WhatsApp."
+              subtitle="Escribinos para consultar disponibilidad. La reserva después se formaliza por mail."
             />
 
             <div className="mt-8 space-y-4">
@@ -235,12 +238,15 @@ export default async function ReservasPage() {
 // Las cuatro primeras salen de las publicaciones del Consejo de Campo en el
 // blog. Las dos últimas siguen pendientes: el campo nunca las publicó, así que
 // no se inventan.
+// Las seis salen del PDF de normas que entrega el campo. La que decía "un
+// grupo por vez" era del protocolo de 2020 y ya no rige: el predio tiene cuatro
+// subcampos y recibe hasta cuatro contingentes por fin de semana.
 const normas = [
-  { titulo: "Un grupo por vez", desc: "El campo recibe un solo contingente a la vez: mientras están, el predio es de ustedes.", icon: UsersIcon },
-  { titulo: "Cómo se confirma", desc: "Las fechas se piden por mail y la reserva queda firme cuando el responsable envía la planilla de solicitud.", icon: CalendarIcon },
-  { titulo: "Seguro obligatorio", desc: "Cada contingente tiene que tener al día el Seguro de Responsabilidad Civil y el de Riesgos Personales.", icon: ShieldIcon },
-  { titulo: "Qué instalaciones se usan", desc: "Se prestan la cocina, los baños, la capilla y el bungalow de acampe. El salón blanco, el bungalow del Consejo de Campo y la cabaña no se prestan.", icon: MapIcon },
-  { titulo: "Uso del fuego", desc: "Completar acá dónde se permite hacer fuego y con qué cuidados.", icon: FlameIcon },
-  { titulo: "Horarios", desc: "Completar acá los horarios de ingreso, silencio y salida.", icon: AlertIcon },
+  { titulo: "Quiénes pueden acampar", desc: "Solo contingentes: grupos scouts, grupos guías e instituciones educativas. No se reciben particulares ni instituciones sin fines educativos.", icon: UsersIcon },
+  { titulo: "Horarios", desc: "Se entra desde las 8 de la mañana y hay que retirarse antes de las 17. El día de llegada y el de salida se cobran completos.", icon: CalendarIcon },
+  { titulo: "Uso del fuego", desc: "Los fogones van solo en los lugares señalados de cada subcampo. La leña del bosque se puede usar con cuidado, nunca cerca de los árboles, y al irse hay que apagar todo y tapar los pozos.", icon: FlameIcon },
+  { titulo: "Las carpas y los árboles", desc: "Las carpas se arman únicamente en el área destinada: no se puede acampar debajo de los árboles, ni cortar ramas o retoños, ni dañar los troncos.", icon: MapIcon },
+  { titulo: "Qué no entra al predio", desc: "No entran vehículos, ni armas de ningún tipo. Tampoco se permite cazar, ni usar guirnaldas, amplificadores de sonido o estufas eléctricas.", icon: AlertIcon },
+  { titulo: "Responsable a cargo", desc: "Un mayor de edad firma las normas y responde por todo el contingente. Lleva la nómina impresa con nombre, apellido y DNI, y entrega el sector limpio y ordenado.", icon: ShieldIcon },
 ];
 

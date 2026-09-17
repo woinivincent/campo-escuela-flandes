@@ -368,9 +368,12 @@ const bienvenidaPuntos = [
   "Reserva coordinada por WhatsApp",
 ];
 
+// El circuito real, según el PDF de normas del campo. Antes decía que el grupo
+// elegía el subcampo y que todo se coordinaba por WhatsApp; ninguna de las dos
+// cosas es así.
 const pasos = [
-  { title: "Elegí el subcampo", desc: "Mirá el predio y decidí cuál se ajusta mejor al tamaño de tu grupo.", icon: MapIcon },
-  { title: "Completá el formulario", desc: "Cargá las fechas, la cantidad de personas y los datos de contacto.", icon: CalendarIcon },
-  { title: "Confirmamos por WhatsApp", desc: "Recibís la respuesta del campo con la confirmación y las indicaciones.", icon: ShieldIcon },
+  { title: "Consultá las fechas", desc: "Escribinos con las fechas y cuántos van a ser, con al menos una semana de anticipación.", icon: CalendarIcon },
+  { title: "Mandá la planilla", desc: "La reserva se formaliza por mail, con la planilla completa y el comprobante de una seña del 50%. El subcampo lo asigna la administración.", icon: MapIcon },
+  { title: "Llegá con todo listo", desc: "El día de llegada se abona el saldo y se entrega la nómina impresa con los DNI y las normas firmadas.", icon: ShieldIcon },
 ];
 

@@ -582,8 +582,8 @@ const SEED_CURSOS: Curso[] = [
 ];
 
 const SEED_CONFIG: Record<string, string> = {
-  whatsapp: "5491100000000",
-  whatsappDisplay: "+54 9 11 0000-0000",
+  whatsapp: "5492323610558",
+  whatsappDisplay: "+54 9 2323 61-0558",
   // El mail real de reservas, publicado por el Consejo de Campo en el blog.
   email: "reservascampoescuelaflandes@gmail.com",
   facebook: "https://www.facebook.com/Campo.Escuela.Flande",

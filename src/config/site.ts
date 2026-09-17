@@ -23,8 +23,8 @@ export const siteConfig = {
 
   contact: {
     // Número en formato internacional sin "+" ni espacios (para enlaces wa.me)
-    whatsapp: "5491100000000",
-    whatsappDisplay: "+54 9 11 0000-0000",
+    whatsapp: "5492323610558",
+    whatsappDisplay: "+54 9 2323 61-0558",
     email: "reservascampoescuelaflandes@gmail.com",
     location: "Jáuregui, Buenos Aires, Argentina",
   },

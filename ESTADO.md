@@ -179,6 +179,13 @@ Destacados:
   motivo de cada fila que queda afuera, y da de alta el resto en una sola
   escritura, de a tandas de ocho filas. A cada socio le genera una clave inicial que se muestra **una sola
   vez**, en una tabla que se puede copiar. Desde Excel: *Guardar como → CSV UTF-8*.
+- **Normas y subcampos reales** (septiembre de 2026): salen del PDF *Normas
+  Generales CEF* que entregó la administración. Las seis normas de la página de
+  Reservas, las descripciones de los cuatro subcampos y el circuito de reserva.
+  Dos correcciones que trajo ese PDF: el sitio decía que el campo recibe **un
+  solo contingente por vez** —eso era del protocolo de 2020, hoy recibe hasta
+  cuatro, uno por subcampo— y que el grupo elige el subcampo, cuando en realidad
+  **lo asigna la administración**.
 - **SEO técnico**: `robots.txt`, `sitemap.xml` con las secciones y las 23 fichas,
   URL canónica por página, etiquetas para redes y datos estructurados de la
   organización que la vinculan con Facebook e Instagram. El panel lleva
@@ -256,12 +263,29 @@ redacción es propia.
 - **Fauna**: hay 23 fotos en el Drive, con nombres tipo `076ff466-d309…`. Hay
   que identificar qué especie es cada una. Servirían para reemplazar las de
   Commons por fotos del propio campo.
-- **Normas del acampe**: quedan dos sin escribir, **uso del fuego** y
-  **horarios de ingreso, silencio y salida**. El campo nunca las publicó, así
-  que hay que preguntárselas. Las otras cuatro salieron del blog.
+- ⚠️ **Cargar el teléfono y el mail en *Admin → Config*.** El número real de
+  reservas (+54 9 2323 61-0558) y el mail quedaron como valor por defecto del
+  código, pero en producción hay una configuración guardada con los valores de
+  ejemplo, y **lo guardado le gana al código** (ver Arquitectura). Hasta que
+  alguien los cargue desde el panel, el sitio va a seguir mostrando el número
+  inventado. `/admin/diagnostico` los lista como distintos del código.
+- **Quién es el referente.** La administración pasó "I.M. Matías Nuñez" junto
+  con el teléfono y el mail de reservas. No está claro si es el contacto de
+  reservas o el responsable de socios —que en el sitio es otro campo—, así que
+  no se publicó su nombre en ningún lado hasta confirmarlo.
 - **Costos de estadía y cuota de socios**: el blog los publicó en 2011, 2014 y
-  2019, pero todos están desactualizados. Hay que pedir los vigentes.
-- **Descripciones de los cuatro subcampos** en Reservas.
+  2019, pero todos están desactualizados. El PDF de normas tampoco los trae:
+  dice que son por persona y por día, y que el día de llegada y el de salida se
+  cobran completos, pero no el monto. Hay que pedir los vigentes.
+- **Datos bancarios**: el PDF trae CBU, número de cuenta, alias y CUIT. **No se
+  publicaron a propósito.** Datos bancarios en una web abierta son una
+  invitación a que alguien se haga pasar por el campo; hoy se mandan por mail al
+  reservar, que es lo correcto. Si el campo igual los quiere publicados, que sea
+  una decisión suya y tomada a sabiendas.
+- **Capacidad por subcampo**: el campo no publica cupos. El PDF dice que los
+  subcampos los asigna la administración según el contingente, así que los
+  números que había en el sitio —"hasta 80 personas" y demás— eran inventados y
+  se sacaron.
 - **Beneficios de socios**: quedan dos genéricos y el detalle de qué incluye la cuota.
 
 ### De dónde salieron las 12 especies del Bordón
