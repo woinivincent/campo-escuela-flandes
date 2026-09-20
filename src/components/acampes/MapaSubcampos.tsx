@@ -326,7 +326,7 @@ export default function MapaSubcampos({ subcampos }: Props) {
             </p>
             <p className="mt-1.5 text-sm text-forest/65">
               Tocá una zona del plano, o elegilo de la lista, para ver su foto,
-              capacidad y servicios.
+              sus instalaciones y sus servicios.
             </p>
             <ul className="mt-5 space-y-1.5">
               {subcampos.map((s, i) => (

@@ -16,6 +16,18 @@ import {
   ArrowRightIcon,
 } from "@/components/ui/icons";
 
+/**
+ * Un renglón por subcampo, en el orden en que están en la configuración:
+ * Santa Clara, Ntra. Sra. de Luján, San Jorge y San Francisco de Asís.
+ * Salen del PDF de normas del campo.
+ */
+const RESUMEN_SUBCAMPOS = [
+  "Agreste, junto al río. Sin cocina ni quincho, con mástil propio y su área de fogón.",
+  "El más extenso y el único con cocina, quincho y bungalows. Tiene el mástil principal del campo.",
+  "Agreste, sobre el sector este. Mástil propio y área de fogón dentro del subcampo.",
+  "Agreste, en el sudeste. Hay un bungalow disponible si el contingente viene con rama menor.",
+];
+
 export default async function HomePage() {
   const t = await getTextos("inicio");
   const { subcampos } = await getSiteSettings();
@@ -155,7 +167,7 @@ export default async function HomePage() {
           align="center"
           eyebrow="El predio"
           title="Cuatro subcampos"
-          subtitle="Acá va una descripción general del predio y de cómo se reparten los subcampos."
+          subtitle="Cuatro subcampos independientes, uno por contingente. La administración asigna el que mejor le sirva a cada grupo."
           className="mb-12"
         />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -175,7 +187,7 @@ export default async function HomePage() {
                   {s.nombre}
                 </h3>
                 <p className="mt-1 text-sm text-forest/75">
-                  Breve descripción del subcampo.
+                  {RESUMEN_SUBCAMPOS[i] ?? ""}
                 </p>
               </div>
             </div>

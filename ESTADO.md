@@ -248,8 +248,9 @@ redacción es propia.
   enviar el sitemap; cambiar el enlace "Sitio web" de la ficha de Google Maps; y
   actualizar los enlaces de Facebook, Instagram y Linktree. Son los sitios que
   Google ya asocia al campo, y hoy ninguno apunta al `.org`.
-- Capacidades reales de cada subcampo (hoy son valores de ejemplo).
+- Capacidades reales de cada subcampo (el sitio hoy no las muestra).
 - Hectáreas del predio y valor de la cuota de socios.
+- La dirección web de Atlas, para el crédito del footer (ver más abajo).
 
 ### Contenido que falta
 
@@ -285,8 +286,14 @@ redacción es propia.
 - **Capacidad por subcampo**: el campo no publica cupos. El PDF dice que los
   subcampos los asigna la administración según el contingente, así que los
   números que había en el sitio —"hasta 80 personas" y demás— eran inventados y
-  se sacaron.
+  se sacaron. En su lugar, cada subcampo muestra qué instalaciones tiene, dónde
+  está su fogón y qué baños usa, que es lo que el PDF sí dice.
 - **Beneficios de socios**: quedan dos genéricos y el detalle de qué incluye la cuota.
+- **Crédito de desarrollo**: el footer dice "Desarrollado por Atlas Soluciones
+  Tecnológicas". La dirección vive en `SITIO_DEL_ESTUDIO`, arriba de
+  `src/components/layout/Footer.tsx`, y **está vacía**: mientras lo esté, el
+  nombre se muestra sin enlace. Con poner la URL ahí alcanza. No se puso en el
+  panel a propósito: es un dato del desarrollo, no del campo.
 
 ### De dónde salieron las 12 especies del Bordón
 

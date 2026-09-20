@@ -12,9 +12,14 @@ import {
   FlameIcon,
   HomeIcon,
   CarIcon,
-  UsersIcon,
   ShieldIcon,
-  MapIcon,
+  ShowerIcon,
+  PotIcon,
+  BedIcon,
+  ChurchIcon,
+  FlagIcon,
+  LeafIcon,
+  TentIcon,
   ArrowRightIcon,
 } from "@/components/ui/icons";
 
@@ -31,47 +36,47 @@ export default async function AcampesPage() {
     const subcamposDetalle = [
     {
       id: "1", nombre: subcampos[0].nombre,
-      descripcion: "Sector agreste, en el extremo norte del predio junto al río. El plano señala álamos, araucarias y eucaliptos.",
+      descripcion: "Sector agreste, en el extremo norte del predio junto al río, donde se puede cocinar a leña y hacer construcciones con troncos caídos. El plano señala álamos, araucarias y eucaliptos.",
       caracteristicas: [
-        { label: "Capacidad", valor: "Hasta 80 personas", icon: UsersIcon },
-        { label: "Acceso", valor: "Vehicular y peatonal", icon: CarIcon },
-        { label: "Fogón", valor: "Habilitado", icon: FlameIcon },
-        { label: "Agua", valor: "Toma propia", icon: DropletIcon },
+        { label: "Instalaciones", valor: "Sin cocina ni quincho", icon: HomeIcon },
+        { label: "Fogón", valor: "Dentro, junto al mástil", icon: FlameIcon },
+        { label: "Baños", valor: "Los del sector cocina", icon: ShowerIcon },
+        { label: "Agua y luz", valor: "No llegan al subcampo", icon: DropletIcon },
       ],
-      servicios: ["Agua corriente", "Baños a 50 m", "Fogón habilitado", "Estacionamiento"],
+      servicios: ["Mástil propio", "Área de fogón", "Baños compartidos con Ntra. Sra. de Luján"],
     },
     {
       id: "2", nombre: subcampos[1].nombre,
-      descripcion: "El subcampo más extenso, sobre el sector oeste que da al Río Luján. El plano señala robles y álamos.",
+      descripcion: "El subcampo más extenso, sobre el sector oeste que da al Río Luján, y el único con servicios. Agreste igual que el resto: se cocina a leña y se construye con troncos caídos. El plano señala robles y álamos.",
       caracteristicas: [
-        { label: "Capacidad", valor: "Hasta 50 personas", icon: UsersIcon },
-        { label: "Acceso", valor: "Solo peatonal", icon: MapIcon },
-        { label: "Fogón", valor: "Habilitado", icon: FlameIcon },
-        { label: "Agua", valor: "Toma compartida", icon: DropletIcon },
+        { label: "Instalaciones", valor: "Cocina, quincho y bungalows", icon: PotIcon },
+        { label: "Fogón", valor: "Frente a la capilla", icon: FlameIcon },
+        { label: "Baños", valor: "8 inodoros y 6 duchas", icon: ShowerIcon },
+        { label: "Mástil", valor: "El principal del campo", icon: FlagIcon },
       ],
-      servicios: ["Agua corriente", "Baños a 100 m", "Fogón habilitado"],
+      servicios: ["Cocina con heladera y freezer", "Quincho para unas 60 personas", "Bungalows para la rama menor", "Agua caliente con termo a leña"],
     },
     {
       id: "3", nombre: subcampos[2].nombre,
-      descripcion: "Sobre el sector este del predio, del lado de la calle.",
+      descripcion: "Sobre el sector este del predio, del lado de la calle. Subcampo agreste: se puede cocinar a leña y hacer construcciones con troncos caídos.",
       caracteristicas: [
-        { label: "Capacidad", valor: "Hasta 60 personas", icon: UsersIcon },
-        { label: "Acceso", valor: "Vehicular y peatonal", icon: CarIcon },
-        { label: "Techado", valor: "Quincho central cercano", icon: HomeIcon },
-        { label: "Agua", valor: "Toma propia", icon: DropletIcon },
+        { label: "Instalaciones", valor: "Sin cocina ni quincho", icon: HomeIcon },
+        { label: "Fogón", valor: "Dentro, junto al mástil", icon: FlameIcon },
+        { label: "Baños", valor: "Detrás del tanque de agua", icon: ShowerIcon },
+        { label: "Agua y luz", valor: "Canilla y toma cercanas", icon: DropletIcon },
       ],
-      servicios: ["Agua corriente", "Baños propios", "Fogón habilitado", "Quincho cercano"],
+      servicios: ["Mástil propio", "Área de fogón", "Baños compartidos con San Francisco de Asís"],
     },
     {
       id: "4", nombre: subcampos[3].nombre,
-      descripcion: "En el sector sudeste. El plano señala robles y cipreses.",
+      descripcion: "En el sector sudeste. Subcampo agreste: se puede cocinar a leña y hacer construcciones con troncos caídos. Si el contingente viene con rama menor, puede usar un bungalow. El plano señala robles y cipreses.",
       caracteristicas: [
-        { label: "Capacidad", valor: "Hasta 40 personas", icon: UsersIcon },
-        { label: "Acceso", valor: "Solo peatonal", icon: MapIcon },
-        { label: "Fogón", valor: "Habilitado", icon: FlameIcon },
-        { label: "Agua", valor: "Toma cercana", icon: DropletIcon },
+        { label: "Instalaciones", valor: "Un bungalow con rama menor", icon: BedIcon },
+        { label: "Fogón", valor: "Dentro, junto al mástil", icon: FlameIcon },
+        { label: "Baños", valor: "4 inodoros y 2 duchas", icon: ShowerIcon },
+        { label: "Agua y luz", valor: "Canilla y toma cercanas", icon: DropletIcon },
       ],
-      servicios: ["Agua corriente", "Baños a 150 m", "Fogón habilitado"],
+      servicios: ["Mástil propio", "Área de fogón", "Baños compartidos con San Jorge"],
     },
   ];
 
@@ -138,7 +143,7 @@ export default async function AcampesPage() {
             align="center"
             eyebrow="Mapa"
             title="Cómo está distribuido el predio"
-            subtitle="Tocá una zona del plano para ver la foto, la capacidad y los servicios de ese subcampo."
+            subtitle="Tocá una zona del plano para ver la foto, las instalaciones y los servicios de ese subcampo."
             className="mb-10"
           />
           <MapaSubcampos
@@ -243,13 +248,17 @@ const stats = [
 ];
 
 const servicios = [
-  { titulo: "Agua corriente", desc: "Detallar acá las tomas de agua disponibles.", icon: DropletIcon },
-  { titulo: "Sanitarios", desc: "Detallar acá los baños y su ubicación en el predio.", icon: UsersIcon },
-  { titulo: "Electricidad", desc: "Detallar acá dónde hay conexión eléctrica.", icon: ZapIcon },
-  { titulo: "Fogones", desc: "Detallar acá los fogones habilitados y sus normas.", icon: FlameIcon },
-  { titulo: "Quincho / techado", desc: "Detallar acá los espacios techados y su capacidad.", icon: HomeIcon },
-  { titulo: "Estacionamiento", desc: "Detallar acá dónde se estaciona y cuántos vehículos entran.", icon: CarIcon },
-  { titulo: "Seguridad", desc: "Detallar acá las medidas de seguridad del predio.", icon: ShieldIcon },
-  { titulo: "Orientación", desc: "Detallar acá la señalización y los circuitos del campo.", icon: MapIcon },
+  { titulo: "Agua potable", desc: "Canillas cerca de cada subcampo. Hay agua en todo el predio, salvo en Santa Clara de Asís.", icon: DropletIcon },
+  { titulo: "Baños y duchas", desc: "Dos cuerpos de baños: uno de 4 inodoros y 2 duchas, y otro de 8 inodoros y 6 duchas.", icon: ShowerIcon },
+  { titulo: "Electricidad", desc: "Luz en todo el predio, menos en Santa Clara. En los postes hay tomas para cargar equipos a batería.", icon: ZapIcon },
+  { titulo: "Cocina", desc: "Freezer, heladera y mechero a gas de doble hornalla, de uso compartido. El horno pizzero se pide aparte.", icon: PotIcon },
+  { titulo: "Quincho y parrillas", desc: "Quincho abierto para unas 60 personas, con un sector de parrillas de uso general.", icon: HomeIcon },
+  { titulo: "Bungalows", desc: "Dos bungalows para el pernocte de la rama menor. Los asigna la administración según el contingente.", icon: BedIcon },
+  { titulo: "Fogones", desc: "Cada subcampo tiene su área de fogón. Solo se prende fuego en los lugares señalados.", icon: FlameIcon },
+  { titulo: "Leña y bosque", desc: "Amplias áreas de bosque con leña para cocinar y armar rincones de patrulla. Pedimos usarla con criterio.", icon: LeafIcon },
+  { titulo: "Armado de carpas", desc: "Cada subcampo tiene su sector para carpas. No se arman debajo de los árboles ni sobre los caminos.", icon: TentIcon },
+  { titulo: "Capilla", desc: "Una capilla abierta para celebraciones religiosas, disponible para todos los contingentes.", icon: ChurchIcon },
+  { titulo: "Estacionamiento", desc: "Amplio, para autos y motos. Los vehículos de mayor porte quedan en la calle: no se ingresa al predio.", icon: CarIcon },
+  { titulo: "Guardias y ayuda médica", desc: "Cobertura de ayuda médica para emergencias y guardias pasivas rotativas de la comisión.", icon: ShieldIcon },
 ];
 

@@ -299,6 +299,56 @@ export function TagIcon(props: IconProps) {
   );
 }
 
+export function ShowerIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M12 3v5" />
+      <path d="M5 12a7 7 0 0 1 14 0Z" />
+      <path d="M8 16v2m4-3v3m4-2v2" />
+    </svg>
+  );
+}
+
+export function PotIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M4 9h16v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V9Z" />
+      <path d="M4 12H2m20 0h-2" />
+      <path d="M9 6V4m3 2V3m3 3V4" />
+    </svg>
+  );
+}
+
+export function BedIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M3 5v15" />
+      <path d="M3 9h15a3 3 0 0 1 3 3v8" />
+      <path d="M3 17h18" />
+      <path d="M7 9v8" />
+    </svg>
+  );
+}
+
+export function ChurchIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M12 2v6M9.5 4.5h5" />
+      <path d="M5 21V11l7-4 7 4v10" />
+      <path d="M10 21v-5h4v5" />
+    </svg>
+  );
+}
+
+export function FlagIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M5 21V3" />
+      <path d="M5 4h12l-2.5 3.5L17 11H5" />
+    </svg>
+  );
+}
+
 export function ExternalLinkIcon(props: IconProps) {
   return (
     <svg {...base(props)}>
