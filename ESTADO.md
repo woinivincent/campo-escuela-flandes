@@ -239,7 +239,8 @@ redacción es propia.
 - **Qué hacer con `campoescuelaflandes.net`.** Existe otro sitio del campo, un
   WordPress con última publicación en mayo de 2023, que es el que aparece en
   Google. Mientras los dos convivan compiten entre sí por las mismas búsquedas,
-  y el `.net` gana porque tiene años de antigüedad y enlaces. Lo recomendable es
+  y el `.net` gana porque lleva más tiempo indexado —se registró en abril de
+  2023— y tiene enlaces apuntándole. Lo recomendable es
   que el `.net` redirija con 301 al `.org`: transfiere la mayor parte de su
   posicionamiento en vez de tirarlo. Eso lo tiene que hacer quien administre el
   `.net`, desde su hosting.
@@ -253,8 +254,10 @@ redacción es propia.
 - **Precio del acampe**: el campo lo carga desde *Admin → Textos → Reservas*,
   campo "Costos y aranceles". Antes estaba escrito en el código y no había
   manera de cargarlo sin tocar el repositorio.
-- **Redirección del `.net`**: las instrucciones y las reglas exactas están en
-  `REDIRECCION-NET.md`. Se hace en Hostinger, no acá.
+- **Redirección del `.net`**: todo en `REDIRECCION-NET.md`. **Trabada por falta
+  de acceso**: no tenemos ni la cuenta de Hostinger ni la clave de WordPress del
+  sitio viejo. Con cualquiera de las dos se puede hacer. El dominio vence el
+  3 de abril de 2027, que es el plazo real.
 
 ### Dos cosas que pidió el campo (noviembre de 2026)
 
