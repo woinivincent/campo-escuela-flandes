@@ -9,15 +9,27 @@ interface Props {
   label: string;
   desc: string;
   exists: boolean;
+  /** El recuadro libre del final de una galería: el que suma una foto más. */
+  paraAgregar?: boolean;
   ts: number;
 }
 
-export default function ImageUploadCard({ slotId, label, desc, exists, ts }: Props) {
+export default function ImageUploadCard({ slotId, label, desc, exists, paraAgregar, ts }: Props) {
   const formRef = useRef<HTMLFormElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // El de agregar se distingue con borde punteado y acento dorado: en una
+  // grilla de recuadros todos iguales, si no, no se encuentra.
+  const esAgregar = Boolean(paraAgregar) && !exists;
+
   return (
-    <div className="flex flex-col overflow-hidden rounded-xl border border-white/10 bg-white/5">
+    <div
+      className={
+        esAgregar
+          ? "flex flex-col overflow-hidden rounded-xl border border-dashed border-gold/40 bg-gold/[0.04]"
+          : "flex flex-col overflow-hidden rounded-xl border border-white/10 bg-white/5"
+      }
+    >
       {/* Preview */}
       <div className="relative aspect-video bg-white/5">
         {exists ? (
@@ -28,13 +40,25 @@ export default function ImageUploadCard({ slotId, label, desc, exists, ts }: Pro
             className="h-full w-full object-cover"
           />
         ) : (
-          <div className="flex h-full flex-col items-center justify-center gap-1.5 text-white/20">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <rect x="3" y="3" width="18" height="18" rx="2" />
-              <circle cx="8.5" cy="8.5" r="1.5" />
-              <polyline points="21 15 16 10 5 21" />
-            </svg>
-            <span className="text-[0.65rem] uppercase tracking-wide">Sin imagen</span>
+          <div
+            className={`flex h-full flex-col items-center justify-center gap-1.5 ${
+              esAgregar ? "text-gold/50" : "text-white/20"
+            }`}
+          >
+            {esAgregar ? (
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            ) : (
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <polyline points="21 15 16 10 5 21" />
+              </svg>
+            )}
+            <span className="text-[0.65rem] uppercase tracking-wide">
+              {esAgregar ? "Agregar otra" : "Sin imagen"}
+            </span>
           </div>
         )}
         {exists && (
@@ -65,9 +89,13 @@ export default function ImageUploadCard({ slotId, label, desc, exists, ts }: Pro
             <button
               type="button"
               onClick={() => inputRef.current?.click()}
-              className="w-full rounded-lg border border-white/15 px-3 py-1.5 text-[0.7rem] font-semibold text-white/60 transition hover:border-white/30 hover:text-white/90"
+              className={
+                esAgregar
+                  ? "w-full rounded-lg border border-gold/40 bg-gold/10 px-3 py-1.5 text-[0.7rem] font-semibold text-gold-light transition hover:border-gold/70 hover:bg-gold/20"
+                  : "w-full rounded-lg border border-white/15 px-3 py-1.5 text-[0.7rem] font-semibold text-white/60 transition hover:border-white/30 hover:text-white/90"
+              }
             >
-              {exists ? "Reemplazar" : "Subir imagen"}
+              {esAgregar ? "+ Agregar foto" : exists ? "Reemplazar" : "Subir imagen"}
             </button>
           </form>
 

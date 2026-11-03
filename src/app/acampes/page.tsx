@@ -6,6 +6,7 @@ import ImageFrame from "@/components/ui/ImageFrame";
 import { getSiteSettings } from "@/lib/siteConfigService";
 import MapaSubcampos from "@/components/acampes/MapaSubcampos";
 import MapaGoogle from "@/components/ui/MapaGoogle";
+import { fotosDeGaleria } from "@/lib/imagenes";
 import {
   DropletIcon,
   ZapIcon,
@@ -32,6 +33,7 @@ export const metadata = {
 export default async function AcampesPage() {
   const t = await getTextos("acampes");
   const { subcampos, mapa } = await getSiteSettings();
+  const fotosPredio = await fotosDeGaleria("acampe-galeria");
 
     const subcamposDetalle = [
     {
@@ -189,6 +191,9 @@ export default async function AcampesPage() {
       </section>
 
       {/* ---- GALERÍA ---- */}
+      {/* Las fotos salen de lo que hay subido, no de una cantidad fija: la
+          galería crece desde el panel. Sin fotos, la sección no aparece. */}
+      {fotosPredio.length > 0 && (
       <section className="container-flandes py-20">
         <SectionHeading
           align="center"
@@ -198,10 +203,10 @@ export default async function AcampesPage() {
           className="mb-12"
         />
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-          {Array.from({ length: 8 }).map((_, i) => (
+          {fotosPredio.map((clave, i) => (
             <ImageFrame
-              key={i}
-              src={`/images/acampe-galeria-${i + 1}.jpg`}
+              key={clave}
+              src={`/images/${clave}.jpg`}
               label={`Foto del predio ${i + 1}`}
               className={`w-full ${
                 i === 0
@@ -212,6 +217,7 @@ export default async function AcampesPage() {
           ))}
         </div>
       </section>
+      )}
 
       {/* ---- CTA ---- */}
       <section className="container-flandes pb-20">

@@ -5,6 +5,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import ImageFrame from "@/components/ui/ImageFrame";
 import { siteConfig } from "@/config/site";
 import { getHitos } from "@/lib/db";
+import { fotosDeGaleria } from "@/lib/imagenes";
 // siteConfig used for website footer only
 import { getSiteSettings } from "@/lib/siteConfigService";
 import {
@@ -23,6 +24,7 @@ export const metadata = {
 export default async function InstitucionalPage() {
   const t = await getTextos("institucional");
   const hitos = await getHitos();
+  const fotosRecuerdos = await fotosDeGaleria("galeria");
   const { social } = await getSiteSettings();
   const redes = [
     { label: "Facebook",  href: social.facebook,  icon: FacebookIcon },
@@ -93,25 +95,31 @@ export default async function InstitucionalPage() {
       </section>
 
       {/* ---------- GALERÍA DE RECUERDOS ---------- */}
-      <section className="container-flandes py-20">
-        <SectionHeading
-          align="center"
-          eyebrow="Galería"
-          title="Recuerdos del campo"
-          subtitle="Fotos de campamentos, obras y actividades a lo largo de los años."
-          className="mb-12"
-        />
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <ImageFrame
-              key={i}
-              src={`/images/galeria-${i + 1}.jpg`}
-              label={`Recuerdo ${i + 1}`}
-              className={`w-full ${i % 5 === 0 ? "aspect-square sm:row-span-2 sm:aspect-[3/4]" : "aspect-square"}`}
-            />
-          ))}
-        </div>
-      </section>
+      {/* Se muestran las fotos que hay subidas, no una cantidad fija: la
+          galería crece desde el panel. Si todavía no hay ninguna, la sección
+          entera no aparece, para no dejarle al visitante ocho recuadros
+          grises donde deberían ir fotos. */}
+      {fotosRecuerdos.length > 0 && (
+        <section className="container-flandes py-20">
+          <SectionHeading
+            align="center"
+            eyebrow="Galería"
+            title="Recuerdos del campo"
+            subtitle="Fotos de campamentos, obras y actividades a lo largo de los años."
+            className="mb-12"
+          />
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+            {fotosRecuerdos.map((clave, i) => (
+              <ImageFrame
+                key={clave}
+                src={`/images/${clave}.jpg`}
+                label={`Recuerdo ${i + 1}`}
+                className={`w-full ${i % 5 === 0 ? "aspect-square sm:row-span-2 sm:aspect-[3/4]" : "aspect-square"}`}
+              />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* ---------- REDES SOCIALES ---------- */}
       <section className="container-flandes pb-20">

@@ -1,5 +1,6 @@
-import { getBlobStore } from "@/lib/blobs";
-import { IMAGE_SLOTS, GROUPS } from "./imageSlots";
+import { GROUPS } from "./imageSlots";
+import { getImageSlots } from "./slots";
+import { imagenesExistentes } from "@/lib/imagenes";
 import ImageUploadCard from "./ImageUploadCard";
 import { requireAuth } from "@/lib/auth";
 
@@ -9,31 +10,13 @@ export const metadata = { title: "Imágenes — Admin" };
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-async function getExistingSlots(): Promise<Set<string>> {
-  const store = await getBlobStore("site-images");
-  if (store) {
-    try {
-      const { blobs } = await store.list();
-      return new Set(blobs.map((b) => b.key));
-    } catch {
-      return new Set(); // el listado no es crítico: la página igual debe abrir
-    }
-  }
-  const { existsSync } = await import("fs");
-  const { join } = await import("path");
-  const found = new Set<string>();
-  for (const slot of IMAGE_SLOTS) {
-    if (existsSync(join(process.cwd(), "public", "images", `${slot.id}.jpg`))) {
-      found.add(slot.id);
-    }
-  }
-  return found;
-}
-
 export default async function AdminImagenesPage() {
   await requireAuth();
   const ts = Date.now();
-  const existing = await getExistingSlots();
+  const [existing, slotsTodos] = await Promise.all([
+    imagenesExistentes(),
+    getImageSlots(),
+  ]);
 
   return (
     <div>
@@ -42,13 +25,19 @@ export default async function AdminImagenesPage() {
           Imágenes del sitio
         </h1>
         <p className="mt-1 text-sm text-white/50">
-          Subí o reemplazá las imágenes de cada sección. Al seleccionar un archivo se sube automáticamente. Formato recomendado: JPG, máx. 10 MB.
+          Subí, reemplazá o quitá las imágenes de cada sección. Al seleccionar un archivo se sube automáticamente. Formato recomendado: JPG, máx. 10 MB.
+        </p>
+        <p className="mt-2 text-sm text-white/40">
+          Las fotos de Flora, Fauna, Libros y Biblioteca aparecen solas cuando cargás
+          una especie, un libro o un material. Las galerías crecen a medida que
+          agregás: siempre queda un recuadro libre al final para sumar una más.
         </p>
       </div>
 
       <div className="space-y-10">
         {GROUPS.map((group) => {
-          const slots = IMAGE_SLOTS.filter((s) => s.group === group);
+          const slots = slotsTodos.filter((s) => s.group === group);
+          if (slots.length === 0) return null;
           return (
             <section key={group}>
               <h2 className="mb-4 border-b border-white/10 pb-2 font-display text-sm font-bold uppercase tracking-widest text-white/40">
@@ -62,6 +51,7 @@ export default async function AdminImagenesPage() {
                     label={slot.label}
                     desc={slot.desc}
                     exists={existing.has(slot.id)}
+                    paraAgregar={slot.paraAgregar}
                     ts={ts}
                   />
                 ))}

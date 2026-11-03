@@ -252,6 +252,38 @@ redacción es propia.
 - Hectáreas del predio y valor de la cuota de socios.
 - La dirección web de Atlas, para el crédito del footer (ver más abajo).
 
+### Dos cosas que pidió el campo (noviembre de 2026)
+
+**Punto y aparte.** Al cargar la línea de tiempo de Institucional, los cuatro
+objetivos de "Actualidad" salían pegados en un renglón. El texto se guardaba
+bien —el almacén es JSON y los saltos sobreviven—, pero HTML colapsa los saltos
+de línea al mostrarlos. Se arregló con `whitespace-pre-line` en **todos** los
+campos largos del panel, no solo en ese: el resto iba a chocar con lo mismo.
+Donde no hay saltos no cambia nada.
+
+**Imágenes que se pueden agregar.** "Reemplazar" y "Quitar" ya existían. Lo que
+faltaba era **agregar**, y tenía cuatro huecos distintos:
+
+- Una especie cargada desde el panel **nunca podía tener foto**: su id es
+  `esp-1762…` y la lista de lugares estaba escrita a mano en el código, así que
+  la subida se rechazaba con "Slot de imagen inválido".
+- Lo mismo con los libros de la Librería (`lib-…`).
+- Lo mismo con los materiales de la Biblioteca, que directamente no figuraban.
+- Las galerías estaban clavadas en ocho fotos, tanto en el panel como en la
+  página.
+
+Ahora la lista se **deduce de los datos** (`src/app/admin/imagenes/slots.ts`):
+una foto por especie, por libro y por material, más las galerías, que crecen
+solas. Cargar una especie nueva alcanza para que aparezca su lugar de foto.
+
+Los ids no cambiaron —la especie `araucaria` sigue siendo `especie-araucaria`—
+así que ninguna foto ya subida quedó huérfana. Y como el panel y la página
+calculan la clave con la misma fórmula, no se pueden volver a desincronizar.
+
+Las galerías públicas ahora muestran **las fotos que hay**, no ocho sí o sí. Si
+no hay ninguna, la sección no aparece: antes el visitante veía ocho recuadros
+grises.
+
 ### Contenido que falta
 
 - **Fotos de subcampos** (4) y de la bienvenida del inicio: están puestas, pero

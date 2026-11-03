@@ -1,4 +1,30 @@
-export const IMAGE_SLOTS = [
+/**
+ * Catálogo de lugares donde va una imagen del sitio.
+ *
+ * Hay dos clases y conviene no mezclarlas:
+ *
+ * - **Fijos** (este archivo): uno por página, sección o subcampo. Son los que
+ *   existen porque el diseño los tiene, no porque alguien los haya cargado.
+ *   No se agregan ni se quitan desde el panel; sí se reemplaza su foto.
+ *
+ * - **Derivados de los datos** (`slots.ts`): una foto por especie, por libro y
+ *   por material de la biblioteca, más las galerías, que crecen solas. Salen
+ *   de lo que hay cargado, así que cuando el campo agrega una especie nueva su
+ *   lugar para la foto aparece solo.
+ *
+ * Antes estaban todos acá, escritos a mano. El problema era que una especie o
+ * un libro cargados desde el panel nunca podían tener foto: su id es
+ * `esp-1762…` y, al no figurar en esta lista, la subida se rechazaba.
+ */
+
+export interface ImageSlot {
+  id: string;
+  label: string;
+  group: string;
+  desc: string;
+}
+
+export const SLOTS_FIJOS: ImageSlot[] = [
   // Identidad
   { id: "logo-flandes", label: "Logo del campo", group: "Portadas", desc: "Sello que aparece en el encabezado y el pie" },
   // Portadas
@@ -6,6 +32,7 @@ export const IMAGE_SLOTS = [
   { id: "acampes-portada",         label: "Portada Acampes",        group: "Portadas",  desc: "Página /acampes" },
   { id: "adiestramiento-portada",  label: "Portada Adiestramiento", group: "Portadas",  desc: "Página /adiestramiento" },
   { id: "agenda-portada",          label: "Portada Agenda",         group: "Portadas",  desc: "Página /agenda" },
+  { id: "biblioteca-portada",      label: "Portada Biblioteca",     group: "Portadas",  desc: "Página /biblioteca" },
   { id: "contacto-portada",        label: "Portada Contacto",       group: "Portadas",  desc: "Página /contacto" },
   { id: "institucional-portada",   label: "Portada Institucional",  group: "Portadas",  desc: "Página /institucional" },
   { id: "libreria-portada",        label: "Portada Librería",       group: "Portadas",  desc: "Página /libreria" },
@@ -19,90 +46,32 @@ export const IMAGE_SLOTS = [
   { id: "mapa-predio",             label: "Mapa del predio",        group: "Secciones", desc: "Plano/mapa del campo en /acampes" },
   { id: "naturaleza-intro",        label: "Entorno natural",        group: "Secciones", desc: "Foto del entorno en /naturaleza" },
   { id: "mapa-ubicacion",          label: "Mapa de ubicación",      group: "Secciones", desc: "Mapa de cómo llegar en /contacto" },
-  // Subcampos
+  // Subcampos. Son cuatro y están fijos: el predio tiene cuatro.
   { id: "subcampo-1",              label: "Subcampo 1",             group: "Subcampos", desc: "Foto del subcampo 1" },
   { id: "subcampo-2",              label: "Subcampo 2",             group: "Subcampos", desc: "Foto del subcampo 2" },
   { id: "subcampo-3",              label: "Subcampo 3",             group: "Subcampos", desc: "Foto del subcampo 3" },
   { id: "subcampo-4",              label: "Subcampo 4",             group: "Subcampos", desc: "Foto del subcampo 4" },
-  // Flora. Las que ya tienen foto la traen de Wikimedia Commons: subir una del
-  // campo acá la reemplaza, y entonces hay que sacar su crédito de
-  // src/config/creditosFotos.ts.
-  { id: "especie-araucaria",       label: "Araucaria",              group: "Flora",     desc: "Araucaria angustifolia" },
-  { id: "especie-roble",           label: "Roble europeo",          group: "Flora",     desc: "Quercus robur" },
-  { id: "especie-espinillo",       label: "Espinillo",              group: "Flora",     desc: "Vachellia caven" },
-  { id: "especie-ceibo",           label: "Ceibo",                  group: "Flora",     desc: "Erythrina crista-galli" },
-  { id: "especie-sauce",           label: "Sauce criollo",          group: "Flora",     desc: "Salix humboldtiana" },
-  { id: "especie-tala",            label: "Tala",                   group: "Flora",     desc: "Celtis tala" },
-  // Flora del Bordón: un árbol por capítulo.
-  { id: "especie-cipres-calvo",    label: "Ciprés calvo",           group: "Flora",     desc: "Taxodium distichum" },
-  { id: "especie-cipres-arizona",  label: "Ciprés Arizona",         group: "Flora",     desc: "Cupressus arizonica" },
-  { id: "especie-casuarina",       label: "Casuarina",              group: "Flora",     desc: "Casuarina cunninghamiana" },
-  { id: "especie-pino-elliotti",   label: "Pino Elliotti",          group: "Flora",     desc: "Pinus elliottii" },
-  { id: "especie-arbol-del-cielo", label: "Árbol del cielo",        group: "Flora",     desc: "Ailanthus altissima" },
-  { id: "especie-cipres-piramidal",label: "Ciprés piramidal",       group: "Flora",     desc: "Cupressus sempervirens" },
-  // Fauna
-  { id: "especie-carpincho",       label: "Carpincho",              group: "Fauna",     desc: "Hydrochoerus hydrochaeris" },
-  { id: "especie-coipo",           label: "Coipo / Nutria",         group: "Fauna",     desc: "Myocastor coypus" },
-  { id: "especie-lobito-de-rio",   label: "Lobito de río",          group: "Fauna",     desc: "Lontra longicaudis" },
-  { id: "especie-hornero",         label: "Hornero",                group: "Fauna",     desc: "Furnarius rufus" },
-  { id: "especie-martin-pescador", label: "Martín pescador",        group: "Fauna",     desc: "Megaceryle torquata" },
-  // Fauna del Bordón: un animal por capítulo.
-  { id: "especie-liebre",          label: "Liebre europea",         group: "Fauna",     desc: "Lepus europaeus" },
-  { id: "especie-zorzal-colorado", label: "Zorzal colorado",        group: "Fauna",     desc: "Turdus rufiventris" },
-  { id: "especie-carpintero-real", label: "Carpintero real",        group: "Fauna",     desc: "Colaptes melanochloros" },
-  { id: "especie-ratona",          label: "Ratona común (ratucha)", group: "Fauna",     desc: "Troglodytes aedon" },
-  { id: "especie-lechuza-campanario", label: "Lechuza de campanario", group: "Fauna",  desc: "Tyto alba" },
-  { id: "especie-torcacita",       label: "Torcacita común",        group: "Fauna",     desc: "Columbina picui" },
-  // Libros — tapas de la biblioteca del campo
-  { id: "libro-manual-lobatos", label: "Manual de Lobatos", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-educacion-escultismo", label: "Educación y Escultismo", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-escultismo-muchachos", label: "Escultismo para Muchachos", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-cinco-minutos", label: "Los cinco minutos del Jefe de Trop", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-manos-habiles", label: "Manos Hábiles", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-roverismo-exito", label: "Roverismo hacia el Éxito", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-para-ti-guia", label: "Para ti… Guía de Patrulla", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-libro-selva", label: "El Libro de la Selva", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-manual-guia-patrulla", label: "Manual del Guía de Patrulla", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-baloo-lepard", label: "Baloo de Lepard", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-roverismo-reto", label: "Roverismo, un reto de nuestro tiem", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-cartilla-tecnica", label: "Cartilla Técnica para Rovers y Guí", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-vida-del-clan", label: "La Vida del Clan", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-escultismo-ruta", label: "Escultismo, ruta de la libertad", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-mi-patrulla", label: "Mi Patrulla", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-scout-novicio", label: "Scout Novicio", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-especialidades", label: "Especialidades en la Rama Scout", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-escultismo-ruta-2", label: "Escultismo, ruta de libertad", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-campismo-ilustrado", label: "Campismo Ilustrado", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-guia-jefe-tropa", label: "Guía para el Jefe de Tropa", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-manual-jefe-grupo", label: "Manual para el Jefe de Grupo", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-arboles-flandes", label: "Árboles del Campo Escuela Flandes", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-arboles-argentinos", label: "Árboles argentinos", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-aves-argentinas", label: "Aves argentinas", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-joven-caracter", label: "La joven de Carácter", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-san-jorge", label: "San Jorge, el caballero que venció", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-religion-escultismo", label: "B.P.: La Religión en el Escultismo", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-vida-san-pablo", label: "Vida de San Pablo", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-espiritualidad-scout", label: "Espiritualidad Scout", group: "Libros", desc: "Tapa del libro" },
-  { id: "libro-santa-catalina", label: "Santa Catalina de Siena", group: "Libros", desc: "Tapa del libro" },
-  // Galería institucional
-  { id: "galeria-1", label: "Galería 1", group: "Galería", desc: "Foto histórica del campo" },
-  { id: "galeria-2", label: "Galería 2", group: "Galería", desc: "Foto histórica del campo" },
-  { id: "galeria-3", label: "Galería 3", group: "Galería", desc: "Foto histórica del campo" },
-  { id: "galeria-4", label: "Galería 4", group: "Galería", desc: "Foto histórica del campo" },
-  { id: "galeria-5", label: "Galería 5", group: "Galería", desc: "Foto histórica del campo" },
-  { id: "galeria-6", label: "Galería 6", group: "Galería", desc: "Foto histórica del campo" },
-  { id: "galeria-7", label: "Galería 7", group: "Galería", desc: "Foto histórica del campo" },
-  { id: "galeria-8", label: "Galería 8", group: "Galería", desc: "Foto histórica del campo" },
-  // Galería acampes
-  { id: "acampe-galeria-1", label: "Acampe galería 1", group: "Galería", desc: "Foto del predio" },
-  { id: "acampe-galeria-2", label: "Acampe galería 2", group: "Galería", desc: "Foto del predio" },
-  { id: "acampe-galeria-3", label: "Acampe galería 3", group: "Galería", desc: "Foto del predio" },
-  { id: "acampe-galeria-4", label: "Acampe galería 4", group: "Galería", desc: "Foto del predio" },
-  { id: "acampe-galeria-5", label: "Acampe galería 5", group: "Galería", desc: "Foto del predio" },
-  { id: "acampe-galeria-6", label: "Acampe galería 6", group: "Galería", desc: "Foto del predio" },
-  { id: "acampe-galeria-7", label: "Acampe galería 7", group: "Galería", desc: "Foto del predio" },
-  { id: "acampe-galeria-8", label: "Acampe galería 8", group: "Galería", desc: "Foto del predio" },
-] as const;
+];
 
-export type ImageSlot = (typeof IMAGE_SLOTS)[number];
-export const GROUPS = ["Portadas", "Secciones", "Subcampos", "Flora", "Fauna", "Libros", "Galería"] as const;
+/**
+ * Las galerías, que crecen solas.
+ *
+ * `minimo` es cuántos lugares se muestran en el panel aunque estén vacíos, para
+ * que no arranque en uno solo. Si ya hay más fotos que eso, se muestran todas
+ * más una vacía al final para seguir agregando.
+ */
+export const GALERIAS = [
+  { prefijo: "galeria", group: "Galería", label: "Galería institucional", desc: "Foto histórica del campo", minimo: 8 },
+  { prefijo: "acampe-galeria", group: "Galería", label: "Galería de acampes", desc: "Foto del predio", minimo: 8 },
+];
+
+export const GROUPS = [
+  "Portadas",
+  "Secciones",
+  "Subcampos",
+  "Flora",
+  "Fauna",
+  "Libros",
+  "Biblioteca",
+  "Galería",
+] as const;

@@ -2,17 +2,15 @@
 
 import { revalidatePath } from "next/cache";
 import { getBlobStore } from "@/lib/blobs";
-import { IMAGE_SLOTS } from "./imageSlots";
+import { slotValido } from "./slots";
 import { requireAuth } from "@/lib/auth";
-
-const VALID_IDS = new Set(IMAGE_SLOTS.map((s) => s.id));
 
 export async function uploadImageAction(formData: FormData) {
   await requireAuth();
   const file = formData.get("image") as File;
   const slot = formData.get("slot") as string;
 
-  if (!VALID_IDS.has(slot as never)) throw new Error("Slot de imagen inválido");
+  if (!(await slotValido(slot))) throw new Error("Slot de imagen inválido");
   if (!file || file.size === 0) throw new Error("No se seleccionó ningún archivo");
   if (file.size > 10 * 1024 * 1024) throw new Error("La imagen supera el límite de 10 MB");
   if (!file.type.startsWith("image/")) throw new Error("El archivo no es una imagen");
@@ -46,7 +44,7 @@ export async function uploadImageAction(formData: FormData) {
 export async function deleteImageAction(formData: FormData) {
   await requireAuth();
   const slot = formData.get("slot") as string;
-  if (!VALID_IDS.has(slot as never)) throw new Error("Slot de imagen inválido");
+  if (!(await slotValido(slot))) throw new Error("Slot de imagen inválido");
 
   const store = await getBlobStore("site-images");
   if (store) {
