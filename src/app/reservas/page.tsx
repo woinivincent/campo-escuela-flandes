@@ -76,14 +76,12 @@ export default async function ReservasPage() {
             height={18}
             className="mt-0.5 shrink-0 text-gold-dark"
           />
-          {/* El monto todavía no lo pasó el campo; lo demás sale del PDF de
-              normas y ya es información útil para presupuestar. */}
-          <p className="text-sm leading-relaxed text-forest-dark">
-            <strong>Costos:</strong>{" "}
-            Se cobra por persona y por día de reserva, contando completos el día
-            de llegada y el de salida. La reserva se confirma con una seña del
-            50% y el saldo se abona el día de llegada. Consultanos el valor
-            vigente.
+          {/* Editable desde *Admin → Textos → Reservas*. El monto todavía no lo
+              pasó el campo: el texto por defecto describe cómo se cobra, que
+              sale del PDF de normas, y lo carga la administración cuando tenga
+              el valor. */}
+          <p className="whitespace-pre-line text-sm leading-relaxed text-forest-dark">
+            <strong>Costos:</strong> {t("costos_texto")}
           </p>
         </div>
 
@@ -107,7 +105,7 @@ export default async function ReservasPage() {
             align="center"
             eyebrow="Subcampos"
             title="Elegí dónde acampar"
-            subtitle="Capacidad y servicios de cada subcampo."
+            subtitle="Qué tiene cada subcampo. El que te toca lo asigna la administración."
             className="mb-12"
           />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">

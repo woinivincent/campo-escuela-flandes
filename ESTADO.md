@@ -250,6 +250,11 @@ redacción es propia.
   Google ya asocia al campo, y hoy ninguno apunta al `.org`.
 - Capacidades reales de cada subcampo (el sitio hoy no las muestra).
 - Hectáreas del predio y valor de la cuota de socios.
+- **Precio del acampe**: el campo lo carga desde *Admin → Textos → Reservas*,
+  campo "Costos y aranceles". Antes estaba escrito en el código y no había
+  manera de cargarlo sin tocar el repositorio.
+- **Redirección del `.net`**: las instrucciones y las reglas exactas están en
+  `REDIRECCION-NET.md`. Se hace en Hostinger, no acá.
 
 ### Dos cosas que pidió el campo (noviembre de 2026)
 

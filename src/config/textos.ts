@@ -176,6 +176,15 @@ export const PAGINAS_TEXTOS: PaginaTextos[] = [
         tipo: "parrafo",
         valor: "Lo que todo grupo tiene que saber antes de llegar al campo.",
       },
+      {
+        clave: "costos_texto",
+        etiqueta: "Costos y aranceles",
+        tipo: "parrafo",
+        ayuda:
+          "El recuadro dorado del final. Acá va el valor por persona y por día cuando lo tengan; ahora solo dice cómo se cobra.",
+        valor:
+          "Se cobra por persona y por día de reserva, contando completos el día de llegada y el de salida. La reserva se confirma con una seña del 50% y el saldo se abona el día de llegada. Consultanos el valor vigente.",
+      },
     ],
   },
   {
