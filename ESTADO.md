@@ -250,7 +250,6 @@ redacción es propia.
   Google ya asocia al campo, y hoy ninguno apunta al `.org`.
 - Capacidades reales de cada subcampo (el sitio hoy no las muestra).
 - Hectáreas del predio y valor de la cuota de socios.
-- La dirección web de Atlas, para el crédito del footer (ver más abajo).
 
 ### Dos cosas que pidió el campo (noviembre de 2026)
 
@@ -322,10 +321,10 @@ grises.
   está su fogón y qué baños usa, que es lo que el PDF sí dice.
 - **Beneficios de socios**: quedan dos genéricos y el detalle de qué incluye la cuota.
 - **Crédito de desarrollo**: el footer dice "Desarrollado por Atlas Soluciones
-  Tecnológicas". La dirección vive en `SITIO_DEL_ESTUDIO`, arriba de
-  `src/components/layout/Footer.tsx`, y **está vacía**: mientras lo esté, el
-  nombre se muestra sin enlace. Con poner la URL ahí alcanza. No se puso en el
-  panel a propósito: es un dato del desarrollo, no del campo.
+  Tecnológicas" y enlaza a https://atlastech.com.ar/. La dirección vive en
+  `SITIO_DEL_ESTUDIO`, arriba de `src/components/layout/Footer.tsx`. No se puso
+  en el panel a propósito: es un dato del desarrollo, no del campo. Si alguna
+  vez queda vacía, el nombre se muestra igual pero sin enlace.
 
 ### De dónde salieron las 12 especies del Bordón
 

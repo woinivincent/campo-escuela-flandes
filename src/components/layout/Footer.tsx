@@ -12,7 +12,7 @@ import Logo from "@/components/ui/Logo";
  * Si la dirección queda vacía, el nombre se muestra igual pero sin enlace.
  */
 const ESTUDIO = "Atlas Soluciones Tecnológicas";
-const SITIO_DEL_ESTUDIO: string = "";
+const SITIO_DEL_ESTUDIO: string = "https://atlastech.com.ar/";
 
 export default async function Footer() {
   const contact = await getSiteSettings();
