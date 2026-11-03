@@ -288,7 +288,7 @@ export default function MapaSubcampos({ subcampos }: Props) {
               <h3 className="font-display text-xl font-bold uppercase tracking-tight text-forest-dark">
                 {activo.nombre}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-forest/75">
+              <p className="whitespace-pre-line mt-2 text-sm leading-relaxed text-forest/75">
                 {activo.descripcion}
               </p>
 

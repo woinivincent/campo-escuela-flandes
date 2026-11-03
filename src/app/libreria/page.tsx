@@ -114,7 +114,7 @@ export default async function LibreriaPage() {
                     {libro.titulo}
                   </h3>
                   <p className="text-xs text-forest/55">{libro.autor}</p>
-                  <p className="mt-2 flex-1 text-xs leading-relaxed text-forest/70">
+                  <p className="whitespace-pre-line mt-2 flex-1 text-xs leading-relaxed text-forest/70">
                     {libro.descripcion}
                   </p>
 

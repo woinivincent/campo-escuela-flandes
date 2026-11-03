@@ -80,7 +80,7 @@ export default async function AdminNaturalezaPage({
               </div>
               <div className="sm:col-span-2">
                 <label className="field-label">Descripción</label>
-                <textarea name="descripcion" rows={3} defaultValue={editando?.descripcion ?? ""} placeholder="Descripción de la especie…" required className="admin-input resize-none" />
+                <textarea name="descripcion" rows={3} defaultValue={editando?.descripcion ?? ""} placeholder="Descripción de la especie…" required className="admin-input resize-y" />
               </div>
               <div className="sm:col-span-2">
                 <label className="field-label">Dato / Curiosidad</label>

@@ -308,7 +308,7 @@ export default async function HomePage() {
                   <h3 className="font-display text-lg font-bold text-forest-dark">
                     {e.titulo}
                   </h3>
-                  <p className="text-sm text-forest/70">{e.descripcion}</p>
+                  <p className="whitespace-pre-line text-sm text-forest/70">{e.descripcion}</p>
                 </div>
                 <span className="self-start rounded-full bg-gold/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-gold-dark sm:self-center">
                   {e.tipo}

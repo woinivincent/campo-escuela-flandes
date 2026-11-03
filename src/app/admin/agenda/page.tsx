@@ -223,7 +223,7 @@ function EventoForm({ evento }: { evento?: Evento }) {
             required
             defaultValue={evento?.descripcion}
             rows={3}
-            className="admin-input resize-none"
+            className="admin-input resize-y"
             placeholder="Descripción del evento..."
           />
         </div>

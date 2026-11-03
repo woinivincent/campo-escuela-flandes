@@ -219,7 +219,7 @@ function CursoForm({ curso }: { curso?: Curso }) {
             required
             defaultValue={curso?.descripcion}
             rows={3}
-            className="admin-input resize-none"
+            className="admin-input resize-y"
             placeholder="Descripción del curso..."
           />
         </div>

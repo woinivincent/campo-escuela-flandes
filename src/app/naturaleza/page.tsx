@@ -245,10 +245,10 @@ function EspecieCard({ especie }: { especie: Especie }) {
           {especie.nombreComun}
         </h3>
         <p className="text-xs italic text-forest/50">{especie.nombreCientifico}</p>
-        <p className="mt-2 flex-1 text-xs leading-relaxed text-forest/70">
+        <p className="whitespace-pre-line mt-2 flex-1 text-xs leading-relaxed text-forest/70">
           {especie.descripcion}
         </p>
-        <p className="mt-2 border-t border-forest/10 pt-2 text-xs text-forest/55">
+        <p className="whitespace-pre-line mt-2 border-t border-forest/10 pt-2 text-xs text-forest/55">
           <strong className="text-forest-dark">Dato:</strong> {especie.curiosidad}
         </p>
         {especie.qrDisponible && (

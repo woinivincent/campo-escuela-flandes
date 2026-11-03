@@ -151,7 +151,7 @@ export default async function AgendaPage() {
                             <h3 className="mt-2 font-display text-lg font-bold uppercase tracking-tight text-forest-dark">
                               {ev.titulo}
                             </h3>
-                            <p className="mt-1 text-sm leading-relaxed text-forest/75">
+                            <p className="whitespace-pre-line mt-1 text-sm leading-relaxed text-forest/75">
                               {ev.descripcion}
                             </p>
                             <p className="mt-1.5 text-xs text-forest/50">

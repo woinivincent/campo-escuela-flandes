@@ -129,7 +129,7 @@ export default async function ReservasPage() {
                   <h3 className="mt-1 font-display text-base font-bold uppercase tracking-tight text-forest-dark">
                     {s.nombre}
                   </h3>
-                  <p className="mt-1.5 text-xs leading-relaxed text-forest/70">
+                  <p className="whitespace-pre-line mt-1.5 text-xs leading-relaxed text-forest/70">
                     {s.descripcion}
                   </p>
                   <ul className="mt-3 space-y-1">

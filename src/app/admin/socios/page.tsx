@@ -158,7 +158,7 @@ export default async function AdminSociosPage({
                 </div>
                 <div className="sm:col-span-2">
                   <label className="field-label">Descripción</label>
-                  <textarea name="descripcion" rows={2} defaultValue={editandoRec?.descripcion ?? ""} placeholder="Breve descripción del recurso…" className="admin-input resize-none" />
+                  <textarea name="descripcion" rows={2} defaultValue={editandoRec?.descripcion ?? ""} placeholder="Breve descripción del recurso…" className="admin-input resize-y" />
                 </div>
                 <div>
                   <label className="field-label">URL del recurso</label>

@@ -34,7 +34,7 @@ export default function PageHero({
           {title}
         </h1>
         {subtitle && (
-          <p className="mt-4 max-w-2xl text-lg text-sand/80">{subtitle}</p>
+          <p className="whitespace-pre-line mt-4 max-w-2xl text-lg text-sand/80">{subtitle}</p>
         )}
       </div>
     </section>

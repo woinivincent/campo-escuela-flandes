@@ -46,7 +46,7 @@ export default async function InstitucionalPage() {
               eyebrow="Institucional"
               title={t("intro_titulo")}
             />
-            <div className="mt-5 space-y-4 leading-relaxed text-forest/85">
+            <div className="whitespace-pre-line mt-5 space-y-4 leading-relaxed text-forest/85">
               <p>
                 {t("intro_texto")}
               </p>
@@ -85,7 +85,7 @@ export default async function InstitucionalPage() {
                 <span className="font-display text-2xl font-bold text-flandes-red">
                   {h.anio}
                 </span>
-                <p className="mt-1 text-forest/85">{h.texto}</p>
+                <p className="whitespace-pre-line mt-1 text-forest/85">{h.texto}</p>
               </li>
             ))}
           </ol>

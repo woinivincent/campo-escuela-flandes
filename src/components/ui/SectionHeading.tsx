@@ -40,7 +40,7 @@ export default function SectionHeading({
       </h2>
       {subtitle && (
         <p
-          className={`mt-4 leading-relaxed ${
+          className={`mt-4 whitespace-pre-line leading-relaxed ${
             tone === "dark" ? "text-sand/80" : "text-forest/80"
           }`}
         >

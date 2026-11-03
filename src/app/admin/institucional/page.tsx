@@ -52,7 +52,8 @@ export default async function AdminInstitucionalPage({
               </div>
               <div>
                 <label className="field-label">Texto del hito</label>
-                <textarea name="texto" rows={3} defaultValue={editando?.texto ?? ""} placeholder="Descripción de lo ocurrido en ese período…" required className="admin-input resize-none" />
+                <textarea name="texto" rows={5} defaultValue={editando?.texto ?? ""} placeholder="Descripción de lo ocurrido en ese período…" required className="admin-input resize-y" />
+                <p className="mt-1 text-xs text-white/30">Apretá ENTER para empezar un renglón nuevo; en la página se ve igual.</p>
               </div>
             </div>
             <div className="flex gap-3">

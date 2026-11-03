@@ -86,7 +86,7 @@ export default async function BibliotecaPage() {
                     <h3 className="font-display text-sm font-bold uppercase leading-tight tracking-tight text-forest-dark group-hover:text-flandes-red">
                       {m.titulo}
                     </h3>
-                    <p className="mt-1 text-xs leading-relaxed text-forest/60">
+                    <p className="whitespace-pre-line mt-1 text-xs leading-relaxed text-forest/60">
                       {m.descripcion}
                     </p>
                   </div>
@@ -152,7 +152,7 @@ export default async function BibliotecaPage() {
                   {m.titulo}
                 </h3>
                 {m.descripcion && (
-                  <p className="mt-0.5 text-xs leading-snug text-forest/55">
+                  <p className="whitespace-pre-line mt-0.5 text-xs leading-snug text-forest/55">
                     {m.descripcion}
                   </p>
                 )}
@@ -210,7 +210,7 @@ function MaterialCard({ material }: { material: MaterialBiblioteca }) {
       <h3 className="mt-4 font-display text-base font-bold uppercase tracking-tight text-forest-dark">
         {material.titulo}
       </h3>
-      <p className="mt-1.5 flex-1 text-sm leading-relaxed text-forest/70">
+      <p className="whitespace-pre-line mt-1.5 flex-1 text-sm leading-relaxed text-forest/70">
         {material.descripcion}
       </p>
       {tieneEnlace ? (

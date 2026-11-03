@@ -129,7 +129,7 @@ export default async function AdminBibliotecaPage({
                   rows={2}
                   defaultValue={editando?.descripcion ?? ""}
                   placeholder="De qué trata esta edición o este material…"
-                  className="admin-input resize-none"
+                  className="admin-input resize-y"
                 />
               </div>
             </div>

@@ -79,7 +79,7 @@ export default async function AdiestramientoPage() {
                 <h3 className="mt-4 font-display text-lg font-bold uppercase tracking-tight text-forest-dark">
                   {c.titulo}
                 </h3>
-                <p className="mt-1.5 flex-1 text-sm leading-relaxed text-forest/70">
+                <p className="whitespace-pre-line mt-1.5 flex-1 text-sm leading-relaxed text-forest/70">
                   {c.descripcion}
                 </p>
 

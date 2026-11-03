@@ -117,7 +117,7 @@ export default async function EspeciePage({
               <h2 className="font-display text-sm font-bold uppercase tracking-widest text-gold-dark">
                 Sobre la especie
               </h2>
-              <p className="mt-3 text-[0.95rem] leading-relaxed text-forest/85">
+              <p className="whitespace-pre-line mt-3 text-[0.95rem] leading-relaxed text-forest/85">
                 {especie.descripcion}
               </p>
             </div>
@@ -131,7 +131,7 @@ export default async function EspeciePage({
                   <p className="font-display text-xs font-bold uppercase tracking-wide text-forest-dark">
                     ¿Sabías que…?
                   </p>
-                  <p className="mt-1 text-sm leading-relaxed text-forest/80">
+                  <p className="whitespace-pre-line mt-1 text-sm leading-relaxed text-forest/80">
                     {especie.curiosidad}
                   </p>
                 </div>
